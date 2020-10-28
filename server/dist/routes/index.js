@@ -26,8 +26,8 @@ const CheckoutController_1 = require("../controllers/CheckoutController");
 const LoginController_1 = require("../controllers/LoginController");
 const mongoose = __importStar(require("mongoose"));
 const User_1 = require("../models/User");
-const CartItemController_1 = require("controllers/CartItemController");
-const CartController_1 = require("controllers/CartController");
+const CartItemController_1 = require("../controllers/CartItemController");
+const CartController_1 = require("../controllers/CartController");
 class Routes {
     constructor() {
         this.checkoutController = new CheckoutController_1.CheckoutController();

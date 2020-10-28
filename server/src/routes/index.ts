@@ -6,8 +6,8 @@ import { CheckoutController } from '../controllers/CheckoutController';
 import { UserController } from '../controllers/LoginController';
 import * as mongoose from 'mongoose';
 import { UserSchema } from '../models/User';
-import { getCartItems, addItem, getItemById, updateItem, deleteItem } from 'controllers/CartItemController';
-import { getCarts, addCart, getCartById, updateCart, deleteCart } from 'controllers/CartController';
+import { getCartItems, addItem, getItemById, updateItem, deleteItem } from '../controllers/CartItemController';
+import { getCarts, addCart, getCartById, updateCart, deleteCart } from '../controllers/CartController';
 export class Routes {
 
     checkoutController: CheckoutController = new CheckoutController();
