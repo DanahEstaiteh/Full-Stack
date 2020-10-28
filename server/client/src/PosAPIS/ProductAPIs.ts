@@ -1,0 +1,91 @@
+import axios, { AxiosResponse } from 'axios';
+import { ApiDataType, Product } from '../Types/index';
+
+const baseUrl: string = 'http://localhost:5000';
+
+export const getProducts = async (): Promise<
+  AxiosResponse<ApiDataType>
+> => {
+  try {
+    const products: AxiosResponse<ApiDataType> = await axios.get(
+      baseUrl + '/api/product'
+    );
+    return products;
+  } catch (error) {
+    throw new Error(error);
+  }
+};
+
+export const addNewProduct = async (
+  formData: Product
+): Promise<AxiosResponse<ApiDataType>> => {
+  try {
+    console.log("1 ->",{formData})
+    const product: Omit<Product, '_id' > = {
+      id: formData.id,
+      code: formData.code,
+      name: formData.name,
+      category: formData.category,
+      productDescription: formData.productDescription,
+      tax: formData.tax,
+      price: formData.price,
+      img: formData.img,
+      rawPrice: formData.rawPrice,
+      count: formData.count,
+      expirationDate: formData.expirationDate,
+      color: formData.color
+    };
+    const newProduct: AxiosResponse<ApiDataType> = await axios.post(
+      baseUrl + '/api/products',
+      product
+    );
+    console.log({newProduct});
+    return newProduct;
+  } catch (error) {
+    throw new Error(error);
+  }
+};
+
+export const updaetProduct = async (
+  product: Product
+): Promise<AxiosResponse<ApiDataType>> => {
+  try {
+    // console.log("-> 1",{product})
+    const updateProduct: Omit<Product, '_id' > = {
+      code: product.code,
+      id: product.id,
+      name: product.name,
+      category: product.category,
+      productDescription: product.productDescription,
+      tax: product.tax,
+      price: product.price,
+      img: product.img,
+      rawPrice: product.rawPrice,
+      count: product.count,
+      expirationDate: product.expirationDate,
+      color: product.color
+    };
+    
+    const updatedProduct: AxiosResponse<ApiDataType> = await axios.put(
+      `${baseUrl}/api/products/${product._id}`,
+      updateProduct
+    );
+    console.log({updateProduct});
+    return updatedProduct;
+  } catch (error) {
+    throw new Error(error);
+  }
+};
+
+export const deleteProduct = async (
+  id: string
+): Promise<AxiosResponse<ApiDataType>> => {
+  try {
+    const deletedProduct: AxiosResponse<ApiDataType> = await axios.delete(
+      `${baseUrl}/api/products/${id}`
+    );
+    return deletedProduct;
+  } catch (error) {
+    throw new Error(error);
+  }
+};
