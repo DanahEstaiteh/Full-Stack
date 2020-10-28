@@ -482,12 +482,12 @@
         "affectsGlobalScope": false
       },
       "./src/models/cart.ts": {
-        "version": "f90bdc5aa011c0a9cb8521d145235d4abbdb57f23739adee9dcf39f8bd96175c",
+        "version": "b43a6231f664d63bc4883951b2368e482575a8d546b2ca484cfce57276a4a8a8",
         "signature": "d12a9281f43f2964aa6838f52ec0f5dde345873e3bbf29494761ad5f49f20aff",
         "affectsGlobalScope": false
       },
       "./src/controllers/cartcontroller.ts": {
-        "version": "9cca1743f7467e0cd29103282c5ff3b950768eac33d77741394339fa56b0563c",
+        "version": "1d6246da0b81961326ccf68c85b5f2efbdae9265ec7826d18b9f6ca9c05a5f77",
         "signature": "9093f780183313232d5a674b964a1d1f99ad6a0f18e40893a041513fbd614ff5",
         "affectsGlobalScope": false
       },

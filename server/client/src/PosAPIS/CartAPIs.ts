@@ -21,15 +21,14 @@ export const addNewCart = async (
 ): Promise<AxiosResponse<ApiDataType>> => {
   try {
     console.log("1 ->",{formData})
-    const Cart: Omit<Cart, '_id' > = {
+    const cart: Omit<Cart, '_id' > = {
       id: formData.id,
       time: formData.time,
     };
     const newCart: AxiosResponse<ApiDataType> = await axios.post(
       baseUrl + '/api/cart',
-      Cart
+      cart
     );
-    console.log({newCart});
     return newCart;
   } catch (error) {
     throw new Error(error);

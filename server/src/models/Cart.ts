@@ -2,9 +2,9 @@ import {  Cart } from "./../types/types";
 import { model, Schema } from "mongoose";
 
  const cart : Schema = new Schema({
-    cartId: {
+    id: {
         type: Number,
-        required: true
+        required: 'Please enter your name',
     },
     time: {
         type: Date,

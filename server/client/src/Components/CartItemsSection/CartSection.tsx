@@ -7,21 +7,22 @@ import { cartItemStyles } from './Style';
 import Cart from './Cart';
 import CartSectionFooter from './CartSectionFooter';
 import { useEffect } from 'react';
+import { deleteItem } from '../../PosAPIS/CartItemAPIs';
 
 interface CartSectionPropsType {
   itemList: Item[];
-  onDelete: () => void;
+  onCancel: () => void;
 }
 const headerlist = ['Product', 'Price', 'Quantity', 'Total'];
 
 const CartSection: React.FC<CartSectionPropsType> = (props) => {
-  const { itemList, onDelete } = props;
+  const { itemList, onCancel } = props;
 
-  const [data, setData] = useState<Item[]>(itemList);
+  const [items, setItems] = useState<Item[]>([]);
   const classes = cartItemStyles();
 
   const handleCountChange = (index: number, newCount: number) => {
-    const newData = data.map((item, currentIndex) => {
+    const newData = itemList.map((item, currentIndex) => {
       if (currentIndex === index) {
         return {
           ...item,
@@ -32,31 +33,37 @@ const CartSection: React.FC<CartSectionPropsType> = (props) => {
       }
     });
 
-    setData(newData);
+    setItems(newData);
   };
 
-  const handleDelete = (index: number) => {
-    const newData = data.filter((item, currentIndex) => currentIndex !== index);
-    setData(newData);
+  const handleDeleteItem = (_id: string): void => {
+    deleteItem(_id)
+      .then(({ status, data }) => {
+        if (status !== 200) {
+          throw new Error('Error! Item not deleted');
+        }
+        setItems(data.allData as Item[]);
+      })
+      .catch((err) => console.log(err));
   };
 
   const totalCount = React.useMemo(
     () =>
-      data.reduce((acc, item) => {
+    itemList.reduce((acc, item) => {
         return acc + item.count;
       }, 0),
-    [data]
+    [items]
   );
 
   const totalPrice = React.useMemo(
     () =>
-      data.reduce((acc, item) => {
+    itemList.reduce((acc, item) => {
         return acc + item.count * item.price;
       }, 0),
-    [data]
+    [items]
   );
   useEffect(() => {
-    setData(itemList);
+    //setData(itemList);
   }, [itemList]);
 
   return (
@@ -69,12 +76,12 @@ const CartSection: React.FC<CartSectionPropsType> = (props) => {
         ))}
       </List>
       <Cart
-        itemList={data}
-        onDelete={handleDelete}
+        itemList={itemList}
+        onDelete={handleDeleteItem}
         onCountChange={handleCountChange}
       />
       <CartSectionFooter
-        onDelete={onDelete}
+        onDelete={onCancel}
         totalPrice={totalPrice}
         itemsQuantity={totalCount}
       />

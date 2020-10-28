@@ -10,7 +10,7 @@ const addCart = async (req: Request, res: Response): Promise<void> => {
     const body = req.body as Cart
 
     const cart: Cart = new CartMongooseModel({
-      cartId: body.cartId,
+      id: body.id,
      time: body.time,
     })
 

@@ -1,7 +1,7 @@
 import { Divider, Paper } from '@material-ui/core';
 import Grid from '@material-ui/core/Grid/Grid';
 import React, { useEffect, useState } from 'react';
-import { CategoryTitle, ProductItem } from '../../Types';
+import { CategoryTitle, Item, Product, ProductItem } from '../../Types';
 
 import ProductItems from './ProductItems';
 import StockTabs from './StockTabs';
@@ -10,14 +10,13 @@ import Search from '../Search/Search';
 
 interface StockItemsPropsType {
   categoryNames: CategoryTitle[];
-  productsItem: ProductItem[];
-  onMoveItem: (item: ProductItem) => void;
+  onMoveItem: (item: Product) => void;
 }
 
 const StockItems: React.FC<StockItemsPropsType> = (props) => {
-  const { categoryNames, productsItem, onMoveItem } = props;
+  const { categoryNames,  onMoveItem } = props;
   const [active, setActive] = useState<string>('home');
-  const [products, setProducts] = useState<ProductItem[]>(productsItem);
+  
   const classes = stockItemStyles();
   //const allData = getProductItem(active);
   useEffect(() => {
@@ -48,8 +47,7 @@ const StockItems: React.FC<StockItemsPropsType> = (props) => {
         </div>
         <Grid item xs={12}>
           <ProductItems
-            onMoveItem={(item) => onMoveItem(item)}
-            products={products}
+            onMoveItem={onMoveItem}
           />
         </Grid>
       </Grid>

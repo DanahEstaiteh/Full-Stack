@@ -1,16 +1,19 @@
 import Box from '@material-ui/core/Box/Box';
 import Grid from '@material-ui/core/Grid/Grid';
-import React from 'react';
-import { ProductItem } from '../../Types';
+import React, { useEffect, useState } from 'react';
+import { getProducts } from '../../PosAPIS/ProductAPIs';
+import { Item, Product, ProductItem } from '../../Types';
 import { stockItemStyles } from './Style';
 
 interface ProductItemsProps {
-  products: ProductItem[];
-  onMoveItem: (item: ProductItem) => void;
+  onMoveItem: (item: Product) => void;
 }
 
 const ProductItems = (props: ProductItemsProps) => {
-  const { products, onMoveItem } = props;
+  const {  onMoveItem } = props;
+
+  const [products, setProducts] = useState<Product[]>([])
+
   const classes = stockItemStyles();
 
   const handleMouseOver = (
@@ -28,6 +31,16 @@ const ProductItems = (props: ProductItemsProps) => {
     e.currentTarget.innerHTML =
       '<p>' + name + '</p>' + '<p>' + price + ' EURO</p>';
   };
+
+  const fetchProducts = (): void => {
+    getProducts()
+      .then(({ data: { products } }: Product[] | any) => {setProducts(products)})
+      .catch((err: Error) => setProducts([]));
+  };
+
+useEffect(() => {
+  fetchProducts();
+}, [])
 
   return (
     <Grid container className={classes.container}>

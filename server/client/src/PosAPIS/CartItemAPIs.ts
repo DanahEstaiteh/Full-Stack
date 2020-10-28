@@ -10,6 +10,7 @@ export const getItems = async (): Promise<
     const items: AxiosResponse<ApiDataType> = await axios.get(
       baseUrl + '/api/cartItems'
     );
+    console.log(items.data)
     return items;
   } catch (error) {
     throw new Error(error);

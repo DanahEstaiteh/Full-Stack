@@ -12,33 +12,24 @@ import { addNewCart } from '../../PosAPIS/CartAPIs';
 interface CartTAbPropsType {
   cartList: Cart[];
   active: number;
-  handleTab: (a: number) => void;
-  onDelete: (id: number) => void;
+  handleChangeActive: (cart: Cart) => void;
+  onDelete: (id : number) => void;
+  onSaveCart: (newCart : Cart) => void;
 }
 
 const CartTab: React.FC<CartTAbPropsType> = (props) => {
-  const { cartList, active, handleTab, onDelete } = props;
+  const { cartList, active, handleChangeActive , onDelete ,onSaveCart} = props;
   const [carts, setCarts] = useState<Cart[]>(cartList);
   const [open, setOpen] = useState<boolean>(false);
   const classes = cartItemStyles();
   const handleAddTab = () => {
-    let lastId = carts.length ? carts[carts.length - 1].id : 1;
+    let lastId = cartList.length ? cartList[cartList.length - 1].id : 1;
     console.log({ lastId });
     let newCart = {_id: "", id: lastId + 1, time: new Date() };
-    handleSaveCart(newCart);
+    onSaveCart(newCart);
   };
 
-  const handleSaveCart = (formData: Cart): void => {
-    console.log({formData});
-    addNewCart(formData)
-      .then(({ status, data }) => {
-        if (status !== 201) {
-          throw new Error('Error! cart not saved');
-        }
-        setCarts(data.allData as Cart[]);
-      })
-      .catch((err: any) => console.log(err));
-  };
+ 
 
   const handleClose = () => {
     setOpen(false);
@@ -47,17 +38,14 @@ const CartTab: React.FC<CartTAbPropsType> = (props) => {
     setOpen(true);
   };
 
-  useEffect(() => {
-    setCarts(carts);
-  }, [carts]);
   return (
     <div className={classes.appBar}>
       <List>
-        {carts.map((cart) => (
+        {cartList?.map((cart) => (
           <ListItem key={cart.id + ''} className={classes.tab}>
             <Button
               onClick={(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) =>
-                handleTab(cart.id)
+                handleChangeActive(cart)
               }
               className={`${classes.buttonTab} ${
                 cart.id === active ? `${classes.selectedTab}` : ''
@@ -65,9 +53,9 @@ const CartTab: React.FC<CartTAbPropsType> = (props) => {
             >
               <div className={classes.id}>{cart.id}</div>
               <div className={classes.time}>
-                {cart.time.getHours().toString() +
+                {new Date(cart.time).getHours() +
                   ':' +
-                  cart.time.getMinutes().toString()}
+                  new Date(cart.time).getMinutes()}
               </div>
             </Button>
           </ListItem>

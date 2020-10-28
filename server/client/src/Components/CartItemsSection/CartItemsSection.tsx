@@ -2,65 +2,78 @@ import { Paper } from '@material-ui/core';
 import Divider from '@material-ui/core/Divider/Divider';
 import Grid from '@material-ui/core/Grid/Grid';
 import React, { useEffect, useState } from 'react';
-import { Cart, Item } from '../../Types';
+import { Cart, Item, Product } from '../../Types';
 import CartTab from './CartTab';
 import { cartItemStyles } from './Style';
 import CartSection from './CartSection';
+import { addNewCart, deleteCart, getCarts } from '../../PosAPIS/CartAPIs';
+import { getItems } from '../../PosAPIS/CartItemAPIs';
 
 interface CartItemsSectionPropsTypes {
-  cartList: Cart[];
-  getActiveCart: (cartdId: number) => void;
   itemData: Item[];
-  isAddItem: boolean;
+  activeCart: Cart;
+  handleChangeActive : (activeCart: Cart) => void;
 }
 
 const CartItemsSection: React.FC<CartItemsSectionPropsTypes> = (props) => {
-  const { cartList, getActiveCart, itemData, isAddItem } = props;
-  const [data, setData] = useState<Cart[]>([]);
-  //const [activeData, setActiveData] = useState<Item[]>(itemData);
-  const [activeCartData, setActiveCartData] = useState<Item[]>(itemData);
-  const [active, setActive] = useState<number>(0);
+  const { itemData , activeCart,handleChangeActive} = props;
+  
+  const [carts, setCarts] = useState<Cart[]>([]);
   const classes = cartItemStyles();
 
-  const handleCartDelete = (id: number) => {
-    setData(cartList.filter((item) => item.id !== id));
+  const fetchCarts = (): void => {
+    getCarts()
+      .then(({ data: { carts } }: Cart[] | any) => {setCarts(carts)})
+      .catch((err: Error) => setCarts([]));
   };
-  const handleCancelCart = (id: number) => {
-    setData(cartList.filter((item) => item.id !== id));
+ 
+
+  const handleDelete = (id : number) => {
+    handleDeleteCart(activeCart._id);
+  }
+  const handleDeleteCart = (_id: string): void => {
+    deleteCart(_id)
+      .then(({ status, data }) => {
+        if (status !== 200) {
+          throw new Error('Error! cart not deleted');
+        }
+        setCarts(data.allData as Cart[]);
+      })
+      .catch((err) => console.log(err));
   };
-  useEffect(() => {
-    setActiveCartData(itemData.filter((item) => item.cartId == active));
-  }, [itemData]);
 
-  useEffect(() => {
-    setActiveCartData(itemData.filter((item) => item.cartId == active));
-    console.log({ itemData, activeCartData });
-    getActiveCart(active);
-  }, [active]);
+  const handleSaveCart = (formData: Cart): void => {
+    console.log({formData});
+    addNewCart(formData)
+      .then(({ status, data }) => {
+        if (status !== 201) {
+          throw new Error('Error! cart not saved');
+        }
+        setCarts(data.allData as Cart[]);
+      })
+      .catch((err: any) => console.log(err));
+  };
 
-  useEffect(() => {
-    setActiveCartData([]);
-  }, [data]);
+useEffect(() => {
+    fetchCarts();
+}, [])
 
-  console.log({ itemData, activeCartData });
+ 
+
+  
   return (
     <Paper className={classes.root}>
       <Grid container item xs={12} spacing={2} className={classes.container}>
         <Grid item xs={12}>
-          <CartTab
-            cartList={data}
-            active={active}
-            handleTab={(data) => setActive(data)}
-            onDelete={handleCartDelete}
-          />
+        <CartTab cartList={carts} active={activeCart.id} onDelete={handleDelete} handleChangeActive={handleChangeActive} onSaveCart={handleSaveCart}/> 
           <Grid item xs={12}>
             <Divider className={classes.divider} />
           </Grid>
         </Grid>
         <Grid item xs={12}>
-          <CartSection
-            onDelete={() => handleCancelCart(active)}
-            itemList={activeCartData}
+        <CartSection
+            onCancel={() => handleDelete(activeCart.id)}
+            itemList={itemData}
           />
         </Grid>
       </Grid>

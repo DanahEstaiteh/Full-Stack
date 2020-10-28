@@ -19,7 +19,7 @@ const addCart = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const body = req.body;
         const cart = new exports.CartMongooseModel({
-            cartId: body.cartId,
+            id: body.id,
             time: body.time,
         });
         const newCart = yield cart.save();
