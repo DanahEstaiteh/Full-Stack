@@ -1,10 +1,6 @@
 import { Product } from "./../types/types";
 import { model, Schema } from "mongoose";
 
-
-
-
-
  const product : Schema = new Schema({
     id: {
         type: Number,

@@ -6,6 +6,8 @@ import { CheckoutController } from '../controllers/CheckoutController';
 import { UserController } from '../controllers/LoginController';
 import * as mongoose from 'mongoose';
 import { UserSchema } from '../models/User';
+import { getCartItems, addItem, getItemById, updateItem, deleteItem } from 'controllers/CartItemController';
+import { getCarts, addCart, getCartById, updateCart, deleteCart } from 'controllers/CartController';
 export class Routes {
 
     checkoutController: CheckoutController = new CheckoutController();
@@ -53,9 +55,48 @@ export class Routes {
         app.route('/api/categories/:categoryId')
             .delete(deleteCategory);
 
+            
         // generate categrie data
         app.route('/categorie/firstData')
-            .get(generateFirstCategories);
+        .get(generateFirstCategories);
+
+             // Get all CartItem
+        app.route('/api/cartItems')
+        .get(getCartItems);
+
+    // Create a new Item
+    app.route('/api/item')
+        .post(addItem);
+
+    // get a specific Item
+    app.route('/api/items/:itemIdId')
+        .get(getItemById);
+
+    // update a specific Item
+    app.route('/api/items/:itemIdId')
+        .put(updateItem);
+
+    // delete a specific Item
+    app.route('/api/items/:itemIdId')
+        .delete(deleteItem);
+
+        // Get all Cart
+        app.route('/api/carts')
+        .get(getCarts);
+
+    // Create a new Cart
+    app.route('/api/cart')
+        .post(addCart);
+
+    // get a specific Cart
+    app.route('/api/carts/:cartId')
+        .get(getCartById);
+
+    
+    // delete a specific Cart
+    app.route('/api/carts/:cartId')
+        .delete(deleteCart);
+
 
         // Get all products
         app.route('/api/product')

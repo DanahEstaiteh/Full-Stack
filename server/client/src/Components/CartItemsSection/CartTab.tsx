@@ -7,6 +7,7 @@ import { cartItemStyles } from './Style';
 import AddIcon from '@material-ui/icons/Add';
 import RemoveIcon from '@material-ui/icons/Remove';
 import ConfirmDialog from '../Dialog/ConfirmDialog';
+import { addNewCart } from '../../PosAPIS/CartAPIs';
 
 interface CartTAbPropsType {
   cartList: Cart[];
@@ -17,18 +18,26 @@ interface CartTAbPropsType {
 
 const CartTab: React.FC<CartTAbPropsType> = (props) => {
   const { cartList, active, handleTab, onDelete } = props;
-  const [data, setData] = useState<Cart[]>(cartList);
+  const [carts, setCarts] = useState<Cart[]>(cartList);
   const [open, setOpen] = useState<boolean>(false);
   const classes = cartItemStyles();
   const handleAddTab = () => {
-    let lastId = data.length ? data[cartList.length - 1].id : 1;
+    let lastId = carts.length ? carts[carts.length - 1].id : 1;
     console.log({ lastId });
-    let newCart = { id: lastId + 1, time: new Date() };
-    console.log({ newCart });
-    data.unshift(newCart);
-    const newData = [...data];
-    setData(newData);
-    console.log({ newData });
+    let newCart = {_id: "", id: lastId + 1, time: new Date() };
+    handleSaveCart(newCart);
+  };
+
+  const handleSaveCart = (formData: Cart): void => {
+    console.log({formData});
+    addNewCart(formData)
+      .then(({ status, data }) => {
+        if (status !== 201) {
+          throw new Error('Error! cart not saved');
+        }
+        setCarts(data.allData as Cart[]);
+      })
+      .catch((err: any) => console.log(err));
   };
 
   const handleClose = () => {
@@ -39,12 +48,12 @@ const CartTab: React.FC<CartTAbPropsType> = (props) => {
   };
 
   useEffect(() => {
-    setData(cartList);
-  }, [cartList]);
+    setCarts(carts);
+  }, [carts]);
   return (
     <div className={classes.appBar}>
       <List>
-        {data.map((cart) => (
+        {carts.map((cart) => (
           <ListItem key={cart.id + ''} className={classes.tab}>
             <Button
               onClick={(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) =>

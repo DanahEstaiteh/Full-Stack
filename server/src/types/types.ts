@@ -20,3 +20,16 @@ export interface Category extends Document {
   categoryName: string;
   createdAt: Date;
 }
+
+export interface CartItem extends Document {
+  cartId: number;
+  id: number;
+  name: string;
+  price: number;
+  count: number;
+}
+
+export interface Cart extends Document {
+  cartId: number;
+  time: Date;
+}

@@ -1,4 +1,4 @@
-type DataType = Category | Product;
+type DataType = Category | Product | Item | Cart;
 
 export interface Category {
   _id: string;
@@ -47,11 +47,13 @@ export interface ProductItem {
 }
 
 export interface Cart {
+  _id: string;
   id: number;
   time: Date;
 }
 
 export interface Item {
+  _id: string;
   id: number;
   cartId: number;
   name: string;

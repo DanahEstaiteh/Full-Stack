@@ -26,6 +26,8 @@ const CheckoutController_1 = require("../controllers/CheckoutController");
 const LoginController_1 = require("../controllers/LoginController");
 const mongoose = __importStar(require("mongoose"));
 const User_1 = require("../models/User");
+const CartItemController_1 = require("controllers/CartItemController");
+const CartController_1 = require("controllers/CartController");
 class Routes {
     constructor() {
         this.checkoutController = new CheckoutController_1.CheckoutController();
@@ -68,6 +70,33 @@ class Routes {
         // generate categrie data
         app.route('/categorie/firstData')
             .get(CategoryController_1.generateFirstCategories);
+        // Get all CartItem
+        app.route('/api/cartItems')
+            .get(CartItemController_1.getCartItems);
+        // Create a new Item
+        app.route('/api/item')
+            .post(CartItemController_1.addItem);
+        // get a specific Item
+        app.route('/api/items/:itemIdId')
+            .get(CartItemController_1.getItemById);
+        // update a specific Item
+        app.route('/api/items/:itemIdId')
+            .put(CartItemController_1.updateItem);
+        // delete a specific Item
+        app.route('/api/items/:itemIdId')
+            .delete(CartItemController_1.deleteItem);
+        // Get all Cart
+        app.route('/api/carts')
+            .get(CartController_1.getCarts);
+        // Create a new Cart
+        app.route('/api/cart')
+            .post(CartController_1.addCart);
+        // get a specific Cart
+        app.route('/api/carts/:cartId')
+            .get(CartController_1.getCartById);
+        // delete a specific Cart
+        app.route('/api/carts/:cartId')
+            .delete(CartController_1.deleteCart);
         // Get all products
         app.route('/api/product')
             .get(ProductController_1.getProducts);

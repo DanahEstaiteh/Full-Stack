@@ -39,12 +39,3 @@ export const productTitle: { id: keyof Product; label: string }[] = [
   { id: 'price', label: 'Price' }
 ];
 
-export const cartData: Cart[] = [{ id: 2, time: new Date() }];
-
-export const itemData: Item[] = [
-  { cartId: 3, id: 1, name: 'coffe', price: 10, count: 1 },
-  { cartId: 2, id: 2, name: 'Milk', price: 5, count: 1 },
-  { cartId: 2, id: 3, name: 'Hot Chocolate', price: 15.5, count: 1 },
-  { cartId: 2, id: 4, name: 'Turkish Pide', price: 40.5, count: 1 },
-  { cartId: 2, id: 5, name: 'Cokkie', price: 8.3, count: 1 }
-];
