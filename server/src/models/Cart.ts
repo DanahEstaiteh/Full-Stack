@@ -4,7 +4,7 @@ import { model, Schema } from "mongoose";
  const cart : Schema = new Schema({
     id: {
         type: Number,
-        required: 'Please enter your name',
+        required: true,
     },
     time: {
         type: Date,

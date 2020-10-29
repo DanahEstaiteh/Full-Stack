@@ -38,8 +38,8 @@ const addItem = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
 exports.addItem = addItem;
 const getCartItems = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const cartItems = yield exports.CartItemMongooseModel.find();
-        res.status(200).json({ cartItems });
+        const items = yield exports.CartItemMongooseModel.find();
+        res.status(200).json({ items });
     }
     catch (error) {
         throw error;
@@ -80,8 +80,8 @@ const deleteItem = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
         const allItems = yield exports.CartItemMongooseModel.find();
         res.status(200).json({
             message: "Item deleted",
-            product: deletedItem,
-            products: allItems,
+            Item: deletedItem,
+            Items: allItems,
         });
     }
     catch (error) {

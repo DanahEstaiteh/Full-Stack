@@ -1,10 +1,8 @@
 import { Grid } from '@material-ui/core';
 import React, { useEffect, useState } from 'react';
-import { getCarts } from '../../PosAPIS/CartAPIs';
-import { addNewItem, getItems } from '../../PosAPIS/CartItemAPIs';
+import { addNewItem, deleteItem, getItems } from '../../PosAPIS/CartItemAPIs';
 import { getCategories } from '../../PosAPIS/CategoryAPIs';
-import { getProducts } from '../../PosAPIS/ProductAPIs';
-import { ProductItem, Item, Category, Cart, Product } from '../../Types';
+import { Item, Category, Cart, Product } from '../../Types';
 import CartItemsSection from '../CartItemsSection/CartItemsSection';
 import { getCategoryNamePosPage } from '../CategoriesList/CategoryFunctions';
 import StockItems from '../StockItems/StockItems';
@@ -12,21 +10,34 @@ import StockItems from '../StockItems/StockItems';
 const PosPage = () => {
   const [activeCart, setActiveCart] = useState<Cart>({_id: "", id: 0,time:new Date()});
   const [categories, setCategories] = useState<Category[]>([]);
-  const [items, setItems] = useState<Item[]>([]);
+  const [cartItems, setCartItems] = useState<Item[]>([]);
+
 
   const categoryNames = getCategoryNamePosPage(categories);
 
   const fetchItems = (): void => {
     getItems()
-      .then(({ data: { items } }: Cart[] | any) => {setItems(items)})
-      .catch((err: Error) => setItems([]));
+      .then(({ data: { items } }: Item[] | any) => {setCartItems(items); console.log({items})})
+      .catch(() => setCartItems([]));
   };
   const fetchCategories = (): void => {
     getCategories()
       .then(({ data: { categories } }: Category[] | any) => {setCategories(categories)})
-      .catch((err: Error) => setCategories([]));
+      .catch(() => setCategories([]));
   };
   
+  const handleDeleteItem = (_id: string): void => {
+    deleteItem(_id)
+      .then(({ status, data }) => {
+        if (status !== 200) {
+          throw new Error('Error! Item not deleted');
+        }
+        setCartItems(data.allData as Item[]);
+        
+      })
+      .catch((err) => console.log(err));
+  };
+
   const handleSaveItem = (formData: Item): void => {
     console.log({formData});
     addNewItem(formData)
@@ -34,20 +45,24 @@ const PosPage = () => {
         if (status !== 201) {
           throw new Error('Error! Item not saved');
         }
-        setItems(data.allData as Item[]);
+        setCartItems(data.allData as Item[]);
+        console.log(data.allData )
+        console.log(cartItems)
       })
       .catch((err: any) => console.log(err));
   };
 
   const addItemToCart = (item: Product) => {
 
-    const itemIndex = items?.findIndex(
+    const itemIndex = cartItems?.findIndex(
       (currentItem) =>
         currentItem.name === item.name && currentItem.cartId === activeCart.id
     );
+   
 
-    if (activeCart.id > 1 && itemIndex < 0) {
-      const lastId = items.length ? items[items.length - 1].id : 1;
+    if (activeCart.id > 1 && (itemIndex < 0 || itemIndex === undefined)) {
+      
+      const lastId = cartItems?.length ? cartItems[cartItems.length - 1].id : 1;
       const newItem: Item = {
         _id: "",
         cartId: activeCart.id,
@@ -57,13 +72,14 @@ const PosPage = () => {
         count: 1
       };
       handleSaveItem(newItem); 
-    } else if (activeCart.id < 2) {
+      console.log({cartItems})
+    } else if (activeCart.id < 1) {
       alert('select cart');
     } else {
       alert('item exist in Cart');
     }
   };
-  useEffect(() => {}, [items, activeCart]);
+  useEffect(() => {}, [cartItems, activeCart]);
   useEffect(() => {
     fetchCategories();
     fetchItems();
@@ -72,10 +88,10 @@ const PosPage = () => {
     <Grid container spacing={1}>
       <Grid item xs={5}>
          <CartItemsSection
-         itemData={items}
+         itemData={cartItems}
           activeCart={activeCart}
           handleChangeActive= {(activeCart)=> setActiveCart(activeCart)}
-          
+          handleDeleteItem={handleDeleteItem}
         /> 
       </Grid>
       <Grid item xs={7}>

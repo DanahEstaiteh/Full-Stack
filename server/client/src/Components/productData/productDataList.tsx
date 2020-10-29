@@ -104,7 +104,7 @@ const ProductDataList: React.FC<ProductDataListProps> = (props) => {
     setPage(0);
   };
   const dataAfterPaging = () => {
-    return productData.slice(page * rowsPerPage, (page + 1) * rowsPerPage);
+    return productData?.slice(page * rowsPerPage, (page + 1) * rowsPerPage);
   };
 
   useEffect(() => {
@@ -126,7 +126,7 @@ const ProductDataList: React.FC<ProductDataListProps> = (props) => {
     <>
       <ThemeProvider theme={projectTheme}>
         <Grid container spacing={0} className={classes.list}>
-          {dataAfterPaging().map((product: Product) => (
+          {dataAfterPaging()?.map((product: Product) => (
             <Grid container spacing={0} className={classes.row}>
               <Grid item xs={2} className={classes.listItem}>
                 <Box key={product.code}>{product.code}</Box>

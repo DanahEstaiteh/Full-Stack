@@ -77,13 +77,13 @@ class Routes {
         app.route('/api/item')
             .post(CartItemController_1.addItem);
         // get a specific Item
-        app.route('/api/items/:itemIdId')
+        app.route('/api/items/:itemId')
             .get(CartItemController_1.getItemById);
         // update a specific Item
-        app.route('/api/items/:itemIdId')
+        app.route('/api/items/:itemId')
             .put(CartItemController_1.updateItem);
         // delete a specific Item
-        app.route('/api/items/:itemIdId')
+        app.route('/api/items/:itemId')
             .delete(CartItemController_1.deleteItem);
         // Get all Cart
         app.route('/api/carts')

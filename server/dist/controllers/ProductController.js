@@ -36,7 +36,7 @@ const addProduct = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
         const allProducts = yield exports.ProductMongooseModel.find();
         res
             .status(201)
-            .json({ message: "Todo added", product: newProduct, products: allProducts });
+            .json({ message: "Product added", product: newProduct, products: allProducts });
     }
     catch (error) {
         throw error;

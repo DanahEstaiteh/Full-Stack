@@ -25,7 +25,7 @@ const Cart: React.FC<CartPropsType> = (props) => {
       {itemList?.length ? (
         itemList.map((item: Item, index: number) => (
           <CartItem
-            key={item.name}
+            key={item._id}
             item={item}
             onDelete={() => onDelete(item._id)}
             onChangeItemCount={(count) => {

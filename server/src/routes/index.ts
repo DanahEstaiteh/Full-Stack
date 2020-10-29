@@ -69,15 +69,15 @@ export class Routes {
         .post(addItem);
 
     // get a specific Item
-    app.route('/api/items/:itemIdId')
+    app.route('/api/items/:itemId')
         .get(getItemById);
 
     // update a specific Item
-    app.route('/api/items/:itemIdId')
+    app.route('/api/items/:itemId')
         .put(updateItem);
 
     // delete a specific Item
-    app.route('/api/items/:itemIdId')
+    app.route('/api/items/:itemId')
         .delete(deleteItem);
 
         // Get all Cart

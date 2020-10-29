@@ -16,7 +16,7 @@ interface ProductDetailsProps {
 
 const ProductDetails: React.FC<ProductDetailsProps> = (props) => {
   const { isOpen, onClose, Data, code } = props;
-  const productToShow = Data.find((pro) => pro.code === code);
+  const productToShow = Data?.find((pro) => pro.code === code);
   const classes = ProductDetailsStyles();
   console.log({Data})
   return (

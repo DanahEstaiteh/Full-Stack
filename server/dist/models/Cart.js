@@ -4,7 +4,7 @@ const mongoose_1 = require("mongoose");
 const cart = new mongoose_1.Schema({
     id: {
         type: Number,
-        required: 'Please enter your name',
+        required: true,
     },
     time: {
         type: Date,

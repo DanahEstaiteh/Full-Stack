@@ -32,7 +32,7 @@ const addProduct = async (req: Request, res: Response): Promise<void> => {
 
     res
       .status(201)
-      .json({ message: "Todo added", product: newProduct, products: allProducts })
+      .json({ message: "Product added", product: newProduct, products: allProducts })
   } catch (error) {
     throw error
   }

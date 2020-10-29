@@ -2,6 +2,7 @@ import  cartItem  from '../models/CartItem';
 import { Request, Response } from 'express';
 import {CartItem} from '../types/types';
 
+
 export const CartItemMongooseModel = cartItem;
 
 
@@ -29,8 +30,8 @@ const addItem = async (req: Request, res: Response): Promise<void> => {
 }
 const getCartItems = async (req: Request, res: Response): Promise<void> => {           
       try {
-          const cartItems: CartItem[] = await CartItemMongooseModel.find()
-          res.status(200).json({ cartItems })
+          const items: CartItem[] = await CartItemMongooseModel.find()
+          res.status(200).json({ items })
         } catch (error) {
           throw error
         }
@@ -77,12 +78,18 @@ const getCartItems = async (req: Request, res: Response): Promise<void> => {
         const allItems: CartItem[] = await CartItemMongooseModel.find()
         res.status(200).json({
           message: "Item deleted",
-          product: deletedItem,
-          products: allItems,
+          Item: deletedItem,
+          Items: allItems,
         })
       } catch (error) {
         throw error
       }
     }
+
+   
+
+  
+
+  
    
     export { getCartItems, addItem, updateItem, deleteItem , getItemById}

@@ -83,6 +83,7 @@ const ProductData: React.FC = () => {
           throw new Error('Error! Product not saved');
         }
         setProducts(data.allData as Product[]);
+        console.log({products})
       })
       .catch((err: any) => console.log(err));
   };

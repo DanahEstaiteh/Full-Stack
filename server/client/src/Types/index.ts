@@ -67,3 +67,5 @@ export type ApiDataType = {
   allData: DataType[];
   data?: DataType;
 };
+
+

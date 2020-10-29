@@ -10,7 +10,7 @@ export const getItems = async (): Promise<
     const items: AxiosResponse<ApiDataType> = await axios.get(
       baseUrl + '/api/cartItems'
     );
-    console.log(items.data)
+    console.log(items)
     return items;
   } catch (error) {
     throw new Error(error);
@@ -67,7 +67,9 @@ export const deleteItem = async (
     const deletedItem: AxiosResponse<ApiDataType> = await axios.delete(
       `${baseUrl}/api/items/${id}`
     );
+    console.log({deletedItem})
     return deletedItem;
+    
   } catch (error) {
     throw new Error(error);
   }

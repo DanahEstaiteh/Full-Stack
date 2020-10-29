@@ -12,11 +12,12 @@ import { deleteItem } from '../../PosAPIS/CartItemAPIs';
 interface CartSectionPropsType {
   itemList: Item[];
   onCancel: () => void;
+  handleDeleteItem: (id : string) => void;
 }
 const headerlist = ['Product', 'Price', 'Quantity', 'Total'];
 
 const CartSection: React.FC<CartSectionPropsType> = (props) => {
-  const { itemList, onCancel } = props;
+  const { itemList, onCancel ,handleDeleteItem} = props;
 
   const [items, setItems] = useState<Item[]>([]);
   const classes = cartItemStyles();
@@ -36,16 +37,7 @@ const CartSection: React.FC<CartSectionPropsType> = (props) => {
     setItems(newData);
   };
 
-  const handleDeleteItem = (_id: string): void => {
-    deleteItem(_id)
-      .then(({ status, data }) => {
-        if (status !== 200) {
-          throw new Error('Error! Item not deleted');
-        }
-        setItems(data.allData as Item[]);
-      })
-      .catch((err) => console.log(err));
-  };
+  
 
   const totalCount = React.useMemo(
     () =>

@@ -13,12 +13,14 @@ interface CartItemsSectionPropsTypes {
   itemData: Item[];
   activeCart: Cart;
   handleChangeActive : (activeCart: Cart) => void;
+  handleDeleteItem: (id : string) => void;
 }
 
 const CartItemsSection: React.FC<CartItemsSectionPropsTypes> = (props) => {
-  const { itemData , activeCart,handleChangeActive} = props;
+  const { itemData , activeCart,handleChangeActive , handleDeleteItem} = props;
   
   const [carts, setCarts] = useState<Cart[]>([]);
+  const [activeItem, setActiveItem] = useState<Item[]>([]);
   const classes = cartItemStyles();
 
   const fetchCarts = (): void => {
@@ -27,7 +29,7 @@ const CartItemsSection: React.FC<CartItemsSectionPropsTypes> = (props) => {
       .catch((err: Error) => setCarts([]));
   };
  
-
+console.log({itemData})
   const handleDelete = (id : number) => {
     handleDeleteCart(activeCart._id);
   }
@@ -54,13 +56,24 @@ const CartItemsSection: React.FC<CartItemsSectionPropsTypes> = (props) => {
       .catch((err: any) => console.log(err));
   };
 
+const getActiveItem = () => {
+  console.log(activeCart.id)
+  if(activeCart.id < 2){
+    setActiveItem([]);
+  }else{
+    const activeItem = itemData?.filter((item) => item.cartId !== activeCart.id);
+    setActiveItem(activeItem);
+  }
+  
+}
+
 useEffect(() => {
     fetchCarts();
 }, [])
 
- 
-
-  
+useEffect(() => {
+  getActiveItem();
+}, [activeCart])
   return (
     <Paper className={classes.root}>
       <Grid container item xs={12} spacing={2} className={classes.container}>
@@ -72,8 +85,9 @@ useEffect(() => {
         </Grid>
         <Grid item xs={12}>
         <CartSection
+            itemList={activeItem}
+            handleDeleteItem={handleDeleteItem}
             onCancel={() => handleDelete(activeCart.id)}
-            itemList={itemData}
           />
         </Grid>
       </Grid>
