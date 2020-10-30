@@ -1,12 +1,10 @@
-import { Button, List, ListItem, ThemeProvider } from '@material-ui/core';
+import { Button, List, ListItem } from '@material-ui/core';
 import Box from '@material-ui/core/Box/Box';
 import Divider from '@material-ui/core/Divider/Divider';
 import React, { useEffect, useState } from 'react';
 import { cartFooterStyles } from './FooterStyle';
-import { projectTheme } from '../../Styles/Style';
 import ConfirmDialog from '../Dialog/ConfirmDialog';
 import PopUp from '../PopUp/PopUp';
-import Paper from '@material-ui/core/Paper/Paper';
 
 interface CartSectionFooterPropsType {
   totalPrice: number;
@@ -54,6 +52,7 @@ const CartSectionFooter: React.FC<CartSectionFooterPropsType> = (props) => {
   useEffect(() => {
     setTax(0);
     setDiscount(0);
+    console.log({totalPrice,itemsQuantity});
   }, [totalPrice, itemsQuantity]);
   useEffect(() => {
     let taxEffect = totalPrice * (tax / 100);

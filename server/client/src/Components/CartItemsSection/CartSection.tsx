@@ -7,7 +7,6 @@ import { cartItemStyles } from './Style';
 import Cart from './Cart';
 import CartSectionFooter from './CartSectionFooter';
 import { useEffect } from 'react';
-import { deleteItem } from '../../PosAPIS/CartItemAPIs';
 
 interface CartSectionPropsType {
   itemList: Item[];
@@ -41,7 +40,7 @@ const CartSection: React.FC<CartSectionPropsType> = (props) => {
 
   const totalCount = React.useMemo(
     () =>
-    itemList.reduce((acc, item) => {
+    items.reduce((acc, item) => {
         return acc + item.count;
       }, 0),
     [items]
@@ -49,14 +48,15 @@ const CartSection: React.FC<CartSectionPropsType> = (props) => {
 
   const totalPrice = React.useMemo(
     () =>
-    itemList.reduce((acc, item) => {
+    items.reduce((acc, item) => {
         return acc + item.count * item.price;
       }, 0),
     [items]
   );
   useEffect(() => {
-    //setData(itemList);
-  }, [itemList]);
+  }, [items]);
+  
+
 
   return (
     <Grid>

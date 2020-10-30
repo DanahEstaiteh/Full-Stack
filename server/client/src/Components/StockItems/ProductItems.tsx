@@ -6,13 +6,13 @@ import { Item, Product, ProductItem } from '../../Types';
 import { stockItemStyles } from './Style';
 
 interface ProductItemsProps {
+  products: Product[];
   onMoveItem: (item: Product) => void;
 }
 
 const ProductItems = (props: ProductItemsProps) => {
-  const {  onMoveItem } = props;
+  const { products, onMoveItem } = props;
 
-  const [products, setProducts] = useState<Product[]>([])
 
   const classes = stockItemStyles();
 
@@ -32,15 +32,11 @@ const ProductItems = (props: ProductItemsProps) => {
       '<p>' + name + '</p>' + '<p>' + price + ' EURO</p>';
   };
 
-  const fetchProducts = (): void => {
-    getProducts()
-      .then(({ data: { products } }: Product[] | any) => {setProducts(products)})
-      .catch((err: Error) => setProducts([]));
-  };
+ 
 
 useEffect(() => {
-  fetchProducts();
-}, [])
+ 
+}, [products])
 
   return (
     <Grid container className={classes.container}>

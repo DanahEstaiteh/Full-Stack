@@ -85,11 +85,7 @@ const getCartItems = async (req: Request, res: Response): Promise<void> => {
         throw error
       }
     }
-
    
 
-  
-
-  
    
     export { getCartItems, addItem, updateItem, deleteItem , getItemById}

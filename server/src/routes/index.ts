@@ -6,7 +6,7 @@ import { CheckoutController } from '../controllers/CheckoutController';
 import { UserController } from '../controllers/LoginController';
 import * as mongoose from 'mongoose';
 import { UserSchema } from '../models/User';
-import { getCartItems, addItem, getItemById, updateItem, deleteItem } from '../controllers/CartItemController';
+import { getCartItems, addItem, getItemById, updateItem, deleteItem} from '../controllers/CartItemController';
 import { getCarts, addCart, getCartById, updateCart, deleteCart } from '../controllers/CartController';
 export class Routes {
 
@@ -79,6 +79,7 @@ export class Routes {
     // delete a specific Item
     app.route('/api/items/:itemId')
         .delete(deleteItem);
+
 
         // Get all Cart
         app.route('/api/carts')

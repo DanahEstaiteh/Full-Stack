@@ -10,19 +10,49 @@ import Search from '../Search/Search';
 
 interface StockItemsPropsType {
   categoryNames: CategoryTitle[];
+  products: Product[];
   onMoveItem: (item: Product) => void;
 }
 
 const StockItems: React.FC<StockItemsPropsType> = (props) => {
-  const { categoryNames,  onMoveItem } = props;
+  const { categoryNames, products, onMoveItem } = props;
   const [active, setActive] = useState<string>('home');
+  const [searchData, setSearchData] = useState<Product[]>([]);
   
   const classes = stockItemStyles();
-  //const allData = getProductItem(active);
-  useEffect(() => {
-    if (active) {
-     // setProducts(getProductItem(active));
+ 
+
+  const handleSearch = (seacrhKey : string) => {
+    
+    if (seacrhKey.length !== 0){
+      const newProducts= searchData.filter((x) =>
+      Object.values(x)
+        .join(' ')
+        .toLowerCase()
+        .includes(seacrhKey.toLowerCase()));
+        setSearchData(newProducts);
+        console.log({newProducts})
     }
+       else {
+        setSearchData(products);
+       }
+       console.log({searchData})
+}
+
+const getProductItem = () => {
+  const activeItem = products.filter((product) => product.category === active );
+  active === 'home' ? setSearchData(products) : setSearchData(activeItem);
+}
+
+useEffect(() => {
+ 
+  setSearchData(products);
+}, [products]);
+
+  useEffect(() => {
+    
+      getProductItem();
+   
   }, [active]);
 
   return (
@@ -39,14 +69,13 @@ const StockItems: React.FC<StockItemsPropsType> = (props) => {
           <Divider className={classes.divider} />
         </Grid>
         <div className={classes.appBar}>
-          {/* <Search
-            onSearch={(data) => setProducts(data as ProductItem[])}
-            Data={products}
-            allData={allData}
-          /> */}
+        <Search
+                onSearch={(searchKey) => handleSearch(searchKey)}
+              />
         </div>
         <Grid item xs={12}>
           <ProductItems
+            products={searchData}
             onMoveItem={onMoveItem}
           />
         </Grid>
