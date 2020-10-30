@@ -61,7 +61,7 @@ const getActiveItem = () => {
   if(activeCart.id < 2){
     setActiveItem([]);
   }else{
-    const activeItem = itemData?.filter((item) => item.cartId !== activeCart.id);
+    const activeItem = itemData?.filter((item) => item.cartId === activeCart.id);
     setActiveItem(activeItem);
   }
   

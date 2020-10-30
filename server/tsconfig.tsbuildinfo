@@ -477,7 +477,7 @@
         "affectsGlobalScope": false
       },
       "./src/controllers/cartitemcontroller.ts": {
-        "version": "1722b20c72950f6711fe3008b76595dfd4d8ab7bfe0f30ecc6d869d9d962df76",
+        "version": "b7313af9a137fea329bf5c3b3bd3694a3ae58b0341853948b7c8dddf78d202e9",
         "signature": "a6cd96c8e58e7693f4c3c4da38c8491fa70f42f27c50b8a09c93da707c3fbc2e",
         "affectsGlobalScope": false
       },
