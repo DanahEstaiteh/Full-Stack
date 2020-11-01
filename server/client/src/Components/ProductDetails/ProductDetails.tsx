@@ -2,7 +2,7 @@ import React from 'react';
 import Dialog from '@material-ui/core/Dialog';
 import { Product } from '../../Types';
 import { ProductDetailsStyles } from './style';
-import { Paper } from '@material-ui/core';
+import { Box, Paper } from '@material-ui/core';
 import format from 'date-fns/format';
 import ClearIcon from '@material-ui/icons/Clear';
 import Button from '@material-ui/core/Button/Button';
@@ -34,10 +34,20 @@ const ProductDetails: React.FC<ProductDetailsProps> = (props) => {
           </div>
           <div className={classes.container}>
             <div className={classes.first}>
-              <img
+              {
+                productToShow?.img ? 
+                <img
                 src={process.env.PUBLIC_URL + productToShow?.img}
                 className={classes.media}
-              />
+              /> : 
+              <Box  style={{
+                backgroundColor: productToShow?.color,
+                width: '200px', 
+                height: '200px'
+              }}>
+
+              </Box>
+              }
             </div>
             <div className={classes.middle}>
               <h3>{productToShow?.name}</h3>
