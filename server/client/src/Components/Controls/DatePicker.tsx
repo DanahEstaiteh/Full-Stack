@@ -7,12 +7,13 @@ import { MaterialUiPickersDate } from '@material-ui/pickers/typings/date';
 interface DatePickerProps {
   onChange: (date: Date) => void;
   name: string;
-  minDate: Date;
+  minDate?: Date;
+  value : Date;
 }
 
 const DatePicker: React.FC<DatePickerProps> = (props) => {
   const [selectedDate, handleDateChange] = useState(new Date());
-  const { onChange, name, minDate } = props;
+  const { onChange, name, minDate , value} = props;
 
   const onChangeFirst = (date: Date) => {
     handleDateChange(date);
@@ -24,9 +25,8 @@ const DatePicker: React.FC<DatePickerProps> = (props) => {
       <KeyboardDatePicker
         clearable
         name={name}
-        value={selectedDate}
-        
-        onChange={(date) => onChangeFirst(date as Date)}
+        value={value}
+        onChange={(date) => onChange(date as Date)}
         minDate={minDate}
         format="dd/MM/yyyy"
       />

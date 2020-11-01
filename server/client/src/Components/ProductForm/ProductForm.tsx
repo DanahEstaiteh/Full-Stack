@@ -181,6 +181,7 @@ const ProductForm: React.FC<ProductFormPropsType> = (props) => {
               name="expirationDate"
               onChange={(date) => handleDateChange(date)}
               minDate={new Date()}
+              value={productForm.values.expirationDate}
             />
           </Grid>
           <Grid item xs={12}>

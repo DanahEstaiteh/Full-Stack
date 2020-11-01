@@ -18,19 +18,30 @@ const FilterProductList: React.FC<filterPropsType> = (props) => {
   const handleFilter = () => {
     console.log({ fromDate, toDate });
     let newData =  Data.filter(
-      (x) => x.expirationDate >= fromDate && x.expirationDate <= toDate
+      (x) => format(new Date(x.expirationDate), 'dd/MM/yyyy') >= format(new Date(fromDate), 'dd/MM/yyyy') && format(new Date(x.expirationDate), 'dd/MM/yyyy') <= format(new Date(toDate), 'dd/mm/yyyy')
     );
     onFilter(newData);
     console.log({newData});
+    const from = format(new Date(fromDate),'dd/MM/yyyy');
+    const to = format(new Date(toDate),'dd/MM/yyyy');
+    console.log({from , to});
   };
   return (
     <div className={classes.filterContainer}>
       <p>Expiration Date</p>
 
       <p>From</p>
-      <DatePicker selected={fromDate} onChange={date => setFromDate(date as Date)} />
+      <Controls.DatePicker
+              name="fromDate"
+              onChange={(date) => setFromDate(date as Date)}
+              value={fromDate}
+            />
       <p>To</p>
-      <DatePicker selected={toDate} onChange={date => setToDate(date as Date)} />
+      <Controls.DatePicker
+              name="toDate"
+              onChange={(date) => setToDate(date as Date)}
+             value={toDate}
+            />
 
       <Controls.MyButton
         text="Apply Filter"
