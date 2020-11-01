@@ -18,9 +18,9 @@ const Select: React.FC<SelectPropsType> = (props) => {
   const { name, label, value, error = '', onChange, options } = props;
 
   return (
-    <FormControl variant="outlined" {...(error && { error: true })}>
+    <FormControl variant="outlined" {...(error && { error: true })} style={{width : '100%'}}>
       <InputLabel>{label}</InputLabel>
-      <MuiSelect label={label} name={name} value={value} onChange={onChange}>
+      <MuiSelect label={label} name={name} value={value} onChange={onChange} >
         <MenuItem value={value}> {value}</MenuItem>
         {options.map((item) => {
           if (item.title !== value) {

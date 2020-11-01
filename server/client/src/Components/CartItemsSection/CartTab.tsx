@@ -19,7 +19,6 @@ interface CartTAbPropsType {
 
 const CartTab: React.FC<CartTAbPropsType> = (props) => {
   const { cartList, active, handleChangeActive , onDelete ,onSaveCart} = props;
-  const [carts, setCarts] = useState<Cart[]>(cartList);
   const [open, setOpen] = useState<boolean>(false);
   const classes = cartItemStyles();
   const handleAddTab = () => {

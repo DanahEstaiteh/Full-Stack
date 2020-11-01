@@ -34,9 +34,9 @@ export const cartItemStyles = makeStyles({
     height: '40px'
   },
   buttonIconTab: {
-    backgroundColor: '#E2E2E2',
+    backgroundColor: '#AAAAAA',
     borderBottom: '3px solid #6EC89B',
-    color: '#767B81',
+    color: 'white',
     width: '30px',
     height: '40px',
     padding: '0px'
@@ -130,5 +130,12 @@ export const cartItemStyles = makeStyles({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center'
+  },
+  cartHeaderIcon : {
+    color: '#34495E',
+    backgroundColor: '#A1B1BC',
+    padding: '5px',
+    margin: '3px',
+    borderRadius: '5px'
   }
 });
