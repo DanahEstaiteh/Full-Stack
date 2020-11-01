@@ -8,6 +8,7 @@ import { cartItemStyles } from './Style';
 import CartSection from './CartSection';
 import { addNewCart, deleteCart, getCarts } from '../../PosAPIS/CartAPIs';
 import { deleteItem } from '../../PosAPIS/CartItemAPIs';
+import CartHeader from './CartHeader';
 
 
 interface CartItemsSectionPropsTypes {
@@ -61,6 +62,9 @@ useEffect(() => {
           <Grid item xs={12}>
             <Divider className={classes.divider} />
           </Grid>
+          <Grid item xs={12}>
+          <CartHeader />
+        </Grid>
         </Grid>
         <Grid item xs={12}>
         <CartSection

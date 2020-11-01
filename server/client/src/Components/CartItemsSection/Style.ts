@@ -124,5 +124,11 @@ export const cartItemStyles = makeStyles({
     '&>:last-child': {
       paddingLeft: '60px'
     }
+  }, 
+  cartHeader : {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center'
   }
 });

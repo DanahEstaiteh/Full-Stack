@@ -7,7 +7,7 @@ import { Category, CategoryTitle } from '../../Types';
 
 interface SelectPropsType {
   name: string;
-  label: string;
+  label?: string;
   value: string;
   error: string | undefined;
   onChange: (e: any) => void;
