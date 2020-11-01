@@ -63,8 +63,8 @@ const ProductDetails: React.FC<ProductDetailsProps> = (props) => {
                 <p>Expiration Date</p>
                 <p>
                  { productToShow? 
-                    format( new Date(productToShow.expirationDate),'dd/mm/yyyy'): 
-                    format( new Date(),'dd/mm/yyyy')
+                    format( new Date(productToShow.expirationDate),'dd/MM/yyyy'): 
+                    format( new Date(),'dd/MM/yyyy')
                     }
                    
                 </p>

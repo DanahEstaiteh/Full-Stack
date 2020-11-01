@@ -12,6 +12,7 @@ import { projectTheme } from '../../Styles/Style';
 import ConfirmDialog from '../Dialog/ConfirmDialog';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
+import ColorPicker from '../ColorPicker/ColorPicker';
 
 interface ProductFormPropsType {
    initialValues:Product;
@@ -137,7 +138,10 @@ const ProductForm: React.FC<ProductFormPropsType> = (props) => {
               onChange={productForm.handleChange}
             />
           </Grid>
-          <Grid item xs={12}></Grid>
+          <Grid item xs={12}>
+            <p>Choose color to Display in Pos</p>
+            <ColorPicker   onChange={(color) => productForm.setFieldValue('color', color)}/>
+          </Grid>
           <Grid item xs={12}>
             <input
               accept="image/*"
