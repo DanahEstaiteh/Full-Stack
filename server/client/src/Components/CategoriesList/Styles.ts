@@ -73,5 +73,8 @@ export const categoryStyles = makeStyles({
     backgroundColor: '#34495E',
     color: 'white',
     borderRadius: '5px'
+  },
+  CategoryPage: {
+    marginTop : '20px'
   }
 });

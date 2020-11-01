@@ -85,5 +85,8 @@ export const productStyles = makeStyles((theme: typeof projectTheme) => ({
     position: 'absolute',
     top: '40%',
     left: '50%'
+  },
+  ProductPage : {
+    marginTop : '20px'
   }
 }));

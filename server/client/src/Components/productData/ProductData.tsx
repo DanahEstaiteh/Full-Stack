@@ -129,7 +129,7 @@ const ProductData: React.FC = () => {
   return (
     <>
       <ThemeProvider theme={projectTheme}>
-        <Grid container>
+        <Grid container className={classes.ProductPage}>
           <Grid item xs={11}>
             <FilterProductList Data={products} onFilter={(data) => setProducts(data)} />
           </Grid>
@@ -149,18 +149,20 @@ const ProductData: React.FC = () => {
             </div>
           </Grid>
         </Grid>
-        
-        <HeaderList
-          productTitle={productTitle}
-          productData={products}
-          onSort={(data) => setProducts(data)}
-        />
- 
-        <ProductDataList productData={searchData}
-        handleSaveProduct={handleSaveProduct}
-        handleUpdateProduct={handleUpdateProduct}
-        handleDeleteProduct={handleDeleteProduct}
-        />
+        {
+          products.length !== 0 ? 
+          (<><HeaderList
+              productTitle={productTitle}
+              productData={products}
+              onSort={(data) => setProducts(data)} />
+
+              <ProductDataList productData={searchData}
+                handleSaveProduct={handleSaveProduct}
+                handleUpdateProduct={handleUpdateProduct}
+                handleDeleteProduct={handleDeleteProduct} /></> ): 
+        null
+        }
+       
         <PopUp
           title="Add Product"
           color="#34495E"

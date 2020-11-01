@@ -8,6 +8,7 @@ import { Item, Category, Cart, Product } from '../../Types';
 import CartItemsSection from '../CartItemsSection/CartItemsSection';
 import { getCategoryNamePosPage } from '../CategoriesList/CategoryFunctions';
 import StockItems from '../StockItems/StockItems';
+import { PosPgaeStyles } from './Style';
 
 const PosPage = () => {
   const [activeCart, setActiveCart] = useState<Cart>({_id: "", id: 0,time:new Date()});
@@ -15,7 +16,7 @@ const PosPage = () => {
   const [cartItems, setCartItems] = useState<Item[]>([]);
   const [carts, setCarts] = useState<Cart[]>([]);
   const [products, setProducts] = useState<Product[]>([]);
-
+  const classes = PosPgaeStyles();
 
   const categoryNames = getCategoryNamePosPage(categories);
 
@@ -140,7 +141,7 @@ console.log({carts})
     fetchProducts();
   }, []);
   return (
-    <Grid container spacing={1}>
+    <Grid container spacing={1} className={classes.PosPage}>
       <Grid item xs={5}>
          <CartItemsSection
          itemData={cartItems}

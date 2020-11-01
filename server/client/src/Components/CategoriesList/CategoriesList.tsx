@@ -205,14 +205,19 @@ useEffect(() => {
 }, []);
   const classes = categoryStyles();
   return (
-    <>
+    <Grid  container className={classes.CategoryPage}>
+      <Grid item xs={11}>
       <header className={classes.header}>
         <AddNew onSubmit={handleSaveCategory} lastId={categories.length} />
         <Search
                 onSearch={(searchKey) => handleSearch(searchKey)}
               />
       </header>
-      <HeaderList
+      </Grid>
+      {
+        categories.length !== 0 ? 
+        <> 
+        <HeaderList
         categoryTitle={categoryTitle}
         categoryData={categories}
         onSort={(data) => setCategories(data)}
@@ -221,7 +226,10 @@ useEffect(() => {
       handleDeleteCategory={handleDeleteCategory}
       handleUpdateCategory={handleUpdateCategory}
       />
-    </>
+        </> : 
+        null
+      }
+    </Grid>
   );
 };
 

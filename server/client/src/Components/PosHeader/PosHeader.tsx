@@ -1,5 +1,5 @@
 import React from 'react';
-import Link from '@material-ui/core/Link';
+//import Link from '@material-ui/core/Link';
 import logo from '../Images/pos-icon.png';
 import UserImage from '../Images/user.jpg';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -22,6 +22,7 @@ import ArrowDropUpIcon from '@material-ui/icons/ArrowDropUp';
 import Avatar from '@material-ui/core/Avatar';
 import useStyles from './styles';
 import { Collapse } from '@material-ui/core';
+import {Link} from 'react-router-dom';
 
 const preventDefault = (event: React.MouseEvent<HTMLElement>) =>
   event.preventDefault();
@@ -37,6 +38,7 @@ const HeaderItem: React.FC<HeaderItemProps> = (props) => {
   return (
     <li className={classes.item}>
       <Link
+        to={"/"+name}
         href={linkHref}
         onClick={preventDefault}
         className={classes.headerLink}
@@ -58,6 +60,7 @@ const HeaderListItem: React.FC<HeaderListItemProps> = (props) => {
       {/* TODO: Pass the icon itself */}
 
       <Link
+        to={"/"+name}
         href={linkHref}
         onClick={preventDefault}
         className={classes.headerLink}
