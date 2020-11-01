@@ -62,9 +62,11 @@ const ProductDetails: React.FC<ProductDetailsProps> = (props) => {
               <div className={classes.itemHead}>
                 <p>Expiration Date</p>
                 <p>
-                  {productToShow
-                    ? format(productToShow.expirationDate,'dd/mm/yyyy')
-                    : format(new Date(),'dd/mm/yyyy')}
+                 { productToShow? 
+                    format( new Date(productToShow.expirationDate),'dd/mm/yyyy'): 
+                    format( new Date(),'dd/mm/yyyy')
+                    }
+                   
                 </p>
               </div>
               <hr style={{ width: '100%' }} />
