@@ -1,4 +1,4 @@
-type DataType = Category | Product | Item | Cart;
+type DataType = Category | Product | Item | Cart | User;
 
 export interface Category {
   _id: string;
@@ -68,4 +68,8 @@ export type ApiDataType = {
   data?: DataType;
 };
 
-
+export type User = {
+  _id: string;
+  userName: string;
+  password: string;
+}

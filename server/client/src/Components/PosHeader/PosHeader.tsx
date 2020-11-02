@@ -29,17 +29,15 @@ const preventDefault = (event: React.MouseEvent<HTMLElement>) =>
 
 interface HeaderItemProps {
   icon: JSX.Element;
-  linkHref: string;
   name: string;
 }
 const HeaderItem: React.FC<HeaderItemProps> = (props) => {
   const classes = useStyles();
-  const { icon, linkHref, name } = props;
+  const { icon,  name } = props;
   return (
     <li className={classes.item}>
       <Link
         to={"/"+name}
-        href={linkHref}
         onClick={preventDefault}
         className={classes.headerLink}
       >
@@ -54,14 +52,13 @@ interface HeaderListItemProps extends HeaderItemProps {
 }
 const HeaderListItem: React.FC<HeaderListItemProps> = (props) => {
   const classes = useStyles();
-  const { icon, linkHref, name } = props;
+  const { icon,  name } = props;
   return (
     <li className={classes.lisItem}>
       {/* TODO: Pass the icon itself */}
 
       <Link
         to={"/"+name}
-        href={linkHref}
         onClick={preventDefault}
         className={classes.headerLink}
       >
@@ -113,19 +110,19 @@ const PosHeader = () => {
           icon={
             <FontAwesomeIcon icon={faCreditCard} className={classes.linkIcon} />
           }
-          linkHref="#"
+          
           name="POS"
         />
         <HeaderItem
           icon={
             <FontAwesomeIcon icon={faArchive} className={classes.linkIcon} />
           }
-          linkHref="#"
+          
           name="Products"
         />
         <HeaderListItem
           icon={<FontAwesomeIcon icon={faUsers} className={classes.linkIcon} />}
-          linkHref="#"
+          
           name="People"
           list={[]}
         />
@@ -134,34 +131,34 @@ const PosHeader = () => {
           icon={
             <FontAwesomeIcon icon={faMoneyBill} className={classes.linkIcon} />
           }
-          linkHref="#"
+          
           name="Sales"
         />
         <HeaderItem
           icon={
             <FontAwesomeIcon icon={faDollarSign} className={classes.linkIcon} />
           }
-          linkHref="#"
+          
           name="Expense"
         />
         <HeaderListItem
           icon={
             <FontAwesomeIcon icon={faBookmark} className={classes.linkIcon} />
           }
-          linkHref="#"
+          
           name="Categories"
           list={[]}
         />
         <HeaderItem
           icon={<FontAwesomeIcon icon={faCogs} className={classes.linkIcon} />}
-          linkHref="#"
+          
           name="Setting"
         />
         <HeaderItem
           icon={
             <FontAwesomeIcon icon={faChartLine} className={classes.linkIcon} />
           }
-          linkHref="#"
+          
           name="Reports"
         />
       </ul>

@@ -33,3 +33,8 @@ export interface Cart extends Document {
   cartId: number;
   time: Date;
 }
+
+export interface User extends Document {
+  userName: string;
+  password: string;
+}

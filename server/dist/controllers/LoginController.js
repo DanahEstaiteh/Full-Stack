@@ -1,43 +1,65 @@
 "use strict";
-var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
-}) : (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    o[k2] = m[k];
-}));
-var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
-    Object.defineProperty(o, "default", { enumerable: true, value: v });
-}) : function(o, v) {
-    o["default"] = v;
-});
-var __importStar = (this && this.__importStar) || function (mod) {
-    if (mod && mod.__esModule) return mod;
-    var result = {};
-    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
-    __setModuleDefault(result, mod);
-    return result;
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.UserController = exports.UserMongooseModel = void 0;
-const mongoose = __importStar(require("mongoose"));
-const User_1 = require("../models/User");
-exports.UserMongooseModel = mongoose.model('user', User_1.UserSchema);
-class UserController {
-    generateadmin(req, res) {
-        let data = [
-            {
-                "username": "dana@admin.com",
-                "password": "admin"
+exports.generateUser = exports.loginControl = exports.userMongooseModel = void 0;
+const User_1 = __importDefault(require("../models/User"));
+const bcrypt_1 = __importDefault(require("bcrypt"));
+const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
+exports.userMongooseModel = User_1.default;
+const loginControl = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { userName, password } = req.body;
+    try {
+        const user = yield exports.userMongooseModel.findOne({ userName: userName });
+        if (!user) {
+            return res
+                .status(400)
+                .json({ message: "No account with this Username" });
+        }
+        const isMatch = yield bcrypt_1.default.compare(password, user.password);
+        if (!isMatch) {
+            return res
+                .status(400)
+                .json({ message: "Incorrect password" });
+        }
+        const token = jsonwebtoken_1.default.sign({ id: user._id }, '5:A&:D[h)u{n[]&r');
+        res.json({
+            token,
+            user: {
+                id: user._id,
+                userName: user.userName,
             }
-        ];
-        exports.UserMongooseModel.collection.insert(data, function (err, docs) {
-            if (err) {
-                res.send(err);
-            }
-            res.json({ message: 'added admin' });
         });
     }
-}
-exports.UserController = UserController;
+    catch (error) {
+        throw error;
+    }
+});
+exports.loginControl = loginControl;
+const generateUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const salt = yield bcrypt_1.default.genSalt();
+        const passwordHash = yield bcrypt_1.default.hash("dana123", salt);
+        const newUser = new User_1.default({
+            userName: 'dana',
+            password: passwordHash,
+        });
+        const savedUser = yield newUser.save();
+        res.json(savedUser);
+    }
+    catch (err) {
+        throw err;
+    }
+});
+exports.generateUser = generateUser;
 //# sourceMappingURL=LoginController.js.map

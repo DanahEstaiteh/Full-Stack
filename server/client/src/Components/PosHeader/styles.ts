@@ -32,7 +32,8 @@ const useStyles = makeStyles({
   },
   headerLink: {
     color: 'gray',
-    paddingLeft: '3px'
+    paddingLeft: '3px',
+    textDecoration: 'none'
   },
   UserImage: {
     width: '30px',

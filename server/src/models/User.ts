@@ -1,10 +1,9 @@
-import mongoose from 'mongoose';
+import { User } from "./../types/types";
+import { model, Schema } from "mongoose";
 
-const Schema = mongoose.Schema;
 
-
-export const UserSchema = new Schema({
-    username: {
+export const user : Schema = new Schema({
+    userName: {
         type: String,
         required: true
     },
@@ -12,4 +11,8 @@ export const UserSchema = new Schema({
         type: String,
         required: true
     }
-});
+},
+{ timestamps: true }
+);
+
+export default model<User>("user", user)

@@ -427,8 +427,8 @@
         "affectsGlobalScope": false
       },
       "./src/types/types.ts": {
-        "version": "5ee4ff17ce1f96e95a698c6d3245c28ba828798665ada3a3cfd67a867edab4cb",
-        "signature": "253a0ec9440d18f4c1fff534a0516c3af3d169849b1709623355e0ca43d716ff",
+        "version": "19fb4d9051cf4dd241e5de216d55e037429ac8a50269b670582310bb58183a86",
+        "signature": "809ce979f5dabbc5208993c5b259619ff9a475e65b4c8401b8e9981eba52bc87",
         "affectsGlobalScope": false
       },
       "./src/models/products.ts": {
@@ -462,13 +462,23 @@
         "affectsGlobalScope": false
       },
       "./src/models/user.ts": {
-        "version": "c87592235e8b71a8d5d3a65500c907c1d8ab30f4b69abb49c8e32e52199b6828",
-        "signature": "dca217ee9bb460263917b03681213a1b2a98a641b1c918349f1607d692b181af",
+        "version": "54c3b16070895c3b4df47c95bb41d89105c0dae9961d4b18c0ef8e29611f0513",
+        "signature": "fc6ec23614757bb2cafcc1b8cc53c381fa55245b959b10ad554dfbb9ce13088b",
+        "affectsGlobalScope": false
+      },
+      "./node_modules/@types/bcrypt/index.d.ts": {
+        "version": "18b9a9702d2fc7d3766b0c8124133c761ad25a9d767925005777eb2c2cd8aeba",
+        "signature": "18b9a9702d2fc7d3766b0c8124133c761ad25a9d767925005777eb2c2cd8aeba",
+        "affectsGlobalScope": false
+      },
+      "./node_modules/@types/jsonwebtoken/index.d.ts": {
+        "version": "f67c920eba6ab8e4558cb9ab661d900188f101c5657e19b1e15829a1d491d46e",
+        "signature": "f67c920eba6ab8e4558cb9ab661d900188f101c5657e19b1e15829a1d491d46e",
         "affectsGlobalScope": false
       },
       "./src/controllers/logincontroller.ts": {
-        "version": "b5a9b3fb0bd3059b7f3e6e7836a6b95efad316ec184642e4872d08576a46e7d6",
-        "signature": "4eaf32fce7fba028308e0c809a35535cbb6ea6fa96fad659fbda24ec98d46061",
+        "version": "7d9ddce5f9e67bfde9820ca5a528aab1735b8d55c15a4176fa56be6ad55aad09",
+        "signature": "e261267d2a197fda3828c5072120def0c0fe94814145ac10abe7b6c8dfcbe2c1",
         "affectsGlobalScope": false
       },
       "./src/models/cartitem.ts": {
@@ -492,8 +502,8 @@
         "affectsGlobalScope": false
       },
       "./src/routes/index.ts": {
-        "version": "3defe8ba3d873073dcfbb4ce69856c049fe28f7f6c67382315fddb5c63fd2a99",
-        "signature": "fbde89f72eb415c04d72113835db3d4b40a5756f18242b999911f884b809373c",
+        "version": "a7defed97b754fb10b9b08baad76269f72036254eabc25980a583ecda1ef2a52",
+        "signature": "5fa2747aa30366b602cafc3bf8406667df3b1a016c78fd00c0b58c0ad8339da9",
         "affectsGlobalScope": false
       },
       "./src/app.ts": {
@@ -509,6 +519,21 @@
       "./node_modules/@types/cors/index.d.ts": {
         "version": "7ba5854095e85c14e153f087b1232e19ed2fee62a7fefd8bf57e0956edab4ae2",
         "signature": "7ba5854095e85c14e153f087b1232e19ed2fee62a7fefd8bf57e0956edab4ae2",
+        "affectsGlobalScope": false
+      },
+      "./node_modules/@types/express-unless/index.d.ts": {
+        "version": "b1fbe17d300be84cbec570dbc95b2ac322f6c108054591b02195641f0608756f",
+        "signature": "b1fbe17d300be84cbec570dbc95b2ac322f6c108054591b02195641f0608756f",
+        "affectsGlobalScope": false
+      },
+      "./node_modules/@types/express-jwt/index.d.ts": {
+        "version": "1b377d42c5073a3d3c7f538a587274d9895e9446328501d236f3a97fccfe7583",
+        "signature": "1b377d42c5073a3d3c7f538a587274d9895e9446328501d236f3a97fccfe7583",
+        "affectsGlobalScope": false
+      },
+      "./node_modules/@types/jwt-simple/index.d.ts": {
+        "version": "8b95186640e12d692da480308002df7c51aefb2ebc6a7f0f402a74c8e7a4265e",
+        "signature": "8b95186640e12d692da480308002df7c51aefb2ebc6a7f0f402a74c8e7a4265e",
         "affectsGlobalScope": false
       },
       "./node_modules/@types/multer/index.d.ts": {
@@ -571,6 +596,10 @@
       "./node_modules/@types/cors/index.d.ts": [
         "./node_modules/@types/express/index.d.ts"
       ],
+      "./node_modules/@types/express-jwt/index.d.ts": [
+        "./node_modules/@types/express-unless/index.d.ts",
+        "./node_modules/@types/express/index.d.ts"
+      ],
       "./node_modules/@types/express-serve-static-core/index.d.ts": [
         "./node_modules/@types/node/events.d.ts",
         "./node_modules/@types/node/http.d.ts",
@@ -578,11 +607,17 @@
         "./node_modules/@types/qs/index.d.ts",
         "./node_modules/@types/range-parser/index.d.ts"
       ],
+      "./node_modules/@types/express-unless/index.d.ts": [
+        "./node_modules/@types/express/index.d.ts"
+      ],
       "./node_modules/@types/express/index.d.ts": [
         "./node_modules/@types/body-parser/index.d.ts",
         "./node_modules/@types/express-serve-static-core/index.d.ts",
         "./node_modules/@types/qs/index.d.ts",
         "./node_modules/@types/serve-static/index.d.ts"
+      ],
+      "./node_modules/@types/jsonwebtoken/index.d.ts": [
+        "./node_modules/@types/node/index.d.ts"
       ],
       "./node_modules/@types/mongodb/index.d.ts": [
         "./node_modules/@types/bson/index.d.ts",
@@ -801,9 +836,13 @@
         "./src/models/checkouts.ts"
       ],
       "./src/controllers/logincontroller.ts": [
+        "./node_modules/@types/bcrypt/index.d.ts",
+        "./node_modules/@types/body-parser/index.d.ts",
         "./node_modules/@types/express/index.d.ts",
+        "./node_modules/@types/jsonwebtoken/index.d.ts",
         "./node_modules/@types/mongoose/index.d.ts",
-        "./src/models/user.ts"
+        "./src/models/user.ts",
+        "./src/types/types.ts"
       ],
       "./src/controllers/productcontroller.ts": [
         "./node_modules/@types/body-parser/index.d.ts",
@@ -832,7 +871,8 @@
         "./src/types/types.ts"
       ],
       "./src/models/user.ts": [
-        "./node_modules/@types/mongoose/index.d.ts"
+        "./node_modules/@types/mongoose/index.d.ts",
+        "./src/types/types.ts"
       ],
       "./src/routes/index.ts": [
         "./node_modules/@types/body-parser/index.d.ts",
@@ -843,8 +883,7 @@
         "./src/controllers/categorycontroller.ts",
         "./src/controllers/checkoutcontroller.ts",
         "./src/controllers/logincontroller.ts",
-        "./src/controllers/productcontroller.ts",
-        "./src/models/user.ts"
+        "./src/controllers/productcontroller.ts"
       ],
       "./src/server.ts": [
         "./src/app.ts"
@@ -869,6 +908,10 @@
       "./node_modules/@types/cors/index.d.ts": [
         "./node_modules/@types/express/index.d.ts"
       ],
+      "./node_modules/@types/express-jwt/index.d.ts": [
+        "./node_modules/@types/express-unless/index.d.ts",
+        "./node_modules/@types/express/index.d.ts"
+      ],
       "./node_modules/@types/express-serve-static-core/index.d.ts": [
         "./node_modules/@types/node/events.d.ts",
         "./node_modules/@types/node/http.d.ts",
@@ -876,11 +919,17 @@
         "./node_modules/@types/qs/index.d.ts",
         "./node_modules/@types/range-parser/index.d.ts"
       ],
+      "./node_modules/@types/express-unless/index.d.ts": [
+        "./node_modules/@types/express/index.d.ts"
+      ],
       "./node_modules/@types/express/index.d.ts": [
         "./node_modules/@types/body-parser/index.d.ts",
         "./node_modules/@types/express-serve-static-core/index.d.ts",
         "./node_modules/@types/qs/index.d.ts",
         "./node_modules/@types/serve-static/index.d.ts"
+      ],
+      "./node_modules/@types/jsonwebtoken/index.d.ts": [
+        "./node_modules/@types/node/index.d.ts"
       ],
       "./node_modules/@types/mongodb/index.d.ts": [
         "./node_modules/@types/bson/index.d.ts",
@@ -1096,7 +1145,8 @@
       ],
       "./src/controllers/logincontroller.ts": [
         "./node_modules/@types/express/index.d.ts",
-        "./node_modules/@types/mongoose/index.d.ts"
+        "./node_modules/@types/mongoose/index.d.ts",
+        "./src/types/types.ts"
       ],
       "./src/controllers/productcontroller.ts": [
         "./node_modules/@types/express/index.d.ts",
@@ -1123,24 +1173,28 @@
         "./src/types/types.ts"
       ],
       "./src/models/user.ts": [
-        "./node_modules/@types/mongoose/index.d.ts"
+        "./node_modules/@types/mongoose/index.d.ts",
+        "./src/types/types.ts"
       ],
       "./src/routes/index.ts": [
-        "./node_modules/@types/mongoose/index.d.ts",
-        "./src/controllers/checkoutcontroller.ts",
-        "./src/controllers/logincontroller.ts"
+        "./src/controllers/checkoutcontroller.ts"
       ],
       "./src/types/types.ts": [
         "./node_modules/@types/mongoose/index.d.ts"
       ]
     },
     "semanticDiagnosticsPerFile": [
+      "./node_modules/@types/bcrypt/index.d.ts",
       "./node_modules/@types/body-parser/index.d.ts",
       "./node_modules/@types/bson/index.d.ts",
       "./node_modules/@types/connect/index.d.ts",
       "./node_modules/@types/cors/index.d.ts",
+      "./node_modules/@types/express-jwt/index.d.ts",
       "./node_modules/@types/express-serve-static-core/index.d.ts",
+      "./node_modules/@types/express-unless/index.d.ts",
       "./node_modules/@types/express/index.d.ts",
+      "./node_modules/@types/jsonwebtoken/index.d.ts",
+      "./node_modules/@types/jwt-simple/index.d.ts",
       "./node_modules/@types/mime/index.d.ts",
       "./node_modules/@types/mongodb/index.d.ts",
       "./node_modules/@types/mongoose/index.d.ts",

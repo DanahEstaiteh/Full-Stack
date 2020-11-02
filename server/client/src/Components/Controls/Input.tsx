@@ -9,11 +9,13 @@ interface InputProps {
   value: string | number;
   error: string | undefined;
   type: string;
+  className?: string;
+  disabled?: boolean;
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 const Input: React.FC<InputProps> = (props) => {
-  const { name, label, value, error = null, onChange, type, ...others } = props;
+  const { name, label, value, error = null, onChange, type, disabled ,className} = props;
   return (
     <TextField
       variant="outlined"
@@ -22,7 +24,8 @@ const Input: React.FC<InputProps> = (props) => {
       value={value}
       onChange={onChange}
       type={type}
-      {...others}
+      disabled={disabled}
+      className={className}
       {...(error && { error: true, helperText: error })}
     />
   );

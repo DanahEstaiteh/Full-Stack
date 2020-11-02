@@ -23,13 +23,20 @@ export const useStyles = makeStyles((theme) => ({
     justifyContent: 'center',
     flexDirection: 'column',
     '& div': {
-      width: '100%'
+      width: '100%',
+     
+    },
+    '& .MuiFormControl-root': {
+      marginBottom: '30px'
     }
   },
   formInput: {
-    marginBottom: '15px',
+    marginBottom: '30px',
     width: '300px',
-    height: '50px'
+    height: '50px',
+    "& .MuiFormControl-root" :{
+      marginBottom: '30px'
+    }
   },
   formButton: {
     width: '100%',

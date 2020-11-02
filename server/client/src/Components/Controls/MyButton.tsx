@@ -12,21 +12,24 @@ interface MyButtonProps {
   text: string;
   color: colorType;
   size: sizeType;
-  onClick?: (event: any) => void;
   type: buttonType;
+  className?: string;
+  disabled?: boolean;
+  onClick?: (event: any) => void;
 }
 
 const MyButton: React.FC<MyButtonProps> = (props) => {
-  const { text, variant, size, type, color, ...others } = props;
+  const { text, variant, size, type, color, className, disabled} = props;
   const classes = myButtonStyles();
   return (
     <Button
       variant={variant}
       size={size}
       color={color}
-      {...others}
+      className={className}
       type={type}
       classes={{ root: classes.root, label: classes.label }}
+      disabled={disabled}
     >
       {text}
     </Button>

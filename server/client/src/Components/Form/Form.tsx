@@ -1,26 +1,51 @@
 import React from 'react';
 import Button from '@material-ui/core/Button';
 import {
-  makeStyles,
-  createMuiTheme,
   ThemeProvider
 } from '@material-ui/core/styles';
 import { ButtonTheme, useStyles } from './styles';
 import { Grid } from '@material-ui/core';
 import TextField from '@material-ui/core/TextField/TextField';
-
+import { useFormik } from 'formik';
+import * as yup from 'yup';
+import { User } from '../../Types';
+import {handleLogin} from '../../PosAPIS/LoginAPI';
+import Controls from '../Controls';
 interface PropsType {
   isLogin: boolean;
   login: string;
 }
 
-const handleClick = () => {
-  alert('login is clicked');
-};
+
 
 const Form: React.FC<PropsType> = (props) => {
   const classes = useStyles();
   const { login, isLogin } = props;
+
+  const initialLoginValue : User = {
+    _id : '',
+   userName: "",
+   password: ""
+  };
+
+  const validationSchema = yup.object({
+    userName: yup.string().required('UserName is Required !'),
+    password: yup.string()
+  .required('password is Required !') 
+  .min(4, 'Password is too short')
+  .matches(/^[0-9a-zA-Z]+$/, 'Password must contain letters and number')
+  });
+
+  const handleSubmit = (values : User) => {
+    handleLogin(values);
+  };
+
+const loginForm = useFormik({
+  initialValues :initialLoginValue,
+  onSubmit: handleSubmit,
+  validationSchema : validationSchema
+});
+
   return (
     <Grid
       container
@@ -36,44 +61,47 @@ const Form: React.FC<PropsType> = (props) => {
             <h3 className={classes.formName}>MedicKabisha</h3>
             <h5 className={classes.formHeader}>Login to Your Account</h5>
           </Grid>
-          <form noValidate autoComplete="off" className={classes.form}>
-            <TextField
-              variant="outlined"
-              className={
-                isLogin
-                  ? `${classes.formInput} ${classes.formInputSubmit}`
-                  : `${classes.formInput}`
-              }
-              label="UserName"
-              disabled={isLogin}
-              value={isLogin ? 'Admin' : ''}
-              type="text"
-              placeholder="UserName"
-              fullWidth
+          <form noValidate autoComplete="off" className={classes.form} onSubmit={loginForm.handleSubmit}>
+            <Controls.Input 
+            id="UserName"
+            name="userName"
+            label="UserName"
+            disabled={isLogin}
+            value={loginForm.values.userName}
+            error={loginForm.errors.userName}
+            type="text"
+            className={
+              isLogin
+                ? `${classes.formInput} ${classes.formInputSubmit}`
+                : `${classes.formInput}`
+            }
+            onChange={loginForm.handleChange}
             />
-            <TextField
-              className={
-                isLogin
-                  ? `${classes.formInput} ${classes.formInputSubmit}`
-                  : `${classes.formInput}`
-              }
-              label="Password"
-              type="password"
-              disabled={isLogin}
-              placeholder="Password"
-              value={isLogin ? 'password' : ''}
-              fullWidth
+            <Controls.Input 
+            id="Password"
+            name="password"
+            label="Password"
+            disabled={isLogin}
+            value={loginForm.values.password}
+            error={loginForm.errors.password}
+            type="password"
+            className={
+              isLogin
+                ? `${classes.formInput} ${classes.formInputSubmit}`
+                : `${classes.formInput}`
+            }
+            onChange={loginForm.handleChange}
             />
             <ThemeProvider theme={ButtonTheme}>
-              <Button
-                onClick={handleClick}
-                className={`${classes.formButton} ${login}`}
+              <Controls.MyButton 
+              variant="contained"
+              type="submit"
+              color='primary'
+              size="medium"
+              text="Login"
+              className={`${classes.formButton} ${login}`}
                 disabled={isLogin}
-                variant="contained"
-                color="primary"
-              >
-                Login{' '}
-              </Button>
+              />
             </ThemeProvider>
             <div>© Demo 2018</div>
           </form>

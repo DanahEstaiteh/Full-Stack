@@ -1,57 +1,23 @@
 "use strict";
-var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
-}) : (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    o[k2] = m[k];
-}));
-var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
-    Object.defineProperty(o, "default", { enumerable: true, value: v });
-}) : function(o, v) {
-    o["default"] = v;
-});
-var __importStar = (this && this.__importStar) || function (mod) {
-    if (mod && mod.__esModule) return mod;
-    var result = {};
-    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
-    __setModuleDefault(result, mod);
-    return result;
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Routes = void 0;
 const ProductController_1 = require("../controllers/ProductController");
 const CategoryController_1 = require("../controllers/CategoryController");
 const CheckoutController_1 = require("../controllers/CheckoutController");
 const LoginController_1 = require("../controllers/LoginController");
-const mongoose = __importStar(require("mongoose"));
-const User_1 = require("../models/User");
 const CartItemController_1 = require("../controllers/CartItemController");
 const CartController_1 = require("../controllers/CartController");
 class Routes {
     constructor() {
         this.checkoutController = new CheckoutController_1.CheckoutController();
-        this.userController = new LoginController_1.UserController();
-        this.UserMongooseModel = mongoose.model('user', User_1.UserSchema);
     }
     routes(app) {
         app.route('/')
             .get((req, res) => {
             res.send("Login");
         });
-        app.route('/')
-            .post((req, res) => {
-            const username = req.body.username;
-            const pass = req.body.password;
-            this.UserMongooseModel.find({ "username": { $eq: username }, "password": { $eq: pass } }, (err, data) => {
-                if (data.length == 0) {
-                    res.send("Sorry, you enter wrong username and password");
-                }
-                else {
-                    res.send("welcome ...");
-                }
-            });
-        });
+        app.route('/login')
+            .post(LoginController_1.loginControl);
         // Get all categories
         app.route('/api/categories')
             .get(CategoryController_1.getCategories);
@@ -133,9 +99,9 @@ class Routes {
         // generate checkout data
         app.route('/checkout/firstData')
             .get(this.checkoutController.generateFirstData);
-        // generate admin user
-        app.route('/user/firstData')
-            .get(this.userController.generateadmin);
+        // generate  user
+        app.route('/user/firsUser')
+            .get(LoginController_1.generateUser);
     }
 }
 exports.Routes = Routes;
