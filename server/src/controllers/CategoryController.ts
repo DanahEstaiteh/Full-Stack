@@ -21,7 +21,7 @@ const addCategory = async (req: Request, res: Response): Promise<void> => {
   
       res
         .status(201)
-        .json({ message: "Category added", product: newCategory, Categories: allCategories })
+        .json({ message: "Category added", data: newCategory, allData: allCategories })
     } catch (error) {
       throw error
     }
@@ -61,8 +61,8 @@ const updateCategory = async (req: Request, res: Response): Promise<void> => {
           console.log({allCategories})
           res.status(200).json({
             message: "Category updated",
-            category: updateCategory,
-            categories: allCategories,
+            data: updateCategory,
+            allData: allCategories,
           })
         } catch (error) {
           throw error
@@ -76,8 +76,8 @@ const deleteCategory = async (req: Request, res: Response): Promise<void> => {
           const allCategories: Category[] = await CategoryMongooseModel.find()
           res.status(200).json({
             message: "Category deleted",
-            category: deletedCategory,
-            categories: allCategories,
+            data: deletedCategory,
+            allData: allCategories,
           })
         } catch (error) {
           throw error

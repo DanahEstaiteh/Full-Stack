@@ -36,7 +36,7 @@ const addProduct = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
         const allProducts = yield exports.ProductMongooseModel.find();
         res
             .status(201)
-            .json({ message: "Product added", product: newProduct, products: allProducts });
+            .json({ message: "Product added", data: newProduct, allData: allProducts });
     }
     catch (error) {
         throw error;
@@ -71,9 +71,7 @@ const updateProduct = (req, res) => __awaiter(void 0, void 0, void 0, function* 
         const allProducts = yield exports.ProductMongooseModel.find();
         console.log({ allProducts });
         res.status(200).json({
-            message: "Product updated",
-            product: updateProduct,
-            Products: allProducts,
+            message: "Product Updated", data: updateProduct, allData: allProducts
         });
     }
     catch (error) {
@@ -87,8 +85,8 @@ const deleteProduct = (req, res) => __awaiter(void 0, void 0, void 0, function* 
         const allProducts = yield exports.ProductMongooseModel.find();
         res.status(200).json({
             message: "Product deleted",
-            product: deletedProduct,
-            products: allProducts,
+            data: deletedProduct,
+            allData: allProducts,
         });
     }
     catch (error) {
@@ -351,7 +349,7 @@ const generateFirstProducts = (req, res) => __awaiter(void 0, void 0, void 0, fu
             color: '#ef9a9a'
         }
     ];
-    exports.ProductMongooseModel.collection.insert(data, function (err, docs) {
+    exports.ProductMongooseModel.collection.insert(data, function (err) {
         if (err) {
             res.send(err);
         }

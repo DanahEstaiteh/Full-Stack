@@ -1,8 +1,6 @@
-import * as mongoose from 'mongoose';
 import  product  from '../models/Products';
 import { Request, Response } from 'express';
 import {Product} from '../types/types';
-import bodyParser from 'body-parser';
 
 export const ProductMongooseModel = product;
 
@@ -32,7 +30,7 @@ const addProduct = async (req: Request, res: Response): Promise<void> => {
 
     res
       .status(201)
-      .json({ message: "Product added", product: newProduct, products: allProducts })
+      .json({ message: "Product added", data: newProduct, allData: allProducts })
   } catch (error) {
     throw error
   }
@@ -71,9 +69,7 @@ const addProduct = async (req: Request, res: Response): Promise<void> => {
         const allProducts: Product[] = await ProductMongooseModel.find()
         console.log({allProducts})
         res.status(200).json({
-          message: "Product updated",
-          product: updateProduct,
-          Products: allProducts,
+          message: "Product Updated", data: updateProduct, allData: allProducts 
         })
       } catch (error) {
         throw error
@@ -87,8 +83,8 @@ const addProduct = async (req: Request, res: Response): Promise<void> => {
         const allProducts: Product[] = await ProductMongooseModel.find()
         res.status(200).json({
           message: "Product deleted",
-          product: deletedProduct,
-          products: allProducts,
+          data: deletedProduct,
+          allData: allProducts,
         })
       } catch (error) {
         throw error
@@ -350,7 +346,7 @@ const addProduct = async (req: Request, res: Response): Promise<void> => {
           }
         ];
           
-        ProductMongooseModel.collection.insert(data, function (err, docs) { 
+        ProductMongooseModel.collection.insert(data, function (err) { 
             if (err){
                 res.send(err);
             }

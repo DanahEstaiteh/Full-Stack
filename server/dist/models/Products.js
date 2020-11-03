@@ -39,6 +39,14 @@ const product = new mongoose_1.Schema({
     expirationDate: {
         type: Date,
         required: true
+    },
+    productDescription: {
+        type: String,
+        required: true
+    },
+    tax: {
+        type: Number,
+        required: true
     }
 }, { timestamps: true });
 exports.default = mongoose_1.model("product", product);

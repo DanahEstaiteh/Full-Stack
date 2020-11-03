@@ -10,7 +10,7 @@ function App() {
 
   return (
     <div className="App">
-      <Form  isLogin={false} login="login"/>
+      <Main />
       
     </div>
   );

@@ -9,14 +9,15 @@ import Button from '@material-ui/core/Button/Button';
 
 interface ProductDetailsProps {
   isOpen: boolean;
-  onClose: () => void;
   Data: Product[];
-  code: string;
+  productId: string;
+  onClose: () => void;
+ 
 }
 
 const ProductDetails: React.FC<ProductDetailsProps> = (props) => {
-  const { isOpen, onClose, Data, code } = props;
-  const productToShow = Data?.find((pro) => pro.code === code);
+  const { isOpen, onClose, Data, productId } = props;
+  const productToShow = Data?.find((pro) => pro._id === productId);
   const classes = ProductDetailsStyles();
   console.log({Data})
   return (

@@ -10,7 +10,6 @@ import TablePaginationDemo from '../Pagination/TablePaginationDemo';
 import ProductDetails from '../ProductDetails/ProductDetails';
 import PopUp from '../PopUp/PopUp';
 import ProductForm from '../ProductForm/ProductForm';
-import CircularProgress from '@material-ui/core/CircularProgress/CircularProgress';
 import { projectTheme } from '../../Styles/Style';
 import ConfirmDailog from '../Dialog/ConfirmDialog';
 
@@ -22,7 +21,7 @@ interface ProductDataListProps {
   handleDeleteProduct: (id : string) => void;
 }
 
-export const initialEditProduct = {
+export const initialProductValues = {
   _id: "",
   id: 0,
   code: '',
@@ -37,56 +36,46 @@ export const initialEditProduct = {
   expirationDate: new Date(),
   color: ''
 };
-export const initialErrors = {
-  name: '',
-  rawPrice: '',
-  code: '',
-  category: '',
-  expirationDate: '',
-  price: '',
-  count: ''
-};
+
+const pages = [5, 10, 15];
 
 const ProductDataList: React.FC<ProductDataListProps> = (props) => {
   const { productData , handleUpdateProduct , handleSaveProduct , handleDeleteProduct} = props;
 
-  const [data, setData] = useState<Product[]>([]);
-  const [openProductDetails, setOpenopenProductDetails] = useState<boolean>(
+  const [products, setProducts] = useState<Product[]>([]);
+  const [productId, setProductId] = useState<string>('');
+  const [page, setPage] = useState<number>(0);
+  const [rowsPerPage, setRowsPerPage] = useState<number>(pages[page]);
+  const [isOpenProductEditForm, setIsOpenProductEditForm] = useState<boolean>(false);
+  const [isOpenConfirmDialog, setIsOpenConfirmDialog] = useState<boolean>(false);
+  const [isOpenProductDetails, setIsOpenopenProductDetails] = useState<boolean>(
     false
   );
-  const [productId, setProductId] = useState<string>('');
-  const [loading, setLoading] = useState<boolean>(false);
-  const pages = [5, 10, 15];
-  const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(pages[page]);
-  const [openProductEdit, setOpenopenProductEdit] = useState<boolean>(false);
-  const [openConfirmDialog, setOpenConfirmDialog] = useState<boolean>(false);
-
   const [productForEdit, setProductForEdit] = useState<Product>(
-    initialEditProduct
+    initialProductValues
   );
+ 
   const classes = productStyles();
   const handleOpenConfirmDialog = (id: string) => {
-    setOpenConfirmDialog(true);
+    setIsOpenConfirmDialog(true);
     setProductId(id);
   };
   const handleCloseConfirmDialog = () => {
-    setOpenConfirmDialog(false);
+    setIsOpenConfirmDialog(false);
   };
   const handleCloseProductDetails = () => {
-    setOpenopenProductDetails(false);
+    setIsOpenopenProductDetails(false);
   };
-  const handleOpenProductDetails = (code: string) => {
-    setProductId(code);
-    setOpenopenProductDetails(true);
+  const handleOpenProductDetails = (id: string) => {
+    setProductId(id);
+    setIsOpenopenProductDetails(true);
   };
   const handleOpenEditProduct = (product: Product) => {
     setProductForEdit(product);
-    console.log({product});
-    setOpenopenProductEdit(true);
+    setIsOpenProductEditForm(true);
   };
   const handleCloseEditProduct = () => {
-    setOpenopenProductEdit(false);
+    setIsOpenProductEditForm(false);
   };
   
 
@@ -104,23 +93,15 @@ const ProductDataList: React.FC<ProductDataListProps> = (props) => {
     setPage(0);
   };
   const dataAfterPaging = () => {
-    return productData?.slice(page * rowsPerPage, (page + 1) * rowsPerPage);
+    return productData.slice(page * rowsPerPage, (page + 1) * rowsPerPage);
   };
 
+ 
+//
   useEffect(() => {
-    console.log({ loading });
-    setTimeout(() => {
-      setLoading(false);
-    }, 1000);
-  }, [loading]);
-
-  useEffect(() => {
-    setData(productData);
+    setProducts(productData);
   }, [productData]);
 
-  useEffect(() => {
-    console.log({ data });
-  }, [data]);
 
   return (
     <>
@@ -165,23 +146,23 @@ const ProductDataList: React.FC<ProductDataListProps> = (props) => {
             </Grid>
           ))}
           <ConfirmDailog
-            isOpen={openConfirmDialog}
+            isOpen={isOpenConfirmDialog}
             onClose={handleCloseConfirmDialog}
             onConfirm={() => handleDeleteProduct(productId)}
           >
             Are you sure you want to delete this product?
           </ConfirmDailog>
           <ProductDetails
-            isOpen={openProductDetails}
+            isOpen={isOpenProductDetails}
             onClose={handleCloseProductDetails}
-            Data={data}
-            code={productId}
+            Data={products}
+            productId={productId}
           />
         </Grid>
          <TablePaginationDemo
-          count={data.length}
-          data={data}
-          onChangePage={(data) => setData(data as Product[])}
+          count={products.length}
+          data={products}
+          onChangePage={(data) => setProducts(data as Product[])}
           onHandleChangePage={handleChangePage}
           onHandleChangeRowsPerPage={handleChangeRowsPerPage}
           page={page}
@@ -191,14 +172,13 @@ const ProductDataList: React.FC<ProductDataListProps> = (props) => {
         <PopUp
           title="Edit Product"
           color="#34495E"
-          openPopup={openProductEdit}
-          setOpenPopup={setOpenopenProductEdit}
+          openPopup={isOpenProductEditForm}
+          setOpenPopup={setIsOpenProductEditForm}
           onClose={() => handleCloseEditProduct}
         >
            <ProductForm
             initialValues={productForEdit}
-            onCloseForm={() => setOpenopenProductEdit(false)}
-            onLoading={(isLoading) => setLoading(isLoading)}
+            onCloseForm={() => setIsOpenProductEditForm(false)}
             handleAddProduct={handleSaveProduct}
             handleUpdateProduct={handleUpdateProduct}
           /> 
@@ -206,7 +186,6 @@ const ProductDataList: React.FC<ProductDataListProps> = (props) => {
            
          
         </PopUp>
-        {loading && <CircularProgress className={classes.circularProgress} />}
       </ThemeProvider>
     </>
   );

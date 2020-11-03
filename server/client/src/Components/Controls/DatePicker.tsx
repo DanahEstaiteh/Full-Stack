@@ -15,10 +15,7 @@ const DatePicker: React.FC<DatePickerProps> = (props) => {
   const [selectedDate, handleDateChange] = useState(new Date());
   const { onChange, name, minDate , value} = props;
 
-  const onChangeFirst = (date: Date) => {
-    handleDateChange(date);
-    onChange(selectedDate);
-  };
+ 
 
   return (
     <MuiPickersUtilsProvider utils={DateFnsUtils}>

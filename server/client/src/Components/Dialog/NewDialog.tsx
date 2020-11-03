@@ -18,17 +18,13 @@ const NewDialog: React.FC<EdittDialogProps> = (props) => {
   const { onSubmit, isOpen, onClose ,lastId} = props;
   const [nameInput, setNameInput] = useState<string>('');
 
-  const handleSubmit = () => {
-    let newCategory: Category = {
+  
+    const newCategory: Category = {
       _id: "",
       id: (lastId + 1).toString(),
       categoryName: nameInput,
       createdAt: new Date()
     };
-    
-    onSubmit(newCategory);
-    onClose();
-  };
 
   const classes = useStyles();
 
@@ -64,7 +60,7 @@ const NewDialog: React.FC<EdittDialogProps> = (props) => {
           <Button className={classes.dialogButton} onClick={onClose}>
             Cancel
           </Button>
-          <Button className={classes.dialogSubmitButton} onClick={handleSubmit}>
+          <Button className={classes.dialogSubmitButton} onClick={() => onSubmit(newCategory)}>
             Submit
           </Button>
         </DialogActions>

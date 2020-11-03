@@ -2,30 +2,19 @@ import DatePicker from 'react-datepicker';
 import React, { useState } from 'react';
 import { FilterProductStyles } from './style';
 import Controls from '../Controls';
-import { Product } from '../../Types';
-import { format } from 'date-fns';
+
+
 
 interface filterPropsType {
-  onFilter: (newData:Product []) => void;
-  Data: Product[];
+  onFilter: ( fromDate: Date, toDate: Date ) => void;
 }
 
 const FilterProductList: React.FC<filterPropsType> = (props) => {
   const classes = FilterProductStyles();
   const [fromDate, setFromDate] = useState<Date>(new Date());
   const [toDate, setToDate] = useState<Date>(new Date());
-  const { onFilter , Data} = props;
-  const handleFilter = () => {
-    console.log({ fromDate, toDate });
-    let newData =  Data.filter(
-      (x) => format(new Date(x.expirationDate), 'dd/MM/yyyy') >= format(new Date(fromDate), 'dd/MM/yyyy') && format(new Date(x.expirationDate), 'dd/MM/yyyy') <= format(new Date(toDate), 'dd/mm/yyyy')
-    );
-    onFilter(newData);
-    console.log({newData});
-    const from = format(new Date(fromDate),'dd/MM/yyyy');
-    const to = format(new Date(toDate),'dd/MM/yyyy');
-    console.log({from , to});
-  };
+  const { onFilter} = props;
+  
   return (
     <div className={classes.filterContainer}>
       <p>Expiration Date</p>
@@ -46,7 +35,7 @@ const FilterProductList: React.FC<filterPropsType> = (props) => {
       <Controls.MyButton
         text="Apply Filter"
         variant="outlined"
-        onClick={() => handleFilter()}
+        onClick={() => onFilter(fromDate,toDate)}
         size="medium"
         color="default"
         type="button"

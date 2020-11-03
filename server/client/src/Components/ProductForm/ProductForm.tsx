@@ -17,7 +17,6 @@ import ColorPicker from '../ColorPicker/ColorPicker';
 interface ProductFormPropsType {
    initialValues:Product;
    onCloseForm: () => void;
-   onLoading: (isLoading: true) => void;
   handleUpdateProduct: (product: Product) => void;
   handleAddProduct: (product: Product) => void;
 }
@@ -25,13 +24,12 @@ interface ProductFormPropsType {
 const ProductForm: React.FC<ProductFormPropsType> = (props) => {
   const {
     initialValues,
-    onLoading,
     onCloseForm,
     handleUpdateProduct,
     handleAddProduct
   } = props;
   const [selectedDate, setSelectedDate] = useState<Date>(new Date());
-  const [open, setOpen] = useState<boolean>(false);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
   const classes = ProductFormStyles();
 
   const validationSchema = yup.object({
@@ -46,27 +44,17 @@ const ProductForm: React.FC<ProductFormPropsType> = (props) => {
       .required('Price is Required !'),
     code: yup.string().required('Product code is Required!')
   });
-  const handleDateChange = (date: Date) => {
-    setSelectedDate(date);
-  };
-
+ 
   const productForm = useFormik({
     initialValues: initialValues,
     onSubmit: (values: Product) => {
-      onLoading(true);
-      
-      console.log({ values });
       if (values.id !== 0) {
-        values.expirationDate = selectedDate;
+       values.expirationDate = selectedDate;
         handleUpdateProduct(values);
-        //setData(editData);
       } else {
         values.expirationDate = selectedDate;
         handleAddProduct(values);
-        //setData(newData);
       }
-
-      //addOrEdit(data);
     },
     validationSchema: validationSchema
   });
@@ -183,7 +171,7 @@ const ProductForm: React.FC<ProductFormPropsType> = (props) => {
           <Grid item xs={12}>
             <Controls.DatePicker
               name="expirationDate"
-              onChange={(date) => handleDateChange(date)}
+              onChange={(date) => setSelectedDate(date)}
               minDate={new Date()}
               value={productForm.values.expirationDate}
             />
@@ -203,16 +191,16 @@ const ProductForm: React.FC<ProductFormPropsType> = (props) => {
                 variant="contained"
                 size="medium"
                 type="button"
-                onClick={() => setOpen(true)}
+                onClick={() => setIsOpen(true)}
               />
             </div>
           </Grid>
         </Grid>
       </form>
        <ConfirmDialog
-        isOpen={open}
+        isOpen={isOpen}
         onConfirm={onCloseForm}
-        onClose={() => setOpen(false)}
+        onClose={() => setIsOpen(false)}
       >
         Are you sure you want to close form?
       </ConfirmDialog> 

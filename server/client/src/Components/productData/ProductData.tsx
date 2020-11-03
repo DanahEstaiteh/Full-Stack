@@ -9,7 +9,7 @@ import PopUp from '../PopUp/PopUp';
 import ProductForm from '../ProductForm/ProductForm';
 import Search from '../Search/Search';
 import HeaderList from './HeaderList';
-import ProductDataList from './productDataList';
+import ProductDataList from './ProductDataList';
 import { productStyles } from './style';
 import { productTitle} from '../../Data/Data';
 import {
@@ -18,87 +18,89 @@ import {
   updaetProduct,
   deleteProduct
 } from '../../PosAPIS/ProductAPIs';
+import { format } from 'date-fns';
 
+const initialValues = {
+  _id: "",
+  id: 0,
+  code: '',
+  name: '',
+  category: '',
+  productDescription: '',
+  tax: 0,
+  price: 0,
+  img: '',
+  rawPrice: 0,
+  count: 0,
+  expirationDate: new Date(),
+  color: ''
+};
 
 
 const ProductData: React.FC = () => {
   const [products, setProducts] = useState<Product[]>([]);
-  const [loading, setLoading] = useState<boolean>(false);
-  const [openProductEdit, setOpenopenProductEdit] = useState<boolean>(false);
-  const [searchData, setSearchData] = useState<Product[]>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [searchKeyword, setSearchKeyword] = useState<string>('');
+
   const classes = productStyles();
- 
+
+  const searchData  = 
+    products.filter((x) =>
+     Object.values(x)
+    .join(' ')
+    .toLowerCase()
+    .includes(searchKeyword.toLowerCase()))
+  
+
   const handleOpenPopup = () => {
-    setOpenopenProductEdit(true);
+    setIsOpen(true);
   };
   const handleClosePopup = () => {
-    setOpenopenProductEdit(false);
+    setIsOpen(false);
   };
-  const initialValues = {
-    _id: "",
-    id: 0,
-    code: '',
-    name: '',
-    category: '',
-    productDescription: '',
-    tax: 0,
-    price: 0,
-    img: '',
-    rawPrice: 0,
-    count: 0,
-    expirationDate: new Date(),
-    color: ''
-  };
+
+  const handleFilter = (fromDate: Date , toDate: Date) => {
+   const filteredProducts = products.filter(
+      (x) => format(new Date(x.expirationDate), 'dd/MM/yyyy') >= format(new Date(fromDate), 'dd/MM/yyyy') && format(new Date(x.expirationDate), 'dd/MM/yyyy') <= format(new Date(toDate), 'dd/mm/yyyy')
+    );
+    setProducts(filteredProducts);
+  } 
 
   
-  const handleSearch = (seacrhKey : string) => {
-    
-    if (seacrhKey.length !== 0){
-      const newProducts= products.filter((x) =>
-      Object.values(x)
-        .join(' ')
-        .toLowerCase()
-        .includes(seacrhKey.toLowerCase()));
-        setSearchData(newProducts);
-        console.log({newProducts})
-    }
-       else {
-        setSearchData(products);
-       }
-       console.log({searchData})
-}
  
-
  
   const fetchProducts = (): void => {
     getProducts()
       .then(({ data: { products } }: Product[] | any) => {setProducts(products)})
-      .catch((err: Error) => setProducts([]));
+      .catch(() => setProducts([]));
   };
   const handleSaveProduct = (formData: Product): void => {
-    console.log({formData});
+    handleClosePopup();
+    setIsLoading(true);
     addNewProduct(formData)
       .then(({ status, data }) => {
         if (status !== 201) {
           throw new Error('Error! Product not saved');
         }
         setProducts(data.allData as Product[]);
-        console.log({products})
       })
-      .catch((err: any) => console.log(err));
+      .catch((err: any) => console.log(err))
+      .finally(() => setIsLoading(false));
   };
   const handleUpdateProduct = (product: Product): void => {
-    console.log({product})
+    handleClosePopup();
+    setIsLoading(true);
     updaetProduct(product)
       .then(({ status, data }) => {
-        
         if (status !== 200) {
           throw new Error('Error! Product not updated');
         }
         setProducts(data.allData as Product[]);
         
       })
-      .catch((err) => console.log(err));
+      .catch((err) => console.log(err))
+      .finally(() => setIsLoading(false));
   };
 
   const handleDeleteProduct = (_id: string): void => {
@@ -108,20 +110,11 @@ const ProductData: React.FC = () => {
           throw new Error('Error! product not deleted');
         }
         setProducts(data.allData as Product[]);
-        console.log({products})
       })
       .catch((err) => console.log(err));
   };
-  useEffect(() => {
-    setProducts(products);
-    setSearchData(products);
-  }, [products]);
-  useEffect(() => {
-    console.log({ loading });
-    setTimeout(() => {
-      setLoading(false);
-    }, 1000);
-  }, [loading]);
+
+  
   useEffect(() => {
     fetchProducts();
   }, []);
@@ -131,11 +124,11 @@ const ProductData: React.FC = () => {
       <ThemeProvider theme={projectTheme}>
         <Grid container className={classes.ProductPage}>
           <Grid item xs={11}>
-            <FilterProductList Data={products} onFilter={(data) => setProducts(data)} />
+            <FilterProductList onFilter={(fromDate,toDate) => handleFilter(fromDate,toDate)} />
           </Grid>
           <Grid item xs={11}>
             <div className={classes.headTwo}>
-              <Controls.MyButton
+            <Controls.MyButton
                 variant="contained"
                 type="button"
                 text="new product"
@@ -144,7 +137,7 @@ const ProductData: React.FC = () => {
                 onClick={() => handleOpenPopup()}
               />
               <Search
-                onSearch={(searchKey) => handleSearch(searchKey)}
+                onSearch={(searchKey) => setSearchKeyword(searchKey)}
               />
             </div>
           </Grid>
@@ -165,20 +158,19 @@ const ProductData: React.FC = () => {
        
         <PopUp
           title="Add Product"
-          color="#34495E"
-          openPopup={openProductEdit}
+          color="secondary"
+          openPopup={isOpen}
           onClose={handleClosePopup}
-          setOpenPopup={setOpenopenProductEdit}
+          setOpenPopup={setIsOpen}
         >
             <ProductForm
             initialValues={initialValues}
             onCloseForm={handleClosePopup}
-            onLoading={(isLoading) => setLoading(isLoading)}
             handleAddProduct={handleSaveProduct}
             handleUpdateProduct={handleUpdateProduct}
           /> 
         </PopUp>
-        {loading && <CircularProgress />}
+        {isLoading && <CircularProgress />}
       </ThemeProvider>
     </>
   );

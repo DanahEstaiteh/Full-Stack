@@ -432,13 +432,13 @@
         "affectsGlobalScope": false
       },
       "./src/models/products.ts": {
-        "version": "44389e5d813acbfc9958cf625452e0475c846b9b2d99a3149be29ef520f1a639",
+        "version": "b6a55937c0fde16b376516e5b60f9976db2c64cf1b49c044ab52e9b0dd1432e1",
         "signature": "66d7b3e44c0e6730d0ec332eb6baa4d2e6f8a1f154eb651586e8a40359e75077",
         "affectsGlobalScope": false
       },
       "./src/controllers/productcontroller.ts": {
-        "version": "a68ad940d8a368a0a1e43a1281d401a8676b1393e903ffd41e4c0438d3b5a0a8",
-        "signature": "6df1f59cebc522684a8718bb9c3b4e6299cad267ca9b28fa6297b6d2c402150e",
+        "version": "d77b811fd74da0fd9c2e219441afa26612b80a3e925fb317704b7e67104dd2a9",
+        "signature": "28394a7a3ddaf809e70290a2add0a06ed5f17fc08a3201e295ad44051f22acf0",
         "affectsGlobalScope": false
       },
       "./src/models/category.ts": {
@@ -447,7 +447,7 @@
         "affectsGlobalScope": false
       },
       "./src/controllers/categorycontroller.ts": {
-        "version": "69e9fc5788386fe045ec574e7b6d6643867936e8688e32809e1ede1c551c00de",
+        "version": "a665cdf10d77d92a99cf6cbde17280911d604d1c31ce0fca44462a4e4d53bbfb",
         "signature": "19e796f05b65bb68911d5b249cf2afd8b78d6e9a8e29ab5ffb0a01624301ebc2",
         "affectsGlobalScope": false
       },
@@ -487,7 +487,7 @@
         "affectsGlobalScope": false
       },
       "./src/controllers/cartitemcontroller.ts": {
-        "version": "5fbf492cb5003fe5478dd8500c974ef93dc5983f970bfdcfc7583ac961b138c4",
+        "version": "5410e382ebc7b425287539f6504656640d3cb128ca77d3d07c98ab1eb2ab8dd0",
         "signature": "a6cd96c8e58e7693f4c3c4da38c8491fa70f42f27c50b8a09c93da707c3fbc2e",
         "affectsGlobalScope": false
       },
@@ -497,7 +497,7 @@
         "affectsGlobalScope": false
       },
       "./src/controllers/cartcontroller.ts": {
-        "version": "1d6246da0b81961326ccf68c85b5f2efbdae9265ec7826d18b9f6ca9c05a5f77",
+        "version": "c463d710a1766d73f455c12718e84f1ab77e19fdc2dc199bf7c9194e38fa9dec",
         "signature": "9093f780183313232d5a674b964a1d1f99ad6a0f18e40893a041513fbd614ff5",
         "affectsGlobalScope": false
       },
@@ -845,9 +845,7 @@
         "./src/types/types.ts"
       ],
       "./src/controllers/productcontroller.ts": [
-        "./node_modules/@types/body-parser/index.d.ts",
         "./node_modules/@types/express/index.d.ts",
-        "./node_modules/@types/mongoose/index.d.ts",
         "./src/models/products.ts",
         "./src/types/types.ts"
       ],

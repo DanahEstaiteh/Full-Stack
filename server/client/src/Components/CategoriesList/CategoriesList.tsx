@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { Grid, Box } from '@material-ui/core';
 import ClearIcon from '@material-ui/icons/Clear';
 import EditIcon from '@material-ui/icons/Edit';
-import { format } from 'date-fns';
 
 import EditDialog from '../Dialog/EditDialog';
 
@@ -10,7 +9,6 @@ import { Category } from '../../Types';
 import { categoryStyles } from './Styles';
 import Search from '../Search/Search';
 import TablePaginationDemo from '../Pagination/TablePaginationDemo';
-import AddNew from '../AddNew/AddNew';
 import HeaderList from './HeaderList';
 import ConfirmDailog from '../Dialog/ConfirmDialog';
 import { categoryTitle } from '../../Data/Data';
@@ -20,6 +18,8 @@ import {
   updaetCategory,
   deleteCategory
 } from '../../PosAPIS/CategoryAPIs';
+import Controls from '../Controls';
+import NewDialog from '../Dialog/NewDialog';
 
 
 interface CategoryListProps {
@@ -32,10 +32,14 @@ const CategoryData: React.FC<CategoryListProps> = (props) => {
   const classes = categoryStyles();
   const { categoryData , handleDeleteCategory,handleUpdateCategory} = props;
   const [data, setData] = useState<Category[]>([]);
-  const [open, setOpen] = useState<boolean>(false);
-  const [openEditDialog, setOpenEditDialog] = useState<boolean>(false);
-  const [itemId, setItemId] = useState<string>('');
-  const [itemName, setItemName] = useState<string>('');
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [isOpenEditDialog, setIsOpenEditDialog] = useState<boolean>(false);
+  const [categoryForEdit, setCategoryForEdit] = useState<Category>({
+    categoryName: '',
+    id: '',
+    _id: '',
+    createdAt: new Date()
+  });
   const pages = [5, 10, 15];
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(pages[page]);
@@ -58,18 +62,18 @@ const CategoryData: React.FC<CategoryListProps> = (props) => {
   };
 
   const handleCloseConfirmDialog = () => {
-    setOpen(false);
+    setIsOpen(false);
   };
   const handleOpenConfirmDialog = (id : string) => {
-    setOpen(true);
+    setIsOpen(true);
     handleDeleteCategory(id);
   };
   const handleCloseEditDialog = () => {
-    setOpenEditDialog(false);
+    setIsOpenEditDialog(false);
   };
   const handleOpenEditDialog = (category: Category) => {
-    setItemName(category.categoryName);
-    setOpenEditDialog(true);
+    setCategoryForEdit(category);
+    setIsOpenEditDialog(true);
   };
 
  
@@ -95,7 +99,7 @@ const CategoryData: React.FC<CategoryListProps> = (props) => {
               <Box key={Category.id}>
                 <ClearIcon
                   className={classes.actionIcon}
-                  onClick={() => setOpen(true)}
+                  onClick={() => setIsOpen(true)}
                 />
                 <EditIcon
                   className={classes.actionIcon}
@@ -104,7 +108,7 @@ const CategoryData: React.FC<CategoryListProps> = (props) => {
               </Box>
             </Grid>
             <ConfirmDailog
-              isOpen={open}
+              isOpen={isOpen}
               onClose={handleCloseConfirmDialog}
               onConfirm={() => handleOpenConfirmDialog(Category._id)}
             >
@@ -114,9 +118,8 @@ const CategoryData: React.FC<CategoryListProps> = (props) => {
         ))}
 
         <EditDialog
-          Data={data}
-          CategoryName={itemName}
-          isOpen={openEditDialog}
+          category={categoryForEdit}
+          isOpen={isOpenEditDialog}
           onSubmit={(category) => handleUpdateCategory(category)}
           onClose={handleCloseEditDialog}
         />
@@ -137,31 +140,23 @@ const CategoryData: React.FC<CategoryListProps> = (props) => {
 
 const CategoriesList: React.FC = () => {
   const [categories, setCategories] = useState<Category[]>([]);
-  const [searchData, setSearchData] = useState<Category[]>([]);
+  const [searchKeyword, setSearchKeyword] = useState<string>('');
+  const [isOpen, setIsOpen] = useState<boolean>(false);
 
-  const handleSearch = (seacrhKey : string) => {
-    
-    if (seacrhKey.length !== 0){
-      const newCategories= categories.filter((x) =>
-      Object.values(x)
-        .join(' ')
-        .toLowerCase()
-        .includes(seacrhKey.toLowerCase()));
-        setSearchData(newCategories);
-        console.log({newCategories})
-    }
-       else {
-        setSearchData(categories);
-       }
-       console.log({searchData})
-}
+  const searchData = categories.filter((x) =>
+  Object.values(x)
+    .join(' ')
+    .toLowerCase()
+    .includes(searchKeyword.toLowerCase()))
+ 
+  
 const fetchCategories = (): void => {
   getCategories()
     .then(({ data: { categories } }: Category[] | any) => {setCategories(categories)})
-    .catch((err: Error) => setCategories([]));
+    .catch(() => setCategories([]));
 };
 const handleSaveCategory = (formData: Category): void => {
-  console.log({formData});
+  handleCloseNewDialog();
   addNewCategory(formData)
     .then(({ status, data }) => {
       if (status !== 201) {
@@ -172,7 +167,6 @@ const handleSaveCategory = (formData: Category): void => {
     .catch((err: any) => console.log(err));
 };
 const handleUpdateCategory = (category: Category): void => {
-  console.log({category})
   updaetCategory(category)
     .then(({ status, data }) => {
       
@@ -196,10 +190,15 @@ const handleDeleteCategory = (_id: string): void => {
     })
     .catch((err) => console.log(err));
 };
-useEffect(() => {
-  setCategories(categories);
-  setSearchData(categories);
-}, [categories]);
+
+const handleOpenNewDialog= () => {
+  setIsOpen(true);
+}
+
+const handleCloseNewDialog= () => {
+  setIsOpen(false);
+}
+
 useEffect(() => {
   fetchCategories();
 }, []);
@@ -208,11 +207,25 @@ useEffect(() => {
     <Grid  container className={classes.CategoryPage}>
       <Grid item xs={11}>
       <header className={classes.header}>
-        <AddNew onSubmit={handleSaveCategory} lastId={categories.length} />
+        <Controls.MyButton 
+         variant="outlined"
+         text="Add New"
+         type="button"
+         color="primary"        
+         size="medium"
+         className={classes.headerButton}
+         onClick={handleOpenNewDialog}
+        />
         <Search
-                onSearch={(searchKey) => handleSearch(searchKey)}
+                onSearch={(searchKey) => setSearchKeyword(searchKey)}
               />
       </header>
+      <NewDialog
+       lastId={categories.length}
+        isOpen={isOpen}
+        onSubmit={(category) =>  handleSaveCategory(category)}
+        onClose={handleCloseNewDialog}
+      />
       </Grid>
       {
         categories.length !== 0 ? 

@@ -42,6 +42,14 @@ import { model, Schema } from "mongoose";
     expirationDate: {
         type: Date,
         required: true
+    },
+    productDescription: {
+        type: String,
+        required: true
+    },
+    tax: {
+        type: Number,
+        required: true
     }
 },
 { timestamps: true }

@@ -14,6 +14,12 @@ interface AlertDialogProps {
 const DeleteDialog: React.FC<AlertDialogProps> = (props) => {
   const { isOpen, onConfirm, onClose, children } = props;
 
+const handleConfirm = () => {
+  onConfirm();
+  onClose();
+}
+
+
   return (
     <Dialog
       open={isOpen}
@@ -30,7 +36,7 @@ const DeleteDialog: React.FC<AlertDialogProps> = (props) => {
         <Button onClick={onClose} color="primary">
           No
         </Button>
-        <Button onClick={onConfirm} color="primary" autoFocus>
+        <Button onClick={handleConfirm} color="primary" autoFocus>
           Yes
         </Button>
       </DialogActions>

@@ -27,7 +27,7 @@ const addCategory = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
         const allCategories = yield exports.CategoryMongooseModel.find();
         res
             .status(201)
-            .json({ message: "Category added", product: newCategory, Categories: allCategories });
+            .json({ message: "Category added", data: newCategory, allData: allCategories });
     }
     catch (error) {
         throw error;
@@ -63,8 +63,8 @@ const updateCategory = (req, res) => __awaiter(void 0, void 0, void 0, function*
         console.log({ allCategories });
         res.status(200).json({
             message: "Category updated",
-            category: updateCategory,
-            categories: allCategories,
+            data: updateCategory,
+            allData: allCategories,
         });
     }
     catch (error) {
@@ -78,8 +78,8 @@ const deleteCategory = (req, res) => __awaiter(void 0, void 0, void 0, function*
         const allCategories = yield exports.CategoryMongooseModel.find();
         res.status(200).json({
             message: "Category deleted",
-            category: deletedCategory,
-            categories: allCategories,
+            data: deletedCategory,
+            allData: allCategories,
         });
     }
     catch (error) {

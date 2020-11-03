@@ -19,7 +19,7 @@ interface MyButtonProps {
 }
 
 const MyButton: React.FC<MyButtonProps> = (props) => {
-  const { text, variant, size, type, color, className, disabled} = props;
+  const { text, variant, size, type, color, className, disabled,onClick} = props;
   const classes = myButtonStyles();
   return (
     <Button
@@ -30,6 +30,7 @@ const MyButton: React.FC<MyButtonProps> = (props) => {
       type={type}
       classes={{ root: classes.root, label: classes.label }}
       disabled={disabled}
+      onClick={onClick}
     >
       {text}
     </Button>

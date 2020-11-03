@@ -1,5 +1,4 @@
 import React from 'react';
-//import Link from '@material-ui/core/Link';
 import logo from '../Images/pos-icon.png';
 import UserImage from '../Images/user.jpg';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -14,91 +13,64 @@ import {
   faSignOutAlt,
   faMoneyBill
 } from '@fortawesome/free-solid-svg-icons';
-import ListItem from '@material-ui/core/ListItem';
-import List from '@material-ui/core/List';
-import LanguageIcon from '@material-ui/icons/Language';
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
-import ArrowDropUpIcon from '@material-ui/icons/ArrowDropUp';
+
+
 import Avatar from '@material-ui/core/Avatar';
 import useStyles from './styles';
-import { Collapse } from '@material-ui/core';
+
 import {Link} from 'react-router-dom';
+import LanguageList from './LanguageList';
 
 const preventDefault = (event: React.MouseEvent<HTMLElement>) =>
   event.preventDefault();
 
 interface HeaderItemProps {
   icon: JSX.Element;
-  name: string;
+  headerItemName: string;
 }
 const HeaderItem: React.FC<HeaderItemProps> = (props) => {
   const classes = useStyles();
-  const { icon,  name } = props;
+  const { icon,  headerItemName } = props;
   return (
     <li className={classes.item}>
       <Link
-        to={"/"+name}
+        to={"/"+headerItemName}
         onClick={preventDefault}
         className={classes.headerLink}
       >
         {icon}
-        {name}
+        {headerItemName}
       </Link>
     </li>
   );
 };
-interface HeaderListItemProps extends HeaderItemProps {
-  list: string[];
+
+
+interface HeaderListItemProps {
+  icon: JSX.Element;
+  headerItemName: string;
+  list : string [];
 }
+
 const HeaderListItem: React.FC<HeaderListItemProps> = (props) => {
   const classes = useStyles();
-  const { icon,  name } = props;
+  const { icon, headerItemName } = props;
   return (
     <li className={classes.lisItem}>
-      {/* TODO: Pass the icon itself */}
-
       <Link
-        to={"/"+name}
+        to={"/"+headerItemName}
         onClick={preventDefault}
         className={classes.headerLink}
       >
         {icon}
-        {name}
+        {headerItemName}
         <ArrowDropDownIcon className={classes.arrowDropDown} />
       </Link>
     </li>
   );
 };
-const LanguageList: React.FC = () => {
-  const [open, setOpen] = React.useState<boolean>(false);
-  const classes = useStyles();
 
-  const language = ['arabic', 'Hindi', 'Chinese'];
-  const handleClick = () => {
-    setOpen(!open);
-  };
-  return (
-    <List>
-      <ListItem>
-        <LanguageIcon />
-        {open ? (
-          <ArrowDropUpIcon onClick={handleClick} />
-        ) : (
-          <ArrowDropDownIcon onClick={handleClick} />
-        )}
-      </ListItem>
-      <Collapse in={open} timeout="auto" unmountOnExit>
-        <List component="div" disablePadding className={classes.nestedList}>
-          {language.map((el) => (
-            <ListItem button key={el} className={classes.nested}>
-              {el}
-            </ListItem>
-          ))}
-        </List>
-      </Collapse>
-    </List>
-  );
-};
 const PosHeader = () => {
   const classes = useStyles();
   return (
@@ -111,19 +83,19 @@ const PosHeader = () => {
             <FontAwesomeIcon icon={faCreditCard} className={classes.linkIcon} />
           }
           
-          name="POS"
+          headerItemName="POS"
         />
         <HeaderItem
           icon={
             <FontAwesomeIcon icon={faArchive} className={classes.linkIcon} />
           }
           
-          name="Products"
+          headerItemName="Products"
         />
         <HeaderListItem
           icon={<FontAwesomeIcon icon={faUsers} className={classes.linkIcon} />}
           
-          name="People"
+          headerItemName="People"
           list={[]}
         />
 
@@ -132,34 +104,34 @@ const PosHeader = () => {
             <FontAwesomeIcon icon={faMoneyBill} className={classes.linkIcon} />
           }
           
-          name="Sales"
+          headerItemName="Sales"
         />
         <HeaderItem
           icon={
             <FontAwesomeIcon icon={faDollarSign} className={classes.linkIcon} />
           }
           
-          name="Expense"
+          headerItemName="Expense"
         />
         <HeaderListItem
           icon={
             <FontAwesomeIcon icon={faBookmark} className={classes.linkIcon} />
           }
           
-          name="Categories"
+          headerItemName="Categories"
           list={[]}
         />
         <HeaderItem
           icon={<FontAwesomeIcon icon={faCogs} className={classes.linkIcon} />}
           
-          name="Setting"
+          headerItemName="Setting"
         />
         <HeaderItem
           icon={
             <FontAwesomeIcon icon={faChartLine} className={classes.linkIcon} />
           }
           
-          name="Reports"
+          headerItemName="Reports"
         />
       </ul>
       <ul className={classes.headerListRight}>

@@ -10,30 +10,35 @@ import { useStyles } from './style';
 
 interface EdittDialogProps {
   isOpen: boolean;
+  category: Category;
   onClose: () => void;
-  CategoryName: string;
   onSubmit: (newCat: Category) => void;
-  Data: Category[];
+ 
 }
 
 const EditDialog: React.FC<EdittDialogProps> = (props) => {
-  const { Data, onSubmit, isOpen, onClose, CategoryName } = props;
-  const [nameInput, setNameInput] = useState<string>(CategoryName);
+  const {  onSubmit, isOpen, onClose, category } = props;
+  const [categoryName, setCategoryName] = useState<string>(category.categoryName);
 
-  const handleSubmit = () => {
-    const index = Data.findIndex(
-      (cat: Category) => cat['categoryName'] === CategoryName
-    );
-    const newCategory = Data[index];
-    newCategory.categoryName = nameInput;
-    onSubmit(newCategory);
-    onClose();
-  };
+  const newCategory : Category = {
+    ...category,
+    categoryName: categoryName
+  
+  }
+
+const handleSumbit = () => {
+  onSubmit(newCategory);
+  onClose();
+}
+
+
+
+
 
   const classes = useStyles();
   useEffect(() => {
-    setNameInput(CategoryName);
-  }, [CategoryName]);
+    setCategoryName(category.categoryName);
+  }, [category]);
   return (
     <div>
       <Dialog
@@ -48,7 +53,7 @@ const EditDialog: React.FC<EdittDialogProps> = (props) => {
         }}
       >
         <DialogTitle className={classes.dialogHeader} id="form-dialog-title">
-          Edit {CategoryName}
+          Edit {category.categoryName}
         </DialogTitle>
         <DialogContent style={{ overflow: 'hidden' }}>
           <label className={classes.dialogLabel} htmlFor="name">
@@ -58,15 +63,15 @@ const EditDialog: React.FC<EdittDialogProps> = (props) => {
             className={classes.dialogInput}
             id="name"
             type="text"
-            value={nameInput}
-            onChange={(e) => setNameInput(e.target.value)}
+            value={categoryName}
+            onChange={(e) => setCategoryName(e.target.value)}
           />
         </DialogContent>
         <DialogActions className={classes.dialogAction}>
           <Button className={classes.dialogButton} onClick={onClose}>
             Cancel
           </Button>
-          <Button className={classes.dialogSubmitButton} onClick={handleSubmit}>
+          <Button className={classes.dialogSubmitButton} onClick={handleSumbit}>
             Submit
           </Button>
         </DialogActions>

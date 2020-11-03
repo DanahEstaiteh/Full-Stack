@@ -17,7 +17,8 @@ const useStyles = makeStyles({
     width: '100%',
     top: 0,
     height: '70px',
-    boxShadow: '2px 2px 2px 1px grey'
+    boxShadow: '2px 2px 2px 1px grey',
+    backgroundColor: 'white'
   },
   item: {
     listStyleType: 'none',
