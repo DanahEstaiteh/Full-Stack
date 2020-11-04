@@ -1,40 +1,34 @@
 import Button from '@material-ui/core/Button/Button';
 import List from '@material-ui/core/List/List';
 import ListItem from '@material-ui/core/ListItem/ListItem';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Cart } from '../../Types';
 import { cartItemStyles } from './Style';
 import AddIcon from '@material-ui/icons/Add';
 import RemoveIcon from '@material-ui/icons/Remove';
 import ConfirmDialog from '../Dialog/ConfirmDialog';
-import { addNewCart } from '../../PosAPIS/CartAPIs';
 
-interface CartTAbPropsType {
+interface CartTabPropsType {
   cartList: Cart[];
-  active: number;
-  handleChangeActive: (cart: Cart) => void;
+  activeCartId: number;
+  handleChangeActiveCart: (cart: Cart) => void;
   onDelete: (id : number) => void;
   onSaveCart: (newCart : Cart) => void;
 }
 
-const CartTab: React.FC<CartTAbPropsType> = (props) => {
-  const { cartList, active, handleChangeActive , onDelete ,onSaveCart} = props;
-  const [open, setOpen] = useState<boolean>(false);
+const CartTab: React.FC<CartTabPropsType> = (props) => {
+  const { cartList, activeCartId, handleChangeActiveCart , onDelete ,onSaveCart} = props;
+  const [isOpen, setIsOpen] = useState<boolean>(false);
   const classes = cartItemStyles();
-  const handleAddTab = () => {
-    let lastId = cartList.length ? cartList[cartList.length - 1].id : 1;
-    console.log({ lastId });
-    let newCart = {_id: "", id: lastId + 1, time: new Date() };
-    onSaveCart(newCart);
-  };
 
- 
+const lastId = cartList.length ? cartList[cartList.length - 1].id : 0;
+const newCart : Cart = {_id: "", id: lastId + 1, time: new Date() };
 
   const handleClose = () => {
-    setOpen(false);
+    setIsOpen(false);
   };
   const handleOpen = () => {
-    setOpen(true);
+    setIsOpen(true);
   };
 
   return (
@@ -43,11 +37,11 @@ const CartTab: React.FC<CartTAbPropsType> = (props) => {
         {cartList?.map((cart) => (
           <ListItem key={cart.id + ''} className={classes.tab}>
             <Button
-              onClick={(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) =>
-                handleChangeActive(cart)
+              onClick={() =>
+                handleChangeActiveCart(cart)
               }
               className={`${classes.buttonTab} ${
-                cart.id === active ? `${classes.selectedTab}` : ''
+                cart.id === activeCartId ? `${classes.selectedTab}` : ''
               }`}
             >
               <div className={classes.id}>{cart.id}</div>
@@ -61,9 +55,9 @@ const CartTab: React.FC<CartTAbPropsType> = (props) => {
         ))}
         <ListItem className={classes.tab}>
           <Button
-            onClick={handleAddTab}
+            onClick={() => onSaveCart(newCart)}
             className={`${classes.buttonIconTab} ${
-              0 === active ? `${classes.selectedTab}` : ''
+             -1 === activeCartId ? `${classes.selectedTab}` : ''
             }`}
           >
             <AddIcon />
@@ -73,16 +67,16 @@ const CartTab: React.FC<CartTAbPropsType> = (props) => {
           <Button
             onClick={handleOpen}
             className={`${classes.buttonIconTab} ${
-              1 === active ? `${classes.selectedTab}` : ''
+              0 === activeCartId ? `${classes.selectedTab}` : ''
             }`}
           >
             <RemoveIcon />
           </Button>
         </ListItem>
         <ConfirmDialog
-          isOpen={open}
+          isOpen={isOpen}
           onClose={handleClose}
-          onConfirm={() => onDelete(active)}
+          onConfirm={() => onDelete(activeCartId)}
         >
           Are you sure you want to delete this cart?
         </ConfirmDialog>

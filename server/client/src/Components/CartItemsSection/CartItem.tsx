@@ -1,5 +1,4 @@
 import { Paper, ListItem } from '@material-ui/core';
-
 import React, { useEffect, useState } from 'react';
 import { Item } from '../../Types/index';
 import ConfirmDialog from '../Dialog/ConfirmDialog';
@@ -17,15 +16,15 @@ const CartItem: React.FC<CartItemPropsType> = (props) => {
   const { item, onChangeItemCount, onDelete } = props;
 
   const [count, setCount] = useState<number>(1);
-  const [open, setOpen] = useState<boolean>(false);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
   const classes = cartItemStyles();
 
   const handleClose = () => {
-    setOpen(false);
+    setIsOpen(false);
   };
 
   const handleOpen = () => {
-    setOpen(true);
+    setIsOpen(true);
   };
   const totalPrice = React.useMemo(() => item.price * count, [count]);
 
@@ -54,7 +53,7 @@ const CartItem: React.FC<CartItemPropsType> = (props) => {
       </ListItem>
 
       <ListItem>{totalPrice} GTQ</ListItem>
-      <ConfirmDialog isOpen={open} onClose={handleClose} onConfirm={onDelete}>
+      <ConfirmDialog isOpen={isOpen} onClose={handleClose} onConfirm={onDelete}>
         Are you sure you want to delete this item ?
       </ConfirmDialog>
     </Paper>

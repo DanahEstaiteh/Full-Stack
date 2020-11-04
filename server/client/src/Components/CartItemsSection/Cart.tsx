@@ -2,7 +2,6 @@ import React, { useEffect } from 'react';
 import { Item } from '../../Types/index';
 import List from '@material-ui/core/List/List';
 import CartItem from './CartItem';
-import { useState } from 'react';
 import { cartFooterStyles } from './FooterStyle';
 import EmptyCart from './EmptyCart';
 

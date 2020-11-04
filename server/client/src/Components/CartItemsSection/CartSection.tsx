@@ -17,12 +17,12 @@ const headerlist = ['Product', 'Price', 'Quantity', 'Total'];
 
 const CartSection: React.FC<CartSectionPropsType> = (props) => {
   const { itemList, onCancel ,handleDeleteItem} = props;
-
   const [items, setItems] = useState<Item[]>([]);
+
   const classes = cartItemStyles();
 
   const handleCountChange = (index: number, newCount: number) => {
-    const newData = itemList.map((item, currentIndex) => {
+    const newItemList = itemList.map((item, currentIndex) => {
       if (currentIndex === index) {
         return {
           ...item,
@@ -33,7 +33,7 @@ const CartSection: React.FC<CartSectionPropsType> = (props) => {
       }
     });
 
-    setItems(newData);
+    setItems(newItemList);
   };
 
   

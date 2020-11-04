@@ -36,7 +36,7 @@ const CartItemsSection: React.FC<CartItemsSectionPropsTypes> = (props) => {
 
 const getActiveItems = () => {
   console.log(activeCart.id)
-  if(activeCart.id < 2){
+  if(activeCart.id < 1){
     setActiveItem([]);
   }else{
     const activeItem = itemData?.filter((item) => item.cartId === activeCart.id);
@@ -58,7 +58,7 @@ useEffect(() => {
     <Paper className={classes.root}>
       <Grid container item xs={12} spacing={2} className={classes.container}>
         <Grid item xs={12}>
-        <CartTab cartList={cartList} active={activeCart.id} onDelete={() => handleDeleteActiveCart(activeItem)} handleChangeActive={handleChangeActive} onSaveCart={handleSaveCart}/> 
+        <CartTab cartList={cartList} activeCartId={activeCart.id} onDelete={() => handleDeleteActiveCart(activeItem)} handleChangeActiveCart={handleChangeActive} onSaveCart={handleSaveCart}/> 
           <Grid item xs={12}>
             <Divider className={classes.divider} />
           </Grid>

@@ -1,20 +1,18 @@
-import { AppBar, Button, Divider, ListItem, Tabs } from '@material-ui/core';
-import Tab from '@material-ui/core/Tab/Tab';
+import { Button, ListItem } from '@material-ui/core';
 import React from 'react';
 import HomeIcon from '@material-ui/icons/Home';
 import { CategoryTitle } from '../../Types';
 import List from '@material-ui/core/List/List';
-import Controls from '../Controls';
 import { stockItemStyles } from './Style';
 
 interface StockTabProps {
   categoryNames: CategoryTitle[];
-  active: string;
+  activeTabName: string;
   handleTab: (a: string) => void;
 }
 
 const StockTabs: React.FC<StockTabProps> = (props) => {
-  const { categoryNames, active, handleTab } = props;
+  const { categoryNames, activeTabName, handleTab } = props;
   const classes = stockItemStyles();
 
   return (
@@ -26,10 +24,9 @@ const StockTabs: React.FC<StockTabProps> = (props) => {
               <ListItem className={classes.categoryTab} key={name.title}>
                 <Button
                   onClick={(
-                    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
                   ) => handleTab(name.title)}
                   className={`${classes.buttonTab} ${
-                    name.title === active ? `${classes.selectedTab}` : ''
+                    name.title === activeTabName ? `${classes.selectedTab}` : ''
                   }`}
                 >
                   <HomeIcon />
@@ -41,10 +38,9 @@ const StockTabs: React.FC<StockTabProps> = (props) => {
               <ListItem key={name.title} className={classes.categoryTab}>
                 <Button
                   onClick={(
-                    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
                   ) => handleTab(name.title)}
                   className={`${classes.buttonTab} ${
-                    name.title === active ? `${classes.selectedTab}` : ''
+                    name.title === activeTabName ? `${classes.selectedTab}` : ''
                   }`}
                 >
                   {name.title}

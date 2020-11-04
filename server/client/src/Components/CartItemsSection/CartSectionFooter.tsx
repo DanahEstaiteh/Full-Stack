@@ -17,22 +17,22 @@ const CartSectionFooter: React.FC<CartSectionFooterPropsType> = (props) => {
   const [tax, setTax] = useState<number>(0);
   const [discount, setDiscount] = useState<number>(0);
   const [total, setTotal] = useState<number>(totalPrice);
-  const [open, setOpen] = useState<boolean>(false);
-  const [openPopUp, setOpenPopUp] = useState<boolean>(false);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [isOpenPopUp, setIsOpenPopUp] = useState<boolean>(false);
   const handleClose = () => {
-    setOpen(false);
+    setIsOpen(false);
   };
 
   const handleOpen = () => {
-    setOpen(true);
+    setIsOpen(true);
   };
 
   const handleClosePopUp = () => {
-    setOpenPopUp(false);
+    setIsOpenPopUp(false);
   };
 
   const handleOpenPopUp = () => {
-    setOpenPopUp(true);
+    setIsOpenPopUp(true);
   };
 
   const handleDiscountChange = (
@@ -125,14 +125,14 @@ const CartSectionFooter: React.FC<CartSectionFooterPropsType> = (props) => {
         >
           PAYAMENT
         </Button>
-        <ConfirmDialog isOpen={open} onClose={handleClose} onConfirm={onDelete}>
+        <ConfirmDialog isOpen={isOpen} onClose={handleClose} onConfirm={onDelete}>
           Are you sure you want to delete this cart?
         </ConfirmDialog>
         <PopUp
           title="Payment"
           color="#2ECC71"
-          openPopup={openPopUp}
-          setOpenPopup={setOpenPopUp}
+          openPopup={isOpenPopUp}
+          setOpenPopup={setIsOpenPopUp}
           onClose={handleClosePopUp}
         >
           <div className={classes.payamentPopUp}>

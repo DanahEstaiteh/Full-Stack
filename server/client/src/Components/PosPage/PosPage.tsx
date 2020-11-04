@@ -16,6 +16,7 @@ const PosPage = () => {
   const [cartItems, setCartItems] = useState<Item[]>([]);
   const [carts, setCarts] = useState<Cart[]>([]);
   const [products, setProducts] = useState<Product[]>([]);
+  const [activeTabName, setActiveTabName] = useState<string>('home');
   const classes = PosPgaeStyles();
 
   const categoryNames = getCategoryNamePosPage(categories);
@@ -41,6 +42,11 @@ const PosPage = () => {
       .catch((err: Error) => setCarts([]));
   };
   
+const productItems = activeTabName === 'home' ? products
+: (products.filter((product)=> 
+product.category === activeTabName 
+)
+)
   const handleDeleteItem = (_id: string): void => {
     deleteItem(_id)
       .then(({ status, data }) => {
@@ -156,9 +162,11 @@ console.log({carts})
       </Grid>
       <Grid item xs={7}>
          <StockItems
-         categoryNames={categoryNames}
-          products={products}
+          activeTabName ={activeTabName}
+          categoryNames={categoryNames}
+          products={productItems}
           onMoveItem={(item) => addItemToCart(item)}
+          onActiveTabNameCahnge={(tabName) => setActiveTabName(tabName)}
         /> 
       </Grid>
     </Grid>
