@@ -60,14 +60,11 @@ const addProduct = async (req: Request, res: Response): Promise<void> => {
           params: { productId },
           body,
         } = req
-        console.log({body, productId})
         const updateProduct: Product | null = await ProductMongooseModel.findByIdAndUpdate(
           { _id: productId },
           body
         )
-        console.log({updateProduct})
         const allProducts: Product[] = await ProductMongooseModel.find()
-        console.log({allProducts})
         res.status(200).json({
           message: "Product Updated", data: updateProduct, allData: allProducts 
         })

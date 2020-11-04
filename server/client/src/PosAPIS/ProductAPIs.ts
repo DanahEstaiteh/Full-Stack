@@ -20,7 +20,6 @@ export const addNewProduct = async (
   formData: Product
 ): Promise<AxiosResponse<ApiDataType>> => {
   try {
-    console.log("1 ->",{formData})
     const product: Omit<Product, '_id' > = {
       id: formData.id,
       code: formData.code,
@@ -39,7 +38,6 @@ export const addNewProduct = async (
       baseUrl + '/api/products',
       product
     );
-    console.log({newProduct});
     return newProduct;
   } catch (error) {
     throw new Error(error);
@@ -50,7 +48,6 @@ export const updaetProduct = async (
   product: Product
 ): Promise<AxiosResponse<ApiDataType>> => {
   try {
-    // console.log("-> 1",{product})
     const updateProduct: Omit<Product, '_id' > = {
       code: product.code,
       id: product.id,
@@ -70,7 +67,6 @@ export const updaetProduct = async (
       `${baseUrl}/api/products/${product._id}`,
       updateProduct
     );
-    console.log({updateProduct});
     return updatedProduct;
   } catch (error) {
     throw new Error(error);

@@ -51,14 +51,11 @@ const updateCategory = async (req: Request, res: Response): Promise<void> => {
             params: { categoryId },
             body,
           } = req
-          console.log({body, categoryId})
           const updateCategory: Category | null = await CategoryMongooseModel.findByIdAndUpdate(
             { _id: categoryId },
             body
           )
-          console.log({updateCategory})
           const allCategories: Category[] = await CategoryMongooseModel.find()
-          console.log({allCategories})
           res.status(200).json({
             message: "Category updated",
             data: updateCategory,

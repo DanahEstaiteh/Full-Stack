@@ -154,9 +154,9 @@ const ProductDataList: React.FC<ProductDataListProps> = (props) => {
           </ConfirmDailog>
           <ProductDetails
             isOpen={isOpenProductDetails}
-            onClose={handleCloseProductDetails}
-            Data={products}
+            data={products}
             productId={productId}
+            onClose={handleCloseProductDetails}
           />
         </Grid>
          <TablePaginationDemo

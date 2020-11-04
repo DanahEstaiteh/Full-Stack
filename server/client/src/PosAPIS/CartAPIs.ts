@@ -20,7 +20,6 @@ export const addNewCart = async (
   formData: Cart
 ): Promise<AxiosResponse<ApiDataType>> => {
   try {
-    console.log("1 ->",{formData})
     const cart: Omit<Cart, '_id' > = {
       id: formData.id,
       time: formData.time,
@@ -40,8 +39,6 @@ export const deleteCart = async (
   id: string
 ): Promise<AxiosResponse<ApiDataType>> => {
   try {
-    const url =  `${baseUrl}/api/carts/${id}`;
-    console.log("1 ->",{url});
     const deletedCart: AxiosResponse<ApiDataType> = await axios.delete(
       `${baseUrl}/api/carts/${id}`
     );

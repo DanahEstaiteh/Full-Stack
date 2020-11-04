@@ -10,7 +10,6 @@ export const getItems = async (): Promise<
     const items: AxiosResponse<ApiDataType> = await axios.get(
       baseUrl + '/api/cartItems'
     );
-    console.log(items)
     return items;
   } catch (error) {
     throw new Error(error);
@@ -21,7 +20,6 @@ export const addNewItem = async (
   formData: Item
 ): Promise<AxiosResponse<ApiDataType>> => {
   try {
-    console.log("1 ->",{formData})
     const item: Omit<Item, '_id' > = {
       id: formData.id,
       cartId: formData.cartId,
@@ -33,7 +31,6 @@ export const addNewItem = async (
       baseUrl + '/api/item',
       item
     );
-    console.log({newItem});
     return newItem;
   } catch (error) {
     throw new Error(error);
@@ -67,7 +64,6 @@ export const deleteItem = async (
     const deletedItem: AxiosResponse<ApiDataType> = await axios.delete(
       `${baseUrl}/api/items/${id}`
     );
-    console.log({deletedItem})
     return deletedItem;
     
   } catch (error) {

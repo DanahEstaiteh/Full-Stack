@@ -52,7 +52,6 @@ const CartSectionFooter: React.FC<CartSectionFooterPropsType> = (props) => {
   useEffect(() => {
     setTax(0);
     setDiscount(0);
-    console.log({totalPrice,itemsQuantity});
   }, [totalPrice, itemsQuantity]);
   useEffect(() => {
     let taxEffect = totalPrice * (tax / 100);

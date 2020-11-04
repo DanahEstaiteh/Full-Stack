@@ -23,7 +23,7 @@ const PosPage = () => {
 
   const fetchItems = (): void => {
     getItems()
-      .then(({ data: { items } }: Item[] | any) => {setCartItems(items); console.log({items})})
+      .then(({ data: { items } }: Item[] | any) => setCartItems(items))
       .catch(() => setCartItems([]));
   };
   const fetchCategories = (): void => {
@@ -60,15 +60,12 @@ product.category === activeTabName
   };
 
   const handleSaveItem = (formData: Item): void => {
-    console.log({formData});
     addNewItem(formData)
       .then(({ status, data }) => {
         if (status !== 201) {
           throw new Error('Error! Item not saved');
         }
         setCartItems(data.allData as Item[]);
-        console.log(data.allData )
-        console.log(cartItems)
       })
       .catch((err: any) => console.log(err));
   };
@@ -115,7 +112,7 @@ product.category === activeTabName
     );
    
 
-    if (activeCart.id > 1 && (itemIndex < 0 || itemIndex === undefined)) {
+    if (activeCart.id > 0 && (itemIndex < 0 || itemIndex === undefined)) {
       
       const lastId = cartItems?.length ? cartItems[cartItems.length - 1].id : 1;
       const newItem: Item = {
@@ -127,7 +124,6 @@ product.category === activeTabName
         count: 1
       };
       handleSaveItem(newItem); 
-      console.log({cartItems})
     } else if (activeCart.id < 1) {
       alert('select cart');
     } else {
@@ -135,11 +131,12 @@ product.category === activeTabName
     }
   };
  
-  useEffect(() => {
-console.log({activeCart})
-console.log({cartItems})
-console.log({carts})
-  }, [activeCart,cartItems,carts]);
+  const activeCartItems = 
+  activeCart.id > 0 ? cartItems.filter((item) =>
+   item.cartId === activeCart.id
+  ) : [];
+
+
   useEffect(() => {
     fetchCategories();
     fetchCarts();
@@ -150,7 +147,7 @@ console.log({carts})
     <Grid container spacing={1} className={classes.PosPage}>
       <Grid item xs={5}>
          <CartItemsSection
-         itemData={cartItems}
+         itemData={activeCartItems}
           activeCart={activeCart}
           cartList={carts}
           handleChangeActive= {(activeCart)=> setActiveCart(activeCart)}

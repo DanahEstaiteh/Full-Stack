@@ -49,14 +49,11 @@ const updateCart = async (req: Request, res: Response): Promise<void> => {
           params: { cartId },
           body,
         } = req
-        console.log({body, cartId})
         const updatedCart: Cart | null = await CartMongooseModel.findByIdAndUpdate(
           { _id: cartId },
           body
         )
-        console.log({updatedCart})
         const allCarts: Cart[] = await CartMongooseModel.find()
-        console.log({allCarts})
         res.status(200).json({
           message: "Cart updated",
           data: updatedCart,

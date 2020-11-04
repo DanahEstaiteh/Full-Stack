@@ -3,7 +3,7 @@ import FormControl from '@material-ui/core/FormControl/FormControl';
 import FormHelperText from '@material-ui/core/FormHelperText/FormHelperText';
 import MenuItem from '@material-ui/core/MenuItem/MenuItem';
 import React from 'react';
-import { Category, CategoryTitle } from '../../Types';
+import { CategoryTitle } from '../../Types';
 
 interface SelectPropsType {
   name: string;

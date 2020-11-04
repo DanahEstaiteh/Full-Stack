@@ -55,11 +55,8 @@ exports.getCartById = getCartById;
 const updateCart = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { params: { cartId }, body, } = req;
-        console.log({ body, cartId });
         const updatedCart = yield exports.CartMongooseModel.findByIdAndUpdate({ _id: cartId }, body);
-        console.log({ updatedCart });
         const allCarts = yield exports.CartMongooseModel.find();
-        console.log({ allCarts });
         res.status(200).json({
             message: "Cart updated",
             data: updatedCart,

@@ -9,17 +9,16 @@ import Button from '@material-ui/core/Button/Button';
 
 interface ProductDetailsProps {
   isOpen: boolean;
-  Data: Product[];
+  data: Product[];
   productId: string;
   onClose: () => void;
  
 }
 
 const ProductDetails: React.FC<ProductDetailsProps> = (props) => {
-  const { isOpen, onClose, Data, productId } = props;
-  const productToShow = Data?.find((pro) => pro._id === productId);
+  const { isOpen, onClose, data, productId } = props;
+  const productToShow = data?.find((pro) => pro._id === productId);
   const classes = ProductDetailsStyles();
-  console.log({Data})
   return (
     <Dialog
       maxWidth={'md'}

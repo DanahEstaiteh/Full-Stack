@@ -65,11 +65,8 @@ exports.getProductById = getProductById;
 const updateProduct = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { params: { productId }, body, } = req;
-        console.log({ body, productId });
         const updateProduct = yield exports.ProductMongooseModel.findByIdAndUpdate({ _id: productId }, body);
-        console.log({ updateProduct });
         const allProducts = yield exports.ProductMongooseModel.find();
-        console.log({ allProducts });
         res.status(200).json({
             message: "Product Updated", data: updateProduct, allData: allProducts
         });

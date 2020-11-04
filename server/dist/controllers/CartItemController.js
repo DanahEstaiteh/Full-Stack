@@ -58,11 +58,8 @@ exports.getItemById = getItemById;
 const updateItem = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { params: { itemId }, body, } = req;
-        console.log({ body, itemId });
         const updatedItem = yield exports.CartItemMongooseModel.findByIdAndUpdate({ _id: itemId }, body);
-        console.log({ updatedItem });
         const allItems = yield exports.CartItemMongooseModel.find();
-        console.log({ allItems });
         res.status(200).json({
             message: "CartItem updated",
             data: updatedItem,

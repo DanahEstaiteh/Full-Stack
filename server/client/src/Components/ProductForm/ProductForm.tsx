@@ -58,10 +58,6 @@ const ProductForm: React.FC<ProductFormPropsType> = (props) => {
     },
     validationSchema: validationSchema
   });
-  useEffect(() => {
-    console.log({ productForm });
-  }, []);
-
   return (
     <ThemeProvider theme={projectTheme}>
       <form
@@ -137,9 +133,6 @@ const ProductForm: React.FC<ProductFormPropsType> = (props) => {
               id="contained-button-file"
               multiple
               type="file"
-              onChange={(event) => {
-                console.log(event.target.files);
-              }}
             />
             <label htmlFor="contained-button-file">
               <Button variant="contained" color="secondary" component="span">

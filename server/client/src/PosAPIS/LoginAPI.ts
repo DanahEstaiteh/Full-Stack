@@ -7,7 +7,6 @@ export const handleLogin = async (
     formData: User
   ): Promise<AxiosResponse<ApiDataType>> => {
     try {
-      console.log("1 ->",{formData})
       const user: Omit<User, '_id' > = {
        userName: formData.userName,
        password: formData.password,
@@ -16,7 +15,6 @@ export const handleLogin = async (
         baseUrl + '/login',
         user
       );
-      console.log({newUser});
       return newUser;
     } catch (error) {
       throw new Error(error);

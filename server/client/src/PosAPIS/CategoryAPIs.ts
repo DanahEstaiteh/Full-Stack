@@ -20,7 +20,6 @@ export const addNewCategory = async (
   formData: Category
 ): Promise<AxiosResponse<ApiDataType>> => {
   try {
-    console.log("1 ->",{formData})
     const category: Omit<Category, '_id' > = {
       id: formData.id,
      categoryName: formData.categoryName,
@@ -30,7 +29,6 @@ export const addNewCategory = async (
       baseUrl + '/api/category',
       category
     );
-    console.log({newCategory});
     return newCategory;
   } catch (error) {
     throw new Error(error);
@@ -52,7 +50,6 @@ export const updaetCategory = async (
       `${baseUrl}/api/categories/${category._id}`,
       updateCategory
     );
-    console.log({updateCategory});
     return updatedCategory;
   } catch (error) {
     throw new Error(error);

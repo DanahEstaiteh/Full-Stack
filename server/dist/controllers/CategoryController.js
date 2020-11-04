@@ -56,11 +56,8 @@ exports.getCategoryById = getCategoryById;
 const updateCategory = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { params: { categoryId }, body, } = req;
-        console.log({ body, categoryId });
         const updateCategory = yield exports.CategoryMongooseModel.findByIdAndUpdate({ _id: categoryId }, body);
-        console.log({ updateCategory });
         const allCategories = yield exports.CategoryMongooseModel.find();
-        console.log({ allCategories });
         res.status(200).json({
             message: "Category updated",
             data: updateCategory,
