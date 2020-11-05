@@ -16,7 +16,14 @@ export class Routes {
             .get((req: Request, res: Response) => {
                 res.send("Login");
             });
-
+            app.use(function(req : Request, res : Response, next : () => void) {
+                res.header(
+                  "Access-Control-Allow-Headers",
+                  "x-access-token, Origin, Content-Type, Accept"
+                );
+                next();
+              });
+            
 
 
         app.route('/login')

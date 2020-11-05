@@ -18,16 +18,19 @@ const loginControl = async (req: Request, res: Response) => {
     const user = await userMongooseModel.findOne({userName : userName});
         if(!user){
             return res
-            .status(400)
+            .status(404)
             .json({ message: "No account with this Username" })
         }
-    const isMatch = await bcrypt.compare(password , user.password);
+    const isMatch = bcrypt.compareSync(password, user.password);
         if(!isMatch){
            return res
-           .status(400)
-           .json({ message: "Incorrect password" })
+           .send({
+            accessToken: null,
+            message: "Invalid Password!"
+          });
     }
-    const token = jwt.sign({id : user._id},'5:A&:D[h)u{n[]&r');
+    const token = jwt.sign({id : user._id},'5:A&:D[h)u{n[]&r',{expiresIn: 86400});
+   //localStorage.setItem('myCat', 'Tom');
     res.json({
         token,
         user: {

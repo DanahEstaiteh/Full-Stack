@@ -2,6 +2,7 @@ import React from 'react';
 import logo from '../Images/pos-icon.png';
 import UserImage from '../Images/user.jpg';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import Link from '@material-ui/core/Link';
 import {
   faCreditCard,
   faUsers,
@@ -19,24 +20,29 @@ import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
 import Avatar from '@material-ui/core/Avatar';
 import useStyles from './styles';
 
-import {Link} from 'react-router-dom';
+import { useHistory} from 'react-router-dom';
 import LanguageList from './LanguageList';
 
-const preventDefault = (event: React.MouseEvent<HTMLElement>) =>
-  event.preventDefault();
+
+ 
 
 interface HeaderItemProps {
   icon: JSX.Element;
   headerItemName: string;
 }
 const HeaderItem: React.FC<HeaderItemProps> = (props) => {
+  const history = useHistory();
   const classes = useStyles();
   const { icon,  headerItemName } = props;
+
+  const handleClick = () => {
+    history.push('/'+headerItemName);
+}
+
   return (
     <li className={classes.item}>
       <Link
-        to={"/"+headerItemName}
-        onClick={preventDefault}
+        onClick={handleClick}
         className={classes.headerLink}
       >
         {icon}
@@ -54,13 +60,18 @@ interface HeaderListItemProps {
 }
 
 const HeaderListItem: React.FC<HeaderListItemProps> = (props) => {
+  const history = useHistory();
   const classes = useStyles();
   const { icon, headerItemName } = props;
+
+  const handleClick = () => {
+    history.push('/'+headerItemName);
+}
+
   return (
     <li className={classes.lisItem}>
       <Link
-        to={"/"+headerItemName}
-        onClick={preventDefault}
+        onClick={handleClick}
         className={classes.headerLink}
       >
         {icon}
@@ -126,6 +137,7 @@ const PosHeader = () => {
           
           headerItemName="Setting"
         />
+        
         <HeaderItem
           icon={
             <FontAwesomeIcon icon={faChartLine} className={classes.linkIcon} />
