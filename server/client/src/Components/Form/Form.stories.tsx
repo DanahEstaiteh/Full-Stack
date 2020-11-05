@@ -11,6 +11,11 @@ export default {
 interface FormProps {
   isLogin: boolean;
   login: string;
+  onLogin : (isLogin : boolean) => void;
+}
+
+const handleLogin = (isLogin : boolean) => {
+  
 }
 
 const Template: Story<FormProps> = (args) => <Form {...args} />;
@@ -19,7 +24,8 @@ export const NotLogin = Template.bind({});
 
 NotLogin.args = {
   isLogin: false,
-  login: 'login'
+  login: 'login',
+  onLogin: () => handleLogin(true)
 };
 
 //export const Login = () => <Form isLogin={true} login="login"></Form>;

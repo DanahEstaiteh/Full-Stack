@@ -1,19 +1,16 @@
-import React from 'react';
-import {BrowserRouter as Router, Switch , Route} from 'react-router-dom';
-import CategoriesList from '../CategoriesList/CategoriesList';
-import PosHeader from '../PosHeader/PosHeader';
-import PosPage from '../PosPage/PosPage';
-import ProductData from '../productData/ProductData';
-
+import React, { useState } from 'react';
+import Form from '../Form/Form';
+import AuthComponent from '../AuthComponent/AuthComponent';
 const Main = () => {
+  const [isLogin, setIsLogin] = useState<boolean>(false);
     return (
        
-            <><PosHeader />
-            <Switch>
-                <Route path="/Categories" component={CategoriesList} />
-                <Route path="/Products" component={ProductData} />
-                <Route path="/POS" component={PosPage} />
-            </Switch></>
+            <> 
+            {
+                !isLogin ? <Form login='login' isLogin={false} onLogin={(isLogin)=> setIsLogin(isLogin)}/> :
+                 <AuthComponent />
+            }
+           </>
         
     )
 }

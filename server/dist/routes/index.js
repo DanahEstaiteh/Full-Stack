@@ -12,9 +12,25 @@ class Routes {
         this.checkoutController = new CheckoutController_1.CheckoutController();
     }
     routes(app) {
+        //  app.all("*", (req: Request, res: Response, next: NextFunction) => {
+        //      console.log(req)
+        //    })
+        // app.all("/api/*",function(req: Request, res: Response, next: NextFunction) {
+        //     try {
+        //         jwt.verify(req.cookies.token,'5:A&:D[h)u{n[]&r');
+        //         console.log(req.cookies.token)
+        //     } catch (err) {
+        //         console.log("no token")
+        //     }
+        //     next();
+        //   })
         app.route('/')
             .get((req, res) => {
             res.send("Login");
+        });
+        app.use(function (req, res, next) {
+            res.header("Access-Control-Allow-Headers", "x-access-token, Origin, Content-Type, Accept");
+            next();
         });
         app.route('/login')
             .post(LoginController_1.loginControl);

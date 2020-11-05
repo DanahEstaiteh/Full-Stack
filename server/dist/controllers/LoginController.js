@@ -23,23 +23,24 @@ const loginControl = (req, res) => __awaiter(void 0, void 0, void 0, function* (
         const user = yield exports.userMongooseModel.findOne({ userName: userName });
         if (!user) {
             return res
-                .status(400)
+                .status(404)
                 .json({ message: "No account with this Username" });
         }
-        const isMatch = yield bcrypt_1.default.compare(password, user.password);
+        const isMatch = bcrypt_1.default.compareSync(password, user.password);
         if (!isMatch) {
             return res
-                .status(400)
-                .json({ message: "Incorrect password" });
+                .status(404)
+                .send({
+                accessToken: null,
+                message: "Invalid Password!"
+            });
         }
-        const token = jsonwebtoken_1.default.sign({ id: user._id }, '5:A&:D[h)u{n[]&r');
-        res.json({
-            token,
-            user: {
-                id: user._id,
-                userName: user.userName,
-            }
-        });
+        const token = jsonwebtoken_1.default.sign({ id: user._id }, '5:A&:D[h)u{n[]&r', { expiresIn: 86400 });
+        res.cookie('token', token, { httpOnly: true });
+        const currentUser = {
+            userName: userName
+        };
+        res.json({ message: "user login successfully", data: currentUser, allData: [] });
     }
     catch (error) {
         throw error;

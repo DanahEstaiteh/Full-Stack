@@ -24,20 +24,19 @@ const loginControl = async (req: Request, res: Response) => {
     const isMatch = bcrypt.compareSync(password, user.password);
         if(!isMatch){
            return res
+           .status(404)
            .send({
             accessToken: null,
             message: "Invalid Password!"
           });
     }
     const token = jwt.sign({id : user._id},'5:A&:D[h)u{n[]&r',{expiresIn: 86400});
-   //localStorage.setItem('myCat', 'Tom');
-    res.json({
-        token,
-        user: {
-            id: user._id,
-            userName : user.userName,
-        }
-    })
+    res.cookie('token', token, { httpOnly: true });
+    const currentUser ={
+        userName: userName
+    }
+    res.json({ message: "user login successfully", data: currentUser, allData: [] })
+    
    }catch(error){
     throw error
    }

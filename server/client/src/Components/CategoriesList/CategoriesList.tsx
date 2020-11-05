@@ -32,6 +32,7 @@ const CategoryData: React.FC<CategoryListProps> = (props) => {
   const classes = categoryStyles();
   const { categoryData , handleDeleteCategory,handleUpdateCategory} = props;
   const [data, setData] = useState<Category[]>([]);
+  const [deletedCategoryId, setDeletedCategoryId] = useState<string>("");
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [isOpenEditDialog, setIsOpenEditDialog] = useState<boolean>(false);
   const [categoryForEdit, setCategoryForEdit] = useState<Category>({
@@ -76,6 +77,11 @@ const CategoryData: React.FC<CategoryListProps> = (props) => {
     setIsOpenEditDialog(true);
   };
 
+  const handleDelete = (id : string) => {
+    setDeletedCategoryId(id);
+   setIsOpen(true);
+
+  }
  
 
   useEffect(() => {
@@ -99,7 +105,7 @@ const CategoryData: React.FC<CategoryListProps> = (props) => {
               <Box key={Category.id}>
                 <ClearIcon
                   className={classes.actionIcon}
-                  onClick={() => setIsOpen(true)}
+                  onClick={() => handleDelete(Category._id)}
                 />
                 <EditIcon
                   className={classes.actionIcon}
@@ -110,7 +116,7 @@ const CategoryData: React.FC<CategoryListProps> = (props) => {
             <ConfirmDailog
               isOpen={isOpen}
               onClose={handleCloseConfirmDialog}
-              onConfirm={() => handleOpenConfirmDialog(Category._id)}
+              onConfirm={() => handleOpenConfirmDialog(deletedCategoryId)}
             >
               Are you sure you want to delete this category?
             </ConfirmDailog>

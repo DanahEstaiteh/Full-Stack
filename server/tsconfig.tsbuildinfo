@@ -26,6 +26,11 @@
         "signature": "5f4e733ced4e129482ae2186aae29fde948ab7182844c3a5a51dd346182c7b06",
         "affectsGlobalScope": false
       },
+      "./node_modules/typescript/lib/lib.dom.d.ts": {
+        "version": "38130cdd16bd2318b9362f9d60dd9670f7e38708bb6131cf11fc78a41b2c34a0",
+        "signature": "38130cdd16bd2318b9362f9d60dd9670f7e38708bb6131cf11fc78a41b2c34a0",
+        "affectsGlobalScope": true
+      },
       "./node_modules/typescript/lib/lib.es2015.core.d.ts": {
         "version": "46ee15e9fefa913333b61eaf6b18885900b139867d89832a515059b62cf16a17",
         "signature": "46ee15e9fefa913333b61eaf6b18885900b139867d89832a515059b62cf16a17",
@@ -477,7 +482,7 @@
         "affectsGlobalScope": false
       },
       "./src/controllers/logincontroller.ts": {
-        "version": "7d9ddce5f9e67bfde9820ca5a528aab1735b8d55c15a4176fa56be6ad55aad09",
+        "version": "3fe01bc06a8c72cb588c182b2aead067fa9374c855a2f3e28229a48c0e3d673a",
         "signature": "e261267d2a197fda3828c5072120def0c0fe94814145ac10abe7b6c8dfcbe2c1",
         "affectsGlobalScope": false
       },
@@ -501,8 +506,13 @@
         "signature": "9093f780183313232d5a674b964a1d1f99ad6a0f18e40893a041513fbd614ff5",
         "affectsGlobalScope": false
       },
+      "./node_modules/@types/cookie-parser/index.d.ts": {
+        "version": "8d77ed4e39114c32edc2e35b683b6f54a6b3292ecdf392e4bfc5f726734955d8",
+        "signature": "8d77ed4e39114c32edc2e35b683b6f54a6b3292ecdf392e4bfc5f726734955d8",
+        "affectsGlobalScope": false
+      },
       "./src/routes/index.ts": {
-        "version": "a7defed97b754fb10b9b08baad76269f72036254eabc25980a583ecda1ef2a52",
+        "version": "c38db9ebb879723b37b024e13d20847dc29028af361887c1dc16e996072c351e",
         "signature": "5fa2747aa30366b602cafc3bf8406667df3b1a016c78fd00c0b58c0ad8339da9",
         "affectsGlobalScope": false
       },
@@ -514,6 +524,11 @@
       "./src/server.ts": {
         "version": "d2487e8d417ced8523785aa1e048ddc37341cb86abe355afa5259d3407c03712",
         "signature": "f761c91419d0a89422a0004ef1a92929dd4d2d5e5c16758654d8b0467d1998c6",
+        "affectsGlobalScope": false
+      },
+      "./src/controllers/authjwt.ts": {
+        "version": "7c7feff153ba8b76c84c7feb17b7be77e9cdb590b233eaba296050033ac8f336",
+        "signature": "641ae16c9a2e32b7cfd04b66196b5adfee0327c306622ceeb5b6369dc2e95746",
         "affectsGlobalScope": false
       },
       "./node_modules/@types/cors/index.d.ts": {
@@ -562,7 +577,8 @@
       "target": 2,
       "module": 1,
       "lib": [
-        "lib.es2018.d.ts"
+        "lib.es2018.d.ts",
+        "lib.dom.d.ts"
       ],
       "sourceMap": true,
       "outDir": "./dist",
@@ -592,6 +608,9 @@
       "./node_modules/@types/connect/index.d.ts": [
         "./node_modules/@types/node/http.d.ts",
         "./node_modules/@types/node/index.d.ts"
+      ],
+      "./node_modules/@types/cookie-parser/index.d.ts": [
+        "./node_modules/@types/express/index.d.ts"
       ],
       "./node_modules/@types/cors/index.d.ts": [
         "./node_modules/@types/express/index.d.ts"
@@ -815,6 +834,10 @@
         "./node_modules/@types/mongoose/index.d.ts",
         "./src/routes/index.ts"
       ],
+      "./src/controllers/authjwt.ts": [
+        "./node_modules/@types/express/index.d.ts",
+        "./node_modules/@types/jsonwebtoken/index.d.ts"
+      ],
       "./src/controllers/cartcontroller.ts": [
         "./node_modules/@types/express/index.d.ts",
         "./src/models/cart.ts",
@@ -874,7 +897,9 @@
       ],
       "./src/routes/index.ts": [
         "./node_modules/@types/body-parser/index.d.ts",
+        "./node_modules/@types/cookie-parser/index.d.ts",
         "./node_modules/@types/express/index.d.ts",
+        "./node_modules/@types/jsonwebtoken/index.d.ts",
         "./node_modules/@types/mongoose/index.d.ts",
         "./src/controllers/cartcontroller.ts",
         "./src/controllers/cartitemcontroller.ts",
@@ -902,6 +927,9 @@
       "./node_modules/@types/connect/index.d.ts": [
         "./node_modules/@types/node/http.d.ts",
         "./node_modules/@types/node/index.d.ts"
+      ],
+      "./node_modules/@types/cookie-parser/index.d.ts": [
+        "./node_modules/@types/express/index.d.ts"
       ],
       "./node_modules/@types/cors/index.d.ts": [
         "./node_modules/@types/express/index.d.ts"
@@ -1122,6 +1150,9 @@
       "./src/app.ts": [
         "./node_modules/@types/express/index.d.ts"
       ],
+      "./src/controllers/authjwt.ts": [
+        "./node_modules/@types/express/index.d.ts"
+      ],
       "./src/controllers/cartcontroller.ts": [
         "./node_modules/@types/express/index.d.ts",
         "./node_modules/@types/mongoose/index.d.ts",
@@ -1186,6 +1217,7 @@
       "./node_modules/@types/body-parser/index.d.ts",
       "./node_modules/@types/bson/index.d.ts",
       "./node_modules/@types/connect/index.d.ts",
+      "./node_modules/@types/cookie-parser/index.d.ts",
       "./node_modules/@types/cors/index.d.ts",
       "./node_modules/@types/express-jwt/index.d.ts",
       "./node_modules/@types/express-serve-static-core/index.d.ts",
@@ -1249,6 +1281,7 @@
       "./node_modules/@types/serve-static/index.d.ts",
       "./node_modules/@types/strip-bom/index.d.ts",
       "./node_modules/@types/strip-json-comments/index.d.ts",
+      "./node_modules/typescript/lib/lib.dom.d.ts",
       "./node_modules/typescript/lib/lib.es2015.collection.d.ts",
       "./node_modules/typescript/lib/lib.es2015.core.d.ts",
       "./node_modules/typescript/lib/lib.es2015.d.ts",
@@ -1277,6 +1310,7 @@
       "./node_modules/typescript/lib/lib.es5.d.ts",
       "./node_modules/typescript/lib/lib.esnext.intl.d.ts",
       "./src/app.ts",
+      "./src/controllers/authjwt.ts",
       "./src/controllers/cartcontroller.ts",
       "./src/controllers/cartitemcontroller.ts",
       "./src/controllers/categorycontroller.ts",

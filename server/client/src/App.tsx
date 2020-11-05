@@ -2,8 +2,7 @@ import  Form  from './Components/Form/Form';
 import React, {  } from 'react';
 import './App.css';
 import Main from './Components/Main/Main';
-import { BrowserRouter } from 'react-router-dom';
-
+import {BrowserRouter , Switch , Route} from 'react-router-dom';
 
 
 function App() {
@@ -11,9 +10,11 @@ function App() {
 
   return (
     <div className="App">
-      <BrowserRouter>
-      <Main />
+       
+       <BrowserRouter>
+       <Main />
       </BrowserRouter>
+      
     </div>
   );
 }

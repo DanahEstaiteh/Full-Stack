@@ -1,17 +1,35 @@
 import bodyParser from 'body-parser';
-import { Request, Response } from "express";
+import { Request, Response ,NextFunction } from "express";
 import { getProducts, updateProduct, deleteProduct, getProductById, generateFirstProducts, addProduct } from '../controllers/ProductController';
 import { getCategories, addCategory, updateCategory, deleteCategory , generateFirstCategories , getCategoryById} from '../controllers/CategoryController';
 import { CheckoutController } from '../controllers/CheckoutController';
 import { generateUser, loginControl } from '../controllers/LoginController';
 import * as mongoose from 'mongoose';
-
+import jwt from 'jsonwebtoken';
 import { getCartItems, addItem, getItemById, updateItem, deleteItem} from '../controllers/CartItemController';
 import { getCarts, addCart, getCartById, updateCart, deleteCart } from '../controllers/CartController';
+import * as cookieParser from 'cookie-parser';
 export class Routes {
 
     checkoutController: CheckoutController = new CheckoutController();
     public routes(app: any): void {
+
+        //  app.all("*", (req: Request, res: Response, next: NextFunction) => {
+
+        //      console.log(req)
+        //    })
+
+       
+        // app.all("/api/*",function(req: Request, res: Response, next: NextFunction) {
+        //     try {
+        //         jwt.verify(req.cookies.token,'5:A&:D[h)u{n[]&r');
+        //         console.log(req.cookies.token)
+        //     } catch (err) {
+        //         console.log("no token")
+        //     }
+        //     next();
+        //   })
+
         app.route('/')
             .get((req: Request, res: Response) => {
                 res.send("Login");

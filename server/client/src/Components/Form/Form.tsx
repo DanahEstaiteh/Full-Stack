@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Button from '@material-ui/core/Button';
 import {
   ThemeProvider
@@ -11,16 +11,20 @@ import * as yup from 'yup';
 import { User } from '../../Types';
 import {handleLogin} from '../../PosAPIS/LoginAPI';
 import Controls from '../Controls';
+import { useHistory} from 'react-router-dom';
 interface PropsType {
   isLogin: boolean;
   login: string;
+  onLogin : (isLogin : boolean) => void;
 }
 
 
 
 const Form: React.FC<PropsType> = (props) => {
   const classes = useStyles();
-  const { login, isLogin } = props;
+  const { login, isLogin , onLogin} = props;
+
+
 
   const initialLoginValue : User = {
     _id : '',
@@ -36,9 +40,19 @@ const Form: React.FC<PropsType> = (props) => {
   .matches(/^[0-9a-zA-Z]+$/, 'Password must contain letters and number')
   });
 
-  const handleSubmit = (values : User) => {
-    handleLogin(values);
-  };
+
+
+
+  const handleSubmit = (values : User): void => {
+    handleLogin(values)
+    .then(({ status, data }) => {
+      if (status === 404) {
+        throw new Error('Error!');
+      }
+      onLogin(true);
+    })
+    .catch((err: any) => console.log(err));
+};
 
 const loginForm = useFormik({
   initialValues :initialLoginValue,
