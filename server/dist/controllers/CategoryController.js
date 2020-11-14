@@ -30,7 +30,7 @@ const addCategory = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
             .json({ message: "Category added", data: newCategory, allData: allCategories });
     }
     catch (error) {
-        throw error;
+        console.log(error);
     }
 });
 exports.addCategory = addCategory;
@@ -40,7 +40,7 @@ const getCategories = (req, res) => __awaiter(void 0, void 0, void 0, function* 
         res.status(200).json({ categories });
     }
     catch (error) {
-        throw error;
+        console.log(error);
     }
 });
 exports.getCategories = getCategories;
@@ -65,7 +65,7 @@ const updateCategory = (req, res) => __awaiter(void 0, void 0, void 0, function*
         });
     }
     catch (error) {
-        throw error;
+        console.log(error);
     }
 });
 exports.updateCategory = updateCategory;
@@ -80,7 +80,7 @@ const deleteCategory = (req, res) => __awaiter(void 0, void 0, void 0, function*
         });
     }
     catch (error) {
-        throw error;
+        console.log(error);
     }
 });
 exports.deleteCategory = deleteCategory;

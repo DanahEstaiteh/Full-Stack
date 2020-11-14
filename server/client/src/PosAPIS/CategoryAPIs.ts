@@ -12,7 +12,7 @@ export const getCategories = async (): Promise<
     );
     return categories;
   } catch (error) {
-    throw new Error(error);
+    throw error
   }
 };
 
@@ -31,7 +31,7 @@ export const addNewCategory = async (
     );
     return newCategory;
   } catch (error) {
-    throw new Error(error);
+    throw error
   }
 };
 
@@ -52,7 +52,7 @@ export const updaetCategory = async (
     );
     return updatedCategory;
   } catch (error) {
-    throw new Error(error);
+    throw error
   }
 };
 
@@ -65,6 +65,6 @@ export const deleteCategory = async (
     );
     return deletedCategory;
   } catch (error) {
-    throw new Error(error);
+    throw error
   }
 };

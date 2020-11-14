@@ -17,6 +17,6 @@ export const handleLogin = async (
       );
       return newUser;
     } catch (error) {
-      throw new Error(error);
+      throw error
     }
   };

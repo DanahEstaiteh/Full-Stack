@@ -12,7 +12,7 @@ export const getItems = async (): Promise<
     );
     return items;
   } catch (error) {
-    throw new Error(error);
+    throw error
   }
 };
 
@@ -33,7 +33,7 @@ export const addNewItem = async (
     );
     return newItem;
   } catch (error) {
-    throw new Error(error);
+    throw error
   }
 };
 
@@ -53,7 +53,7 @@ export const updaetItem = async (
     
     return updatedItem;
   } catch (error) {
-    throw new Error(error);
+    throw error
   }
 };
 
@@ -67,7 +67,7 @@ export const deleteItem = async (
     return deletedItem;
     
   } catch (error) {
-    throw new Error(error);
+    throw error
   }
 };
 

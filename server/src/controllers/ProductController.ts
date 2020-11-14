@@ -32,7 +32,7 @@ const addProduct = async (req: Request, res: Response): Promise<void> => {
       .status(201)
       .json({ message: "Product added", data: newProduct, allData: allProducts })
   } catch (error) {
-    throw error
+    console.log(error)
   }
 }
     const getProducts = async (req: Request, res: Response): Promise<void> => {           
@@ -40,7 +40,7 @@ const addProduct = async (req: Request, res: Response): Promise<void> => {
           const products: Product[] = await ProductMongooseModel.find()
           res.status(200).json({ products })
         } catch (error) {
-          throw error
+          console.log(error)
         }
   }
   
@@ -69,7 +69,7 @@ const addProduct = async (req: Request, res: Response): Promise<void> => {
           message: "Product Updated", data: updateProduct, allData: allProducts 
         })
       } catch (error) {
-        throw error
+        console.log(error)
       }
     }
     const deleteProduct = async (req: Request, res: Response): Promise<void> => {
@@ -84,7 +84,7 @@ const addProduct = async (req: Request, res: Response): Promise<void> => {
           allData: allProducts,
         })
       } catch (error) {
-        throw error
+        console.log(error)
       }
     }
    const generateFirstProducts = async (req: Request, res: Response) =>  {     

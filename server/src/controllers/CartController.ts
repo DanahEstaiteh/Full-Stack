@@ -21,7 +21,7 @@ const addCart = async (req: Request, res: Response): Promise<void> => {
       .status(201)
       .json({ message: "Cart added", data: newCart, allData: allCarts })
   } catch (error) {
-    throw error
+    console.log(error)
   }
 }
 const getCarts = async (req: Request, res: Response): Promise<void> => {           
@@ -29,7 +29,7 @@ const getCarts = async (req: Request, res: Response): Promise<void> => {
           const carts: Cart[] = await CartMongooseModel.find()
           res.status(200).json({ carts })
         } catch (error) {
-          throw error
+          console.log(error)
         }
   }
   
@@ -60,7 +60,7 @@ const updateCart = async (req: Request, res: Response): Promise<void> => {
           allData: allCarts,
         })
       } catch (error) {
-        throw error
+        console.log(error)
       }
     }
 const deleteCart = async (req: Request, res: Response): Promise<void> => {
@@ -75,7 +75,7 @@ const deleteCart = async (req: Request, res: Response): Promise<void> => {
           allData: allCarts,
         })
       } catch (error) {
-        throw error
+        console.log(error)
       }
     }
    

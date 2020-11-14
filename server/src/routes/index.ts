@@ -2,33 +2,23 @@ import bodyParser from 'body-parser';
 import { Request, Response ,NextFunction } from "express";
 import { getProducts, updateProduct, deleteProduct, getProductById, generateFirstProducts, addProduct } from '../controllers/ProductController';
 import { getCategories, addCategory, updateCategory, deleteCategory , generateFirstCategories , getCategoryById} from '../controllers/CategoryController';
-import { CheckoutController } from '../controllers/CheckoutController';
 import { generateUser, loginControl } from '../controllers/LoginController';
-import * as mongoose from 'mongoose';
 import jwt from 'jsonwebtoken';
 import { getCartItems, addItem, getItemById, updateItem, deleteItem} from '../controllers/CartItemController';
-import { getCarts, addCart, getCartById, updateCart, deleteCart } from '../controllers/CartController';
-import * as cookieParser from 'cookie-parser';
+import { getCarts, addCart, getCartById, deleteCart } from '../controllers/CartController';
+import  cookieParser from 'cookie-parser';
+import { verifyToken } from '../controllers/AuthJWT';
+
+export interface IGetUserAuthInfoRequest extends Request {
+    user: string | object
+  }
 export class Routes {
 
-    checkoutController: CheckoutController = new CheckoutController();
     public routes(app: any): void {
-
-        //  app.all("*", (req: Request, res: Response, next: NextFunction) => {
-
-        //      console.log(req)
-        //    })
-
+        
+        
+        app.use(cookieParser());
        
-        // app.all("/api/*",function(req: Request, res: Response, next: NextFunction) {
-        //     try {
-        //         jwt.verify(req.cookies.token,'5:A&:D[h)u{n[]&r');
-        //         console.log(req.cookies.token)
-        //     } catch (err) {
-        //         console.log("no token")
-        //     }
-        //     next();
-        //   })
 
         app.route('/')
             .get((req: Request, res: Response) => {
@@ -37,7 +27,7 @@ export class Routes {
             app.use(function(req : Request, res : Response, next : () => void) {
                 res.header(
                   "Access-Control-Allow-Headers",
-                  "x-access-token, Origin, Content-Type, Accept"
+                  "x-access-token,Authorization, Origin, Content-Type, Accept"
                 );
                 next();
               });
@@ -46,6 +36,19 @@ export class Routes {
 
         app.route('/login')
             .post(loginControl);
+
+            // app.use("/api/*",function(req: IGetUserAuthInfoRequest, res: Response, next: NextFunction) {
+            //     const token = req.header('token');
+            //     if(!token) return res.status(401).send('Access Denied');
+            //     try {
+            //         const verified = jwt.verify(token,'5:A&:D[h)u{n[]&r');
+            //         req.user = verified;
+            //     } catch (err) {
+            //         res.status(400).send('Invalid Token');
+            //     }
+            //     next();
+            //   })
+
         // Get all categories
         app.route('/api/categories')
             .get(getCategories);
@@ -108,8 +111,6 @@ export class Routes {
     // delete a specific Cart
     app.route('/api/carts/:cartId')
         .delete(deleteCart);
-
-
         // Get all products
         app.route('/api/product')
             .get(getProducts);
@@ -134,32 +135,8 @@ export class Routes {
         app.route('/Product/firstData')
             .get(generateFirstProducts);
 
-        // Get all checkouts
-        app.route('/api/checkout')
-            .get(this.checkoutController.getCheckouts);
-
-        // Create a new checkout
-        app.route('/api/checkouts')
-            .post(this.checkoutController.addNewCheckout);
-
-        // get a specific checkout
-        app.route('/api/checkout/:checkoutId')
-            .get(this.checkoutController.getCheckoutById);
-
-        // update a specific checkout
-        app.route('/api/checkouts/:checkoutId')
-            .put(this.checkoutController.updateCheckout);
-
-        // delete a specific checkout
-        app.route('/api/checkouts/:checkoutId')
-            .delete(this.checkoutController.updateCheckout);
-
-        // generate checkout data
-        app.route('/checkout/firstData')
-            .get(this.checkoutController.generateFirstData);
-
         // generate  user
-        app.route('/user/firsUser')
+        app.route('/user/firstUser')
             .get(generateUser);
     }
 }

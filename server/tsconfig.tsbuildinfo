@@ -442,7 +442,7 @@
         "affectsGlobalScope": false
       },
       "./src/controllers/productcontroller.ts": {
-        "version": "df72c3de90927444a0f2140095a3b75c17b7dd5711d5dfb31793373a90ab5e4d",
+        "version": "5977b84117b0649029270d17e7b6c4ad48488db08c7e0bbbd760a49a74cd184f",
         "signature": "28394a7a3ddaf809e70290a2add0a06ed5f17fc08a3201e295ad44051f22acf0",
         "affectsGlobalScope": false
       },
@@ -452,18 +452,8 @@
         "affectsGlobalScope": false
       },
       "./src/controllers/categorycontroller.ts": {
-        "version": "02e2e1b0be578b3086b24dfcc6664e9d7fb0dc7f59b75f5048a95cc3d8e1d43a",
+        "version": "d9cf5d900e0e914dedb1d18b1ba827935d5f836daf63bdf34d59b7c3997dde8d",
         "signature": "19e796f05b65bb68911d5b249cf2afd8b78d6e9a8e29ab5ffb0a01624301ebc2",
-        "affectsGlobalScope": false
-      },
-      "./src/models/checkouts.ts": {
-        "version": "a1b4392d30e0926df3738cf99c6e8ce8e497483509a85ee234c9a12fd22e4837",
-        "signature": "30984c683e650f3576045975a6aa6f0117b6cdd9e848b5f1122da8373c5ba0fe",
-        "affectsGlobalScope": false
-      },
-      "./src/controllers/checkoutcontroller.ts": {
-        "version": "df0c46cc96315af401015bf03d1ce69afec94c11759fa93f782a4974692d264b",
-        "signature": "760ef784a756a0f7279ff548a95a7ea4101164505ea51dd3c5209c6142ce7015",
         "affectsGlobalScope": false
       },
       "./src/models/user.ts": {
@@ -482,8 +472,8 @@
         "affectsGlobalScope": false
       },
       "./src/controllers/logincontroller.ts": {
-        "version": "3fe01bc06a8c72cb588c182b2aead067fa9374c855a2f3e28229a48c0e3d673a",
-        "signature": "e261267d2a197fda3828c5072120def0c0fe94814145ac10abe7b6c8dfcbe2c1",
+        "version": "b7e4f158ac197981bb97fa894330e59e5de9a794e47a7cd411d611b5520c685c",
+        "signature": "23887b5c0ffd65c18fbda5a2d4a64dba531e73a21d16c4f12232670e347dc35f",
         "affectsGlobalScope": false
       },
       "./src/models/cartitem.ts": {
@@ -492,7 +482,7 @@
         "affectsGlobalScope": false
       },
       "./src/controllers/cartitemcontroller.ts": {
-        "version": "31e1d16507cf6741d42f44ae3cf927f8a45332bdebf2bff624e811105ad5c925",
+        "version": "b0c38f897a1d54ee8abacd982afa9d0d3c4c80e7dd73f09c779de62d6f4cf66a",
         "signature": "a6cd96c8e58e7693f4c3c4da38c8491fa70f42f27c50b8a09c93da707c3fbc2e",
         "affectsGlobalScope": false
       },
@@ -502,7 +492,7 @@
         "affectsGlobalScope": false
       },
       "./src/controllers/cartcontroller.ts": {
-        "version": "432c898f5d5ca87e9d4ad80fba05ea24d48dd5d0611890fa33169f93e3e0a1a8",
+        "version": "c4f10afff0e2171fe7f2c23812535473697d8780163e0131be8ef483510e703b",
         "signature": "9093f780183313232d5a674b964a1d1f99ad6a0f18e40893a041513fbd614ff5",
         "affectsGlobalScope": false
       },
@@ -511,13 +501,18 @@
         "signature": "8d77ed4e39114c32edc2e35b683b6f54a6b3292ecdf392e4bfc5f726734955d8",
         "affectsGlobalScope": false
       },
+      "./src/controllers/authjwt.ts": {
+        "version": "0f4fd048a2158ffa61cc1d0fe229adf343988212ce592c6ae31d675c97f458a1",
+        "signature": "e08c4b52b1a3e4b737897d0491c029b58761defe69166b719e021fb04da4cf6b",
+        "affectsGlobalScope": false
+      },
       "./src/routes/index.ts": {
-        "version": "c38db9ebb879723b37b024e13d20847dc29028af361887c1dc16e996072c351e",
-        "signature": "5fa2747aa30366b602cafc3bf8406667df3b1a016c78fd00c0b58c0ad8339da9",
+        "version": "8797bc3b9ec56076bb8833ff118ed225e21bb38f4d06dc819f790131f23ce1d9",
+        "signature": "c94a7fc0c7a73c04066ee35c05b85ba3b14e11bb17c86e89270c905a4dfbf7d8",
         "affectsGlobalScope": false
       },
       "./src/app.ts": {
-        "version": "e3f0ccfd4d735d017d2270f333c65f1fe355dddad1eb1e0d5729036f13b6de13",
+        "version": "9c9748fede135bf43cf5ada6db46918ffa5834e9d5eb98a00770d83208d92da7",
         "signature": "ae556696de5b4c56658b2757d29eaa58218ad284633a449e145589285011386e",
         "affectsGlobalScope": false
       },
@@ -526,9 +521,9 @@
         "signature": "f761c91419d0a89422a0004ef1a92929dd4d2d5e5c16758654d8b0467d1998c6",
         "affectsGlobalScope": false
       },
-      "./src/controllers/authjwt.ts": {
-        "version": "7c7feff153ba8b76c84c7feb17b7be77e9cdb590b233eaba296050033ac8f336",
-        "signature": "641ae16c9a2e32b7cfd04b66196b5adfee0327c306622ceeb5b6369dc2e95746",
+      "./src/models/checkouts.ts": {
+        "version": "a1b4392d30e0926df3738cf99c6e8ce8e497483509a85ee234c9a12fd22e4837",
+        "signature": "30984c683e650f3576045975a6aa6f0117b6cdd9e848b5f1122da8373c5ba0fe",
         "affectsGlobalScope": false
       },
       "./node_modules/@types/cors/index.d.ts": {
@@ -853,19 +848,11 @@
         "./src/models/category.ts",
         "./src/types/types.ts"
       ],
-      "./src/controllers/checkoutcontroller.ts": [
-        "./node_modules/@types/express/index.d.ts",
-        "./node_modules/@types/mongoose/index.d.ts",
-        "./src/models/checkouts.ts"
-      ],
       "./src/controllers/logincontroller.ts": [
         "./node_modules/@types/bcrypt/index.d.ts",
-        "./node_modules/@types/body-parser/index.d.ts",
         "./node_modules/@types/express/index.d.ts",
         "./node_modules/@types/jsonwebtoken/index.d.ts",
-        "./node_modules/@types/mongoose/index.d.ts",
-        "./src/models/user.ts",
-        "./src/types/types.ts"
+        "./src/models/user.ts"
       ],
       "./src/controllers/productcontroller.ts": [
         "./node_modules/@types/express/index.d.ts",
@@ -900,11 +887,10 @@
         "./node_modules/@types/cookie-parser/index.d.ts",
         "./node_modules/@types/express/index.d.ts",
         "./node_modules/@types/jsonwebtoken/index.d.ts",
-        "./node_modules/@types/mongoose/index.d.ts",
+        "./src/controllers/authjwt.ts",
         "./src/controllers/cartcontroller.ts",
         "./src/controllers/cartitemcontroller.ts",
         "./src/controllers/categorycontroller.ts",
-        "./src/controllers/checkoutcontroller.ts",
         "./src/controllers/logincontroller.ts",
         "./src/controllers/productcontroller.ts"
       ],
@@ -1168,10 +1154,6 @@
         "./node_modules/@types/mongoose/index.d.ts",
         "./src/types/types.ts"
       ],
-      "./src/controllers/checkoutcontroller.ts": [
-        "./node_modules/@types/express/index.d.ts",
-        "./node_modules/@types/mongoose/index.d.ts"
-      ],
       "./src/controllers/logincontroller.ts": [
         "./node_modules/@types/express/index.d.ts",
         "./node_modules/@types/mongoose/index.d.ts",
@@ -1206,7 +1188,7 @@
         "./src/types/types.ts"
       ],
       "./src/routes/index.ts": [
-        "./src/controllers/checkoutcontroller.ts"
+        "./node_modules/@types/express/index.d.ts"
       ],
       "./src/types/types.ts": [
         "./node_modules/@types/mongoose/index.d.ts"
@@ -1314,7 +1296,6 @@
       "./src/controllers/cartcontroller.ts",
       "./src/controllers/cartitemcontroller.ts",
       "./src/controllers/categorycontroller.ts",
-      "./src/controllers/checkoutcontroller.ts",
       "./src/controllers/logincontroller.ts",
       "./src/controllers/productcontroller.ts",
       "./src/models/cart.ts",

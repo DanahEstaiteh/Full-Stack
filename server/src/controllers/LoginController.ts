@@ -1,8 +1,5 @@
-import * as mongoose from 'mongoose';
 import  user  from '../models/User';
 import { Request, Response } from 'express';
-import {User} from '../types/types';
-import bodyParser from 'body-parser';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 
@@ -30,15 +27,17 @@ const loginControl = async (req: Request, res: Response) => {
             message: "Invalid Password!"
           });
     }
-    const token = jwt.sign({id : user._id},'5:A&:D[h)u{n[]&r',{expiresIn: 86400});
-    res.cookie('token', token, { httpOnly: true });
+    const token = jwt.sign({id : user._id},'5:A&:D[h)u{n[]&r');
+    console.log(token)
+    res.cookie('token', token);
+    console.log(res.cookie);
     const currentUser ={
         userName: userName
     }
     res.json({ message: "user login successfully", data: currentUser, allData: [] })
     
    }catch(error){
-    throw error
+    console.log(error)
    }
    
 }

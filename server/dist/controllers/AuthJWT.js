@@ -17,20 +17,22 @@ const getCookie = (cName) => {
 };
 exports.verifyToken = (req, res, next) => {
     // Get auth header value
-    const bearerHeader = req.headers['authorization'];
+    const bearerHeader = req.cookies;
+    console.log("bearerHeader", bearerHeader);
     // Check if bearer is undefined
     if (typeof bearerHeader !== 'undefined') {
         // Split at the space
-        const bearer = bearerHeader.split(' ');
+        //const bearer = bearerHeader.split(' ')[1];
         // Get token from array
-        const bearerToken = bearer[1];
+        const bearerToken = bearerHeader[1];
         // Set the token
-        //req.token = bearerToken;
+        req.cookies.token = bearerToken;
         // Next middleware
         next();
     }
     else {
         // Forbidden
+        //console.log("no header")
         res.sendStatus(403);
     }
 };

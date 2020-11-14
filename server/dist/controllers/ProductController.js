@@ -39,7 +39,7 @@ const addProduct = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
             .json({ message: "Product added", data: newProduct, allData: allProducts });
     }
     catch (error) {
-        throw error;
+        console.log(error);
     }
 });
 exports.addProduct = addProduct;
@@ -49,7 +49,7 @@ const getProducts = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
         res.status(200).json({ products });
     }
     catch (error) {
-        throw error;
+        console.log(error);
     }
 });
 exports.getProducts = getProducts;
@@ -72,7 +72,7 @@ const updateProduct = (req, res) => __awaiter(void 0, void 0, void 0, function* 
         });
     }
     catch (error) {
-        throw error;
+        console.log(error);
     }
 });
 exports.updateProduct = updateProduct;
@@ -87,7 +87,7 @@ const deleteProduct = (req, res) => __awaiter(void 0, void 0, void 0, function* 
         });
     }
     catch (error) {
-        throw error;
+        console.log(error);
     }
 });
 exports.deleteProduct = deleteProduct;

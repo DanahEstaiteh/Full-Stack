@@ -1,39 +1,39 @@
 "use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Routes = void 0;
 const ProductController_1 = require("../controllers/ProductController");
 const CategoryController_1 = require("../controllers/CategoryController");
-const CheckoutController_1 = require("../controllers/CheckoutController");
 const LoginController_1 = require("../controllers/LoginController");
 const CartItemController_1 = require("../controllers/CartItemController");
 const CartController_1 = require("../controllers/CartController");
+const cookie_parser_1 = __importDefault(require("cookie-parser"));
 class Routes {
-    constructor() {
-        this.checkoutController = new CheckoutController_1.CheckoutController();
-    }
     routes(app) {
-        //  app.all("*", (req: Request, res: Response, next: NextFunction) => {
-        //      console.log(req)
-        //    })
-        // app.all("/api/*",function(req: Request, res: Response, next: NextFunction) {
-        //     try {
-        //         jwt.verify(req.cookies.token,'5:A&:D[h)u{n[]&r');
-        //         console.log(req.cookies.token)
-        //     } catch (err) {
-        //         console.log("no token")
-        //     }
-        //     next();
-        //   })
+        app.use(cookie_parser_1.default());
         app.route('/')
             .get((req, res) => {
             res.send("Login");
         });
         app.use(function (req, res, next) {
-            res.header("Access-Control-Allow-Headers", "x-access-token, Origin, Content-Type, Accept");
+            res.header("Access-Control-Allow-Headers", "x-access-token,Authorization, Origin, Content-Type, Accept");
             next();
         });
         app.route('/login')
             .post(LoginController_1.loginControl);
+        // app.use("/api/*",function(req: IGetUserAuthInfoRequest, res: Response, next: NextFunction) {
+        //     const token = req.header('token');
+        //     if(!token) return res.status(401).send('Access Denied');
+        //     try {
+        //         const verified = jwt.verify(token,'5:A&:D[h)u{n[]&r');
+        //         req.user = verified;
+        //     } catch (err) {
+        //         res.status(400).send('Invalid Token');
+        //     }
+        //     next();
+        //   })
         // Get all categories
         app.route('/api/categories')
             .get(CategoryController_1.getCategories);
@@ -97,26 +97,8 @@ class Routes {
         // generate products data
         app.route('/Product/firstData')
             .get(ProductController_1.generateFirstProducts);
-        // Get all checkouts
-        app.route('/api/checkout')
-            .get(this.checkoutController.getCheckouts);
-        // Create a new checkout
-        app.route('/api/checkouts')
-            .post(this.checkoutController.addNewCheckout);
-        // get a specific checkout
-        app.route('/api/checkout/:checkoutId')
-            .get(this.checkoutController.getCheckoutById);
-        // update a specific checkout
-        app.route('/api/checkouts/:checkoutId')
-            .put(this.checkoutController.updateCheckout);
-        // delete a specific checkout
-        app.route('/api/checkouts/:checkoutId')
-            .delete(this.checkoutController.updateCheckout);
-        // generate checkout data
-        app.route('/checkout/firstData')
-            .get(this.checkoutController.generateFirstData);
         // generate  user
-        app.route('/user/firsUser')
+        app.route('/user/firstUser')
             .get(LoginController_1.generateUser);
     }
 }

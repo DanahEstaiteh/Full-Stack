@@ -25,7 +25,7 @@ const addItem = async (req: Request, res: Response): Promise<void> => {
       .status(201)
       .json({ message: "Item added", data: newItem, allData: allItems })
   } catch (error) {
-    throw error
+    console.log(error)
   }
 }
 const getCartItems = async (req: Request, res: Response): Promise<void> => {           
@@ -33,7 +33,7 @@ const getCartItems = async (req: Request, res: Response): Promise<void> => {
           const items: CartItem[] = await CartItemMongooseModel.find()
           res.status(200).json({ items })
         } catch (error) {
-          throw error
+          console.log(error)
         }
   }
   
@@ -64,7 +64,7 @@ const getCartItems = async (req: Request, res: Response): Promise<void> => {
           allData: allItems,
         })
       } catch (error) {
-        throw error
+        console.log(error)
       }
     }
     const deleteItem = async (req: Request, res: Response): Promise<void> => {
@@ -79,7 +79,7 @@ const getCartItems = async (req: Request, res: Response): Promise<void> => {
           allData: allItems,
         })
       } catch (error) {
-        throw error
+        console.log(error)
       }
     }
    

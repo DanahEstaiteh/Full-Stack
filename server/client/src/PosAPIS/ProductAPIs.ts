@@ -8,11 +8,17 @@ export const getProducts = async (): Promise<
 > => {
   try {
     const products: AxiosResponse<ApiDataType> = await axios.get(
-      baseUrl + '/api/product'
+      baseUrl + '/api/product',
+      {
+        headers: {
+          'Authorization': 'Basic eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmYTAyMTEwODk1MzYyMjEzOGEyMzY4NyIsImlhdCI6MTYwNDkyNzA5MiwiZXhwIjoxNjA1MDEzNDkyfQ.2onFY3oTWPLFeJb_I9Yl930XmbViGcB0ka2b_DuPxDY'
+        
+        }
+      }
     );
     return products;
   } catch (error) {
-    throw new Error(error);
+    throw error
   }
 };
 
@@ -40,7 +46,7 @@ export const addNewProduct = async (
     );
     return newProduct;
   } catch (error) {
-    throw new Error(error);
+    throw error
   }
 };
 
@@ -66,10 +72,11 @@ export const updaetProduct = async (
     const updatedProduct: AxiosResponse<ApiDataType> = await axios.put(
       `${baseUrl}/api/products/${product._id}`,
       updateProduct
+     
     );
     return updatedProduct;
   } catch (error) {
-    throw new Error(error);
+    throw error
   }
 };
 
@@ -82,6 +89,6 @@ export const deleteProduct = async (
     );
     return deletedProduct;
   } catch (error) {
-    throw new Error(error);
+    throw error
   }
 };

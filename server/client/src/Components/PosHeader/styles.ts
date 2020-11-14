@@ -49,9 +49,6 @@ const useStyles = makeStyles({
     alignItems: 'center',
     color: 'gray'
   },
-  itemDrop: {
-    paddingRight: '0px'
-  },
   arrowDropDown: {
     color: 'gray',
     marginBottom: '-6px'

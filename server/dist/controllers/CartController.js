@@ -29,7 +29,7 @@ const addCart = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
             .json({ message: "Cart added", data: newCart, allData: allCarts });
     }
     catch (error) {
-        throw error;
+        console.log(error);
     }
 });
 exports.addCart = addCart;
@@ -39,7 +39,7 @@ const getCarts = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         res.status(200).json({ carts });
     }
     catch (error) {
-        throw error;
+        console.log(error);
     }
 });
 exports.getCarts = getCarts;
@@ -64,7 +64,7 @@ const updateCart = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
         });
     }
     catch (error) {
-        throw error;
+        console.log(error);
     }
 });
 exports.updateCart = updateCart;
@@ -79,7 +79,7 @@ const deleteCart = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
         });
     }
     catch (error) {
-        throw error;
+        console.log(error);
     }
 });
 exports.deleteCart = deleteCart;

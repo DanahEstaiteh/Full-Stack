@@ -35,15 +35,17 @@ const loginControl = (req, res) => __awaiter(void 0, void 0, void 0, function* (
                 message: "Invalid Password!"
             });
         }
-        const token = jsonwebtoken_1.default.sign({ id: user._id }, '5:A&:D[h)u{n[]&r', { expiresIn: 86400 });
-        res.cookie('token', token, { httpOnly: true });
+        const token = jsonwebtoken_1.default.sign({ id: user._id }, '5:A&:D[h)u{n[]&r');
+        console.log(token);
+        res.cookie('token', token);
+        console.log(res.cookie);
         const currentUser = {
             userName: userName
         };
         res.json({ message: "user login successfully", data: currentUser, allData: [] });
     }
     catch (error) {
-        throw error;
+        console.log(error);
     }
 });
 exports.loginControl = loginControl;

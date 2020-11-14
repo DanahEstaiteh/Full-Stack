@@ -12,7 +12,7 @@ export const getCarts = async (): Promise<
     );
     return carts;
   } catch (error) {
-    throw new Error(error);
+    throw error
   }
 };
 
@@ -30,7 +30,7 @@ export const addNewCart = async (
     );
     return newCart;
   } catch (error) {
-    throw new Error(error);
+    throw error
   }
 };
 
@@ -44,6 +44,6 @@ export const deleteCart = async (
     );
     return deletedCart;
   } catch (error) {
-    throw new Error(error);
+    throw error
   }
 };
