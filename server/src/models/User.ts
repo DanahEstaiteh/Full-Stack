@@ -1,18 +1,18 @@
-import { User } from "./../types/types";
-import { model, Schema } from "mongoose";
+import { User } from './../types/types';
+import { model, Schema } from 'mongoose';
 
-
-export const user : Schema = new Schema({
+export const user: Schema = new Schema(
+  {
     userName: {
-        type: String,
-        required: true
+      type: String,
+      required: true
     },
     password: {
-        type: String,
-        required: true
+      type: String,
+      required: true
     }
-},
-{ timestamps: true }
+  },
+  { timestamps: true }
 );
 
-export default model<User>("user", user)
+export default model<User>('user', user);

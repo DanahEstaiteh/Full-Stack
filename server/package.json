@@ -7,6 +7,7 @@
     "start": "concurrently \"tsc -w\" \"nodemon dist/js/app.js\"",
     "dev": "nodemon -x ts-node src/server.ts",
     "prod": "tsc && node ./dist/server.js",
+    "format": "prettier --write \"src/**/*.ts\"",
     "build": "tsc"
   },
   "keywords": [],
@@ -42,6 +43,7 @@
     "@types/node": "^14.14.3",
     "concurrently": "^5.3.0",
     "nodemon": "^2.0.6",
+    "prettier": "2.1.2",
     "ts-node-dev": "^1.0.0-pre.62",
     "tslint": "^6.1.3"
   }

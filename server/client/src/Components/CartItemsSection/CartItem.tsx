@@ -7,57 +7,61 @@ import { cartItemStyles } from './Style';
 import HighlightOffTwoToneIcon from '@material-ui/icons/HighlightOffTwoTone';
 
 interface CartItemPropsType {
-  item: Item;
-  onDelete: () => void;
-  onChangeItemCount: (count: number) => void;
+    item: Item;
+    onDelete: () => void;
+    onChangeItemCount: (count: number) => void;
 }
 
 const CartItem: React.FC<CartItemPropsType> = (props) => {
-  const { item, onChangeItemCount, onDelete } = props;
+    const { item, onChangeItemCount, onDelete } = props;
 
-  const [count, setCount] = useState<number>(1);
-  const [isOpen, setIsOpen] = useState<boolean>(false);
-  const classes = cartItemStyles();
+    const [count, setCount] = useState<number>(1);
+    const [isOpen, setIsOpen] = useState<boolean>(false);
+    const classes = cartItemStyles();
 
-  const handleClose = () => {
-    setIsOpen(false);
-  };
+    const handleClose = () => {
+        setIsOpen(false);
+    };
 
-  const handleOpen = () => {
-    setIsOpen(true);
-  };
-  const totalPrice = React.useMemo(() => item.price * count, [count]);
+    const handleOpen = () => {
+        setIsOpen(true);
+    };
+    const totalPrice = React.useMemo(() => item.price * count, [count]);
 
-  useEffect(() => {
-    if (count) {
-      onChangeItemCount(count);
-    }
-  }, [count]);
-  return (
-    <Paper className={classes.itemContainer}>
-      <ListItem>
-        <HighlightOffTwoToneIcon
-          className={classes.deleteIcon}
-          onClick={handleOpen}
-        />
-        {item.name}
-      </ListItem>
+    useEffect(() => {
+        if (count) {
+            onChangeItemCount(count);
+        }
+    }, [count]);
+    return (
+        <Paper className={classes.itemContainer}>
+            <ListItem>
+                <HighlightOffTwoToneIcon
+                    className={classes.deleteIcon}
+                    onClick={handleOpen}
+                />
+                {item.name}
+            </ListItem>
 
-      <ListItem className={classes.numberItem}>{item.price}</ListItem>
-      <ListItem>
-        <Quantity
-          onChangeQuantity={(newCount) => {
-            setCount(newCount);
-          }}
-        />
-      </ListItem>
+            <ListItem className={classes.numberItem}>{item.price}</ListItem>
+            <ListItem>
+                <Quantity
+                    onChangeQuantity={(newCount) => {
+                        setCount(newCount);
+                    }}
+                />
+            </ListItem>
 
-      <ListItem>{totalPrice} GTQ</ListItem>
-      <ConfirmDialog isOpen={isOpen} onClose={handleClose} onConfirm={onDelete}>
-        Are you sure you want to delete this item ?
-      </ConfirmDialog>
-    </Paper>
-  );
+            <ListItem>{totalPrice} GTQ</ListItem>
+            <ConfirmDialog
+                isOpen={isOpen}
+                onClose={handleClose}
+                onConfirm={onDelete}
+            >
+                Are you sure you want to delete this item ?
+            </ConfirmDialog>
+        </Paper>
+    );
 };
 
 export default CartItem;

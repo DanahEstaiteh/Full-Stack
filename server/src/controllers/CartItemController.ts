@@ -1,88 +1,83 @@
-import  cartItem  from '../models/CartItem';
+import cartItem from '../models/CartItem';
 import { Request, Response } from 'express';
-import {CartItem} from '../types/types';
-
+import { CartItem } from '../types/types';
 
 export const CartItemMongooseModel = cartItem;
 
-
 const addItem = async (req: Request, res: Response): Promise<void> => {
   try {
-    const body = req.body as CartItem
+    const body = req.body as CartItem;
 
     const item: CartItem = new CartItemMongooseModel({
       id: body.id,
       cartId: body.cartId,
       name: body.name,
       price: body.price,
-      count: body.count,
-    })
+      count: body.count
+    });
 
-    const newItem: CartItem = await item.save()
-    const allItems: CartItem[] = await CartItemMongooseModel.find()
+    const newItem: CartItem = await item.save();
+    const allItems: CartItem[] = await CartItemMongooseModel.find();
 
     res
       .status(201)
-      .json({ message: "Item added", data: newItem, allData: allItems })
+      .json({ message: 'Item added', data: newItem, allData: allItems });
   } catch (error) {
-    console.log(error)
+    console.log(error);
   }
-}
-const getCartItems = async (req: Request, res: Response): Promise<void> => {           
-      try {
-          const items: CartItem[] = await CartItemMongooseModel.find()
-          res.status(200).json({ items })
-        } catch (error) {
-          console.log(error)
-        }
+};
+const getCartItems = async (req: Request, res: Response): Promise<void> => {
+  try {
+    const items: CartItem[] = await CartItemMongooseModel.find();
+    res.status(200).json({ items });
+  } catch (error) {
+    console.log(error);
   }
-  
+};
 
-    const getItemById = async (req: Request, res: Response): Promise<void> => {           
-        CartItemMongooseModel.findById(req.params.itemId, (err, data) => {
-            if (err){
-                res.send(err);
-            }
-            res.json(data);
-        });
+const getItemById = async (req: Request, res: Response): Promise<void> => {
+  CartItemMongooseModel.findById(req.params.itemId, (err, data) => {
+    if (err) {
+      res.send(err);
     }
+    res.json(data);
+  });
+};
 
-    const updateItem = async (req: Request, res: Response): Promise<void> => {
-      try {
-        const {
-          params: { itemId },
-          body,
-        } = req
-        const updatedItem: CartItem | null = await CartItemMongooseModel.findByIdAndUpdate(
-          { _id: itemId },
-          body
-        )
-        const allItems: CartItem[] = await CartItemMongooseModel.find()
-        res.status(200).json({
-          message: "CartItem updated",
-          data: updatedItem,
-          allData: allItems,
-        })
-      } catch (error) {
-        console.log(error)
-      }
-    }
-    const deleteItem = async (req: Request, res: Response): Promise<void> => {
-      try {
-        const deletedItem: CartItem | null = await CartItemMongooseModel.findByIdAndRemove(
-          req.params.itemId
-        )
-        const allItems: CartItem[] = await CartItemMongooseModel.find()
-        res.status(200).json({
-          message: "Item deleted",
-          data: deletedItem,
-          allData: allItems,
-        })
-      } catch (error) {
-        console.log(error)
-      }
-    }
-   
+const updateItem = async (req: Request, res: Response): Promise<void> => {
+  try {
+    const {
+      params: { itemId },
+      body
+    } = req;
+    const updatedItem: CartItem | null = await CartItemMongooseModel.findByIdAndUpdate(
+      { _id: itemId },
+      body
+    );
+    const allItems: CartItem[] = await CartItemMongooseModel.find();
+    res.status(200).json({
+      message: 'CartItem updated',
+      data: updatedItem,
+      allData: allItems
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
+const deleteItem = async (req: Request, res: Response): Promise<void> => {
+  try {
+    const deletedItem: CartItem | null = await CartItemMongooseModel.findByIdAndRemove(
+      req.params.itemId
+    );
+    const allItems: CartItem[] = await CartItemMongooseModel.find();
+    res.status(200).json({
+      message: 'Item deleted',
+      data: deletedItem,
+      allData: allItems
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
 
-   
-    export { getCartItems, addItem, updateItem, deleteItem , getItemById}
+export { getCartItems, addItem, updateItem, deleteItem, getItemById };

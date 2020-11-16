@@ -11,163 +11,171 @@ import StockItems from '../StockItems/StockItems';
 import { PosPgaeStyles } from './Style';
 
 const PosPage = () => {
-  const [activeCart, setActiveCart] = useState<Cart>({_id: "", id: 0,time:new Date()});
-  const [categories, setCategories] = useState<Category[]>([]);
-  const [cartItems, setCartItems] = useState<Item[]>([]);
-  const [carts, setCarts] = useState<Cart[]>([]);
-  const [products, setProducts] = useState<Product[]>([]);
-  const [activeTabName, setActiveTabName] = useState<string>('home');
-  const classes = PosPgaeStyles();
+    const [activeCart, setActiveCart] = useState<Cart>({
+        _id: '',
+        id: 0,
+        time: new Date()
+    });
+    const [categories, setCategories] = useState<Category[]>([]);
+    const [cartItems, setCartItems] = useState<Item[]>([]);
+    const [carts, setCarts] = useState<Cart[]>([]);
+    const [products, setProducts] = useState<Product[]>([]);
+    const [activeTabName, setActiveTabName] = useState<string>('home');
+    const classes = PosPgaeStyles();
 
-  const categoryNames = getCategoryNamePosPage(categories);
+    const categoryNames = getCategoryNamePosPage(categories);
 
-  const fetchItems = (): void => {
-    getItems()
-      .then(({ data: { items } }: Item[] | any) => setCartItems(items))
-      .catch(() => setCartItems([]));
-  };
-  const fetchCategories = (): void => {
-    getCategories()
-      .then(({ data: { categories } }: Category[] | any) => {setCategories(categories)})
-      .catch(() => setCategories([]));
-  };
-  const fetchProducts = (): void => {
-    getProducts()
-      .then(({ data: { products } }: Product[] | any) => {setProducts(products)})
-      .catch((err: Error) => setProducts([]));
-  };
-  const fetchCarts = (): void => {
-    getCarts()
-      .then(({ data: { carts } }: Cart[] | any) => {setCarts(carts)})
-      .catch((err: Error) => setCarts([]));
-  };
-  
-const productItems = activeTabName === 'home' ? products
-: (products.filter((product)=> 
-product.category === activeTabName 
-)
-)
-  const handleDeleteItem = (_id: string): void => {
-    deleteItem(_id)
-      .then(({ status, data }) => {
-        if (status !== 200) {
-          throw new Error('Error! Item not deleted');
+    const fetchItems = (): void => {
+        getItems()
+            .then(({ data: { items } }: Item[] | any) => setCartItems(items))
+            .catch(() => setCartItems([]));
+    };
+    const fetchCategories = (): void => {
+        getCategories()
+            .then(({ data: { categories } }: Category[] | any) => {
+                setCategories(categories);
+            })
+            .catch(() => setCategories([]));
+    };
+    const fetchProducts = (): void => {
+        getProducts()
+            .then(({ data: { products } }: Product[] | any) => {
+                setProducts(products);
+            })
+            .catch((err: Error) => setProducts([]));
+    };
+    const fetchCarts = (): void => {
+        getCarts()
+            .then(({ data: { carts } }: Cart[] | any) => {
+                setCarts(carts);
+            })
+            .catch((err: Error) => setCarts([]));
+    };
+
+    const productItems =
+        activeTabName === 'home'
+            ? products
+            : products.filter((product) => product.category === activeTabName);
+    const handleDeleteItem = (_id: string): void => {
+        deleteItem(_id)
+            .then(({ status, data }) => {
+                if (status !== 200) {
+                    throw new Error('Error! Item not deleted');
+                }
+                setCartItems(data.allData as Item[]);
+            })
+            .catch((err) => console.log(err));
+    };
+
+    const handleSaveItem = (formData: Item): void => {
+        addNewItem(formData)
+            .then(({ status, data }) => {
+                if (status !== 201) {
+                    throw new Error('Error! Item not saved');
+                }
+                setCartItems(data.allData as Item[]);
+            })
+            .catch((err: any) => console.log(err));
+    };
+
+    const handleSaveCart = (formData: Cart): void => {
+        console.log({ formData });
+        addNewCart(formData)
+            .then(({ status, data }) => {
+                if (status !== 201) {
+                    throw new Error('Error! cart not saved');
+                }
+                setCarts(data.allData as Cart[]);
+            })
+            .catch((err: any) => console.log(err));
+    };
+
+    const handleDeleteCart = (_id: string): void => {
+        console.log('inside handleDeleteCart function');
+        deleteCart(_id)
+            .then(({ status, data }) => {
+                if (status !== 200) {
+                    throw new Error('Error! cart not deleted');
+                }
+                setCarts(data.allData as Cart[]);
+            })
+            .catch((err) => console.log(err));
+    };
+
+    const handleDeleteActiveCartAndItem = (activeItem: Item[]) => {
+        handleDeleteCart(activeCart._id);
+        for (let item of activeItem) {
+            console.log(item);
+            handleDeleteItem(item._id);
         }
-        setCartItems(data.allData as Item[]);
-        
-      })
-      .catch((err) => console.log(err));
-  };
+    };
 
-  const handleSaveItem = (formData: Item): void => {
-    addNewItem(formData)
-      .then(({ status, data }) => {
-        if (status !== 201) {
-          throw new Error('Error! Item not saved');
+    const addItemToCart = (item: Product) => {
+        const itemIndex = cartItems?.findIndex(
+            (currentItem) =>
+                currentItem.name === item.name &&
+                currentItem.cartId === activeCart.id
+        );
+
+        if (activeCart.id > 0 && (itemIndex < 0 || itemIndex === undefined)) {
+            const lastId = cartItems?.length
+                ? cartItems[cartItems.length - 1].id
+                : 1;
+            const newItem: Item = {
+                _id: '',
+                cartId: activeCart.id,
+                id: lastId + 1,
+                name: item.name,
+                price: item.price,
+                count: 1
+            };
+            handleSaveItem(newItem);
+        } else if (activeCart.id < 1) {
+            alert('select cart');
+        } else {
+            alert('item exist in Cart');
         }
-        setCartItems(data.allData as Item[]);
-      })
-      .catch((err: any) => console.log(err));
-  };
+    };
 
-  const handleSaveCart = (formData: Cart): void => {
-    console.log({formData});
-    addNewCart(formData)
-      .then(({ status, data }) => {
-        if (status !== 201) {
-          throw new Error('Error! cart not saved');
-        }
-        setCarts(data.allData as Cart[]);
-      })
-      .catch((err: any) => console.log(err));
-  };
+    const activeCartItems =
+        activeCart.id > 0
+            ? cartItems.filter((item) => item.cartId === activeCart.id)
+            : [];
 
-
-  const handleDeleteCart = (_id: string): void => {
-    console.log("inside handleDeleteCart function");
-    deleteCart(_id)
-      .then(({ status, data }) => {
-        if (status !== 200) {
-          throw new Error('Error! cart not deleted');
-        }
-        setCarts(data.allData as Cart[]);
-        
-      })
-      .catch((err) => console.log(err));
-  };
-
-  const handleDeleteActiveCartAndItem= (activeItem : Item[]) => {
-  handleDeleteCart(activeCart._id);
-   for(let item of activeItem){
-     console.log(item)
-    handleDeleteItem(item._id);
-   }
-  };
-
-  const addItemToCart = (item: Product) => {
-
-    const itemIndex = cartItems?.findIndex(
-      (currentItem) =>
-        currentItem.name === item.name && currentItem.cartId === activeCart.id
+    useEffect(() => {
+        fetchCategories();
+        fetchCarts();
+        fetchItems();
+        fetchProducts();
+    }, []);
+    return (
+        <Grid container spacing={1} className={classes.PosPage}>
+            <Grid item xs={5}>
+                <CartItemsSection
+                    itemData={activeCartItems}
+                    activeCart={activeCart}
+                    cartList={carts}
+                    handleChangeActive={(activeCart) =>
+                        setActiveCart(activeCart)
+                    }
+                    handleDeleteItem={handleDeleteItem}
+                    handleDeleteActiveCart={handleDeleteActiveCartAndItem}
+                    handleSaveCart={handleSaveCart}
+                />
+            </Grid>
+            <Grid item xs={7}>
+                <StockItems
+                    activeTabName={activeTabName}
+                    categoryNames={categoryNames}
+                    products={productItems}
+                    onMoveItem={(item) => addItemToCart(item)}
+                    onActiveTabNameCahnge={(tabName) =>
+                        setActiveTabName(tabName)
+                    }
+                />
+            </Grid>
+        </Grid>
     );
-   
-
-    if (activeCart.id > 0 && (itemIndex < 0 || itemIndex === undefined)) {
-      
-      const lastId = cartItems?.length ? cartItems[cartItems.length - 1].id : 1;
-      const newItem: Item = {
-        _id: "",
-        cartId: activeCart.id,
-        id: lastId + 1,
-        name: item.name,
-        price: item.price,
-        count: 1
-      };
-      handleSaveItem(newItem); 
-    } else if (activeCart.id < 1) {
-      alert('select cart');
-    } else {
-      alert('item exist in Cart');
-    }
-  };
- 
-  const activeCartItems = 
-  activeCart.id > 0 ? cartItems.filter((item) =>
-   item.cartId === activeCart.id
-  ) : [];
-
-
-  useEffect(() => {
-    fetchCategories();
-    fetchCarts();
-    fetchItems();
-    fetchProducts();
-  }, []);
-  return (
-    <Grid container spacing={1} className={classes.PosPage}>
-      <Grid item xs={5}>
-         <CartItemsSection
-         itemData={activeCartItems}
-          activeCart={activeCart}
-          cartList={carts}
-          handleChangeActive= {(activeCart)=> setActiveCart(activeCart)}
-          handleDeleteItem={handleDeleteItem}
-          handleDeleteActiveCart={handleDeleteActiveCartAndItem}
-          handleSaveCart={handleSaveCart}
-          
-        /> 
-      </Grid>
-      <Grid item xs={7}>
-         <StockItems
-          activeTabName ={activeTabName}
-          categoryNames={categoryNames}
-          products={productItems}
-          onMoveItem={(item) => addItemToCart(item)}
-          onActiveTabNameCahnge={(tabName) => setActiveTabName(tabName)}
-        /> 
-      </Grid>
-    </Grid>
-  );
 };
 
 export default PosPage;

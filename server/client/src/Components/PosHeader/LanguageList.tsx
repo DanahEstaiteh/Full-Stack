@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 import ListItem from '@material-ui/core/ListItem';
 import List from '@material-ui/core/List';
 import LanguageIcon from '@material-ui/icons/Language';
@@ -10,33 +10,36 @@ import useStyles from './styles';
 const LanguageList: React.FC = () => {
     const [isOpen, setIsOpen] = React.useState<boolean>(false);
     const classes = useStyles();
-  
+
     const languages = ['arabic', 'Hindi', 'Chinese'];
     const handleClick = () => {
         setIsOpen(!isOpen);
     };
     return (
-      <List>
-        <ListItem>
-          <LanguageIcon />
-          {isOpen ? (
-            <ArrowDropUpIcon onClick={handleClick} />
-          ) : (
-            <ArrowDropDownIcon onClick={handleClick} />
-          )}
-        </ListItem>
-        <Collapse in={isOpen} timeout="auto" unmountOnExit>
-          <List component="div" disablePadding className={classes.nestedList}>
-            {languages.map((lang) => (
-              <ListItem button key={lang} className={classes.nested}>
-                {lang}
-              </ListItem>
-            ))}
-          </List>
-        </Collapse>
-      </List>
+        <List>
+            <ListItem>
+                <LanguageIcon />
+                {isOpen ? (
+                    <ArrowDropUpIcon onClick={handleClick} />
+                ) : (
+                    <ArrowDropDownIcon onClick={handleClick} />
+                )}
+            </ListItem>
+            <Collapse in={isOpen} timeout="auto" unmountOnExit>
+                <List
+                    component="div"
+                    disablePadding
+                    className={classes.nestedList}
+                >
+                    {languages.map((lang) => (
+                        <ListItem button key={lang} className={classes.nested}>
+                            {lang}
+                        </ListItem>
+                    ))}
+                </List>
+            </Collapse>
+        </List>
     );
-  };
+};
 
-
-  export default LanguageList;
+export default LanguageList;

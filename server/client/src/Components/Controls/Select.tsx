@@ -6,37 +6,46 @@ import React from 'react';
 import { CategoryTitle } from '../../Types';
 
 interface SelectPropsType {
-  name: string;
-  label?: string;
-  value: string;
-  error: string | undefined;
-  onChange: (e: any) => void;
-  options: CategoryTitle[];
+    name: string;
+    label?: string;
+    value: string;
+    error: string | undefined;
+    onChange: (e: any) => void;
+    options: CategoryTitle[];
 }
 
 const Select: React.FC<SelectPropsType> = (props) => {
-  const { name, label, value, error = '', onChange, options } = props;
+    const { name, label, value, error = '', onChange, options } = props;
 
-  return (
-    <FormControl variant="outlined" {...(error && { error: true })} style={{width : '100%'}}>
-      <InputLabel>{label}</InputLabel>
-      <MuiSelect label={label} name={name} value={value} onChange={onChange} >
-        <MenuItem value={value}> {value}</MenuItem>
-        {options.map((item) => {
-          if (item.title !== value) {
-            return (
-              <MenuItem key={item.id} value={item.title}>
-                {item.title}
-              </MenuItem>
-            );
-          } else {
-            return null;
-          }
-        })}
-      </MuiSelect>
-      {error && <FormHelperText>{error}</FormHelperText>}
-    </FormControl>
-  );
+    return (
+        <FormControl
+            variant="outlined"
+            {...(error && { error: true })}
+            style={{ width: '100%' }}
+        >
+            <InputLabel>{label}</InputLabel>
+            <MuiSelect
+                label={label}
+                name={name}
+                value={value}
+                onChange={onChange}
+            >
+                <MenuItem value={value}> {value}</MenuItem>
+                {options.map((item) => {
+                    if (item.title !== value) {
+                        return (
+                            <MenuItem key={item.id} value={item.title}>
+                                {item.title}
+                            </MenuItem>
+                        );
+                    } else {
+                        return null;
+                    }
+                })}
+            </MuiSelect>
+            {error && <FormHelperText>{error}</FormHelperText>}
+        </FormControl>
+    );
 };
 
 export default Select;

@@ -1,17 +1,18 @@
-import {  Cart } from "./../types/types";
-import { model, Schema } from "mongoose";
+import { Cart } from './../types/types';
+import { model, Schema } from 'mongoose';
 
- const cart : Schema = new Schema({
+const cart: Schema = new Schema(
+  {
     id: {
-        type: Number,
-        required: true,
+      type: Number,
+      required: true
     },
     time: {
-        type: Date,
-        required: true
-    },
-},
-{ timestamps: true }
+      type: Date,
+      required: true
+    }
+  },
+  { timestamps: true }
 );
 
-export default model< Cart>("cart", cart)
+export default model<Cart>('cart', cart);

@@ -13,243 +13,240 @@ import HeaderList from './HeaderList';
 import ConfirmDailog from '../Dialog/ConfirmDialog';
 import { categoryTitle } from '../../Data/Data';
 import {
-  getCategories,
-  addNewCategory,
-  updaetCategory,
-  deleteCategory
+    getCategories,
+    addNewCategory,
+    updaetCategory,
+    deleteCategory
 } from '../../PosAPIS/CategoryAPIs';
 import Controls from '../Controls';
 import NewDialog from '../Dialog/NewDialog';
 
-
 interface CategoryListProps {
-  categoryData: Category[];
-  handleDeleteCategory: (id : string) => void;
-  handleUpdateCategory: (category : Category) => void;
+    categoryData: Category[];
+    handleDeleteCategory: (id: string) => void;
+    handleUpdateCategory: (category: Category) => void;
 }
 
 const CategoryData: React.FC<CategoryListProps> = (props) => {
-  const classes = categoryStyles();
-  const { categoryData , handleDeleteCategory,handleUpdateCategory} = props;
-  const [data, setData] = useState<Category[]>([]);
-  const [deletedCategoryId, setDeletedCategoryId] = useState<string>("");
-  const [isOpen, setIsOpen] = useState<boolean>(false);
-  const [isOpenEditDialog, setIsOpenEditDialog] = useState<boolean>(false);
-  const [categoryForEdit, setCategoryForEdit] = useState<Category>({
-    categoryName: '',
-    id: '',
-    _id: '',
-    createdAt: new Date()
-  });
-  const pages = [5, 10, 15];
-  const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(pages[page]);
+    const classes = categoryStyles();
+    const { categoryData, handleDeleteCategory, handleUpdateCategory } = props;
+    const [data, setData] = useState<Category[]>([]);
+    const [deletedCategoryId, setDeletedCategoryId] = useState<string>('');
+    const [isOpen, setIsOpen] = useState<boolean>(false);
+    const [isOpenEditDialog, setIsOpenEditDialog] = useState<boolean>(false);
+    const [categoryForEdit, setCategoryForEdit] = useState<Category>({
+        categoryName: '',
+        id: '',
+        _id: '',
+        createdAt: new Date()
+    });
+    const pages = [5, 10, 15];
+    const [page, setPage] = React.useState(0);
+    const [rowsPerPage, setRowsPerPage] = React.useState(pages[page]);
 
-  const handleChangePage = (
-    event: React.MouseEvent<HTMLButtonElement> | null,
-    newPage: number
-  ) => {
-    setPage(newPage);
-  };
+    const handleChangePage = (
+        event: React.MouseEvent<HTMLButtonElement> | null,
+        newPage: number
+    ) => {
+        setPage(newPage);
+    };
 
-  const handleChangeRowsPerPage = (
-    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
-    setRowsPerPage(parseInt(event.target.value, 10));
-    setPage(0);
-  };
-  const dataAfterPaging = () => {
-    return data.slice(page * rowsPerPage, (page + 1) * rowsPerPage);
-  };
+    const handleChangeRowsPerPage = (
+        event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    ) => {
+        setRowsPerPage(parseInt(event.target.value, 10));
+        setPage(0);
+    };
+    const dataAfterPaging = () => {
+        return data.slice(page * rowsPerPage, (page + 1) * rowsPerPage);
+    };
 
-  const handleCloseConfirmDialog = () => {
-    setIsOpen(false);
-  };
-  const handleOpenConfirmDialog = (id : string) => {
-    setIsOpen(true);
-    handleDeleteCategory(id);
-  };
-  const handleCloseEditDialog = () => {
-    setIsOpenEditDialog(false);
-  };
-  const handleOpenEditDialog = (category: Category) => {
-    setCategoryForEdit(category);
-    setIsOpenEditDialog(true);
-  };
+    const handleCloseConfirmDialog = () => {
+        setIsOpen(false);
+    };
+    const handleOpenConfirmDialog = (id: string) => {
+        setIsOpen(true);
+        handleDeleteCategory(id);
+    };
+    const handleCloseEditDialog = () => {
+        setIsOpenEditDialog(false);
+    };
+    const handleOpenEditDialog = (category: Category) => {
+        setCategoryForEdit(category);
+        setIsOpenEditDialog(true);
+    };
 
-  const handleDelete = (id : string) => {
-    setDeletedCategoryId(id);
-   setIsOpen(true);
+    const handleDelete = (id: string) => {
+        setDeletedCategoryId(id);
+        setIsOpen(true);
+    };
 
-  }
- 
+    useEffect(() => {
+        setData(categoryData);
+    }, [categoryData]);
 
-  useEffect(() => {
-    setData(categoryData);
-  }, [categoryData]);
+    return (
+        <>
+            <Grid container spacing={0} className={classes.list}>
+                {dataAfterPaging().map((Category: Category) => (
+                    <Grid container spacing={0} className={classes.row}>
+                        <Grid item xs={4} className={classes.listItem}>
+                            <Box key={Category.id}>{Category.categoryName}</Box>
+                        </Grid>
+                        <Grid item xs={4} className={classes.listItem}>
+                            <Box key={Category.id}>{Category.createdAt}</Box>
+                        </Grid>
+                        <Grid item xs={4} className={classes.listItem}>
+                            <Box key={Category.id}>
+                                <ClearIcon
+                                    className={classes.actionIcon}
+                                    onClick={() => handleDelete(Category._id)}
+                                />
+                                <EditIcon
+                                    className={classes.actionIcon}
+                                    onClick={() =>
+                                        handleOpenEditDialog(Category)
+                                    }
+                                />
+                            </Box>
+                        </Grid>
+                        <ConfirmDailog
+                            isOpen={isOpen}
+                            onClose={handleCloseConfirmDialog}
+                            onConfirm={() =>
+                                handleOpenConfirmDialog(deletedCategoryId)
+                            }
+                        >
+                            Are you sure you want to delete this category?
+                        </ConfirmDailog>
+                    </Grid>
+                ))}
 
-  return (
-    <>
-      <Grid container spacing={0} className={classes.list}>
-        {dataAfterPaging().map((Category: Category) => (
-          <Grid container spacing={0} className={classes.row}>
-            <Grid item xs={4} className={classes.listItem}>
-              <Box key={Category.id}>{Category.categoryName}</Box>
-            </Grid>
-            <Grid item xs={4} className={classes.listItem}>
-              <Box key={Category.id}>
-               {Category.createdAt}
-              </Box>
-            </Grid>
-            <Grid item xs={4} className={classes.listItem}>
-              <Box key={Category.id}>
-                <ClearIcon
-                  className={classes.actionIcon}
-                  onClick={() => handleDelete(Category._id)}
+                <EditDialog
+                    category={categoryForEdit}
+                    isOpen={isOpenEditDialog}
+                    onSubmit={(category) => handleUpdateCategory(category)}
+                    onClose={handleCloseEditDialog}
                 />
-                <EditIcon
-                  className={classes.actionIcon}
-                  onClick={() => handleOpenEditDialog(Category)}
-                />
-              </Box>
             </Grid>
-            <ConfirmDailog
-              isOpen={isOpen}
-              onClose={handleCloseConfirmDialog}
-              onConfirm={() => handleOpenConfirmDialog(deletedCategoryId)}
-            >
-              Are you sure you want to delete this category?
-            </ConfirmDailog>
-          </Grid>
-        ))}
-
-        <EditDialog
-          category={categoryForEdit}
-          isOpen={isOpenEditDialog}
-          onSubmit={(category) => handleUpdateCategory(category)}
-          onClose={handleCloseEditDialog}
-        />
-      </Grid>
-      <TablePaginationDemo
-        count={data.length}
-        data={categoryData}
-        onChangePage={(data) => setData(data as Category[])}
-        onHandleChangePage={handleChangePage}
-        onHandleChangeRowsPerPage={handleChangeRowsPerPage}
-        page={page}
-        rowsPerPage={rowsPerPage}
-        pages={pages}
-      />
-    </>
-  );
+            <TablePaginationDemo
+                count={data.length}
+                data={categoryData}
+                onChangePage={(data) => setData(data as Category[])}
+                onHandleChangePage={handleChangePage}
+                onHandleChangeRowsPerPage={handleChangeRowsPerPage}
+                page={page}
+                rowsPerPage={rowsPerPage}
+                pages={pages}
+            />
+        </>
+    );
 };
 
 const CategoriesList: React.FC = () => {
-  const [categories, setCategories] = useState<Category[]>([]);
-  const [searchKeyword, setSearchKeyword] = useState<string>('');
-  const [isOpen, setIsOpen] = useState<boolean>(false);
+    const [categories, setCategories] = useState<Category[]>([]);
+    const [searchKeyword, setSearchKeyword] = useState<string>('');
+    const [isOpen, setIsOpen] = useState<boolean>(false);
 
-  const searchData = categories.filter((x) =>
-  Object.values(x)
-    .join(' ')
-    .toLowerCase()
-    .includes(searchKeyword.toLowerCase()))
- 
-  
-const fetchCategories = (): void => {
-  getCategories()
-    .then(({ data: { categories } }: Category[] | any) => {setCategories(categories)})
-    .catch(() => setCategories([]));
-};
-const handleSaveCategory = (formData: Category): void => {
-  handleCloseNewDialog();
-  addNewCategory(formData)
-    .then(({ status, data }) => {
-      if (status !== 201) {
-        throw new Error('Error! Category not saved');
-      }
-      setCategories(data.allData as Category[]);
-    })
-    .catch((err: any) => console.log(err));
-};
-const handleUpdateCategory = (category: Category): void => {
-  updaetCategory(category)
-    .then(({ status, data }) => {
-      
-      if (status !== 200) {
-        throw new Error('Error! Category not updated');
-      }
-      setCategories(data.allData as Category[]);
-      
-    })
-    .catch((err) => console.log(err));
-};
+    const searchData = categories.filter((x) =>
+        Object.values(x)
+            .join(' ')
+            .toLowerCase()
+            .includes(searchKeyword.toLowerCase())
+    );
 
-const handleDeleteCategory = (_id: string): void => {
-  deleteCategory(_id)
-    .then(({ status, data }) => {
-      if (status !== 200) {
-        throw new Error('Error! Category not deleted');
-      }
-      setCategories(data.allData as Category[]);
-     
-    })
-    .catch((err) => console.log(err));
-};
+    const fetchCategories = (): void => {
+        getCategories()
+            .then(({ data: { categories } }: Category[] | any) => {
+                setCategories(categories);
+            })
+            .catch(() => setCategories([]));
+    };
+    const handleSaveCategory = (formData: Category): void => {
+        handleCloseNewDialog();
+        addNewCategory(formData)
+            .then(({ status, data }) => {
+                if (status !== 201) {
+                    throw new Error('Error! Category not saved');
+                }
+                setCategories(data.allData as Category[]);
+            })
+            .catch((err: any) => console.log(err));
+    };
+    const handleUpdateCategory = (category: Category): void => {
+        updaetCategory(category)
+            .then(({ status, data }) => {
+                if (status !== 200) {
+                    throw new Error('Error! Category not updated');
+                }
+                setCategories(data.allData as Category[]);
+            })
+            .catch((err) => console.log(err));
+    };
 
-const handleOpenNewDialog= () => {
-  setIsOpen(true);
-}
+    const handleDeleteCategory = (_id: string): void => {
+        deleteCategory(_id)
+            .then(({ status, data }) => {
+                if (status !== 200) {
+                    throw new Error('Error! Category not deleted');
+                }
+                setCategories(data.allData as Category[]);
+            })
+            .catch((err) => console.log(err));
+    };
 
-const handleCloseNewDialog= () => {
-  setIsOpen(false);
-}
+    const handleOpenNewDialog = () => {
+        setIsOpen(true);
+    };
 
-useEffect(() => {
-  fetchCategories();
-}, []);
-  const classes = categoryStyles();
-  return (
-    <Grid  container className={classes.CategoryPage}>
-      <Grid item xs={11}>
-      <header className={classes.header}>
-        <Controls.MyButton 
-         variant="outlined"
-         text="Add New"
-         type="button"
-         color="primary"        
-         size="medium"
-         className={classes.headerButton}
-         onClick={handleOpenNewDialog}
-        />
-        <Search
-                onSearch={(searchKey) => setSearchKeyword(searchKey)}
-              />
-      </header>
-      <NewDialog
-       lastId={categories.length}
-        isOpen={isOpen}
-        onSubmit={(category) =>  handleSaveCategory(category)}
-        onClose={handleCloseNewDialog}
-      />
-      </Grid>
-      {
-        categories.length !== 0 ? 
-        <> 
-        <HeaderList
-        categoryTitle={categoryTitle}
-        categoryData={categories}
-        onSort={(data) => setCategories(data)}
-      />
-      <CategoryData categoryData={searchData}
-      handleDeleteCategory={handleDeleteCategory}
-      handleUpdateCategory={handleUpdateCategory}
-      />
-        </> : 
-        null
-      }
-    </Grid>
-  );
+    const handleCloseNewDialog = () => {
+        setIsOpen(false);
+    };
+
+    useEffect(() => {
+        fetchCategories();
+    }, []);
+    const classes = categoryStyles();
+    return (
+        <Grid container className={classes.CategoryPage}>
+            <Grid item xs={11}>
+                <header className={classes.header}>
+                    <Controls.MyButton
+                        variant="outlined"
+                        text="Add New"
+                        type="button"
+                        color="primary"
+                        size="medium"
+                        className={classes.headerButton}
+                        onClick={handleOpenNewDialog}
+                    />
+                    <Search
+                        onSearch={(searchKey) => setSearchKeyword(searchKey)}
+                    />
+                </header>
+                <NewDialog
+                    lastId={categories.length}
+                    isOpen={isOpen}
+                    onSubmit={(category) => handleSaveCategory(category)}
+                    onClose={handleCloseNewDialog}
+                />
+            </Grid>
+            {categories.length !== 0 ? (
+                <>
+                    <HeaderList
+                        categoryTitle={categoryTitle}
+                        categoryData={categories}
+                        onSort={(data) => setCategories(data)}
+                    />
+                    <CategoryData
+                        categoryData={searchData}
+                        handleDeleteCategory={handleDeleteCategory}
+                        handleUpdateCategory={handleUpdateCategory}
+                    />
+                </>
+            ) : null}
+        </Grid>
+    );
 };
 
 export default CategoriesList;

@@ -1,58 +1,57 @@
-import { Product } from "./../types/types";
-import { model, Schema } from "mongoose";
+import { Product } from './../types/types';
+import { model, Schema } from 'mongoose';
 
- const product : Schema = new Schema({
+const product: Schema = new Schema(
+  {
     id: {
-        type: Number,
-        required: true
+      type: Number,
+      required: true
     },
     code: {
-        type: String,
-        required: true
+      type: String,
+      required: true
     },
     name: {
-        type: String,
-        required: true
+      type: String,
+      required: true
     },
     color: {
-        type: String,
-       
+      type: String
     },
     img: {
-        type: String,
-        
+      type: String
     },
-    
+
     rawPrice: {
-        type: Number,
-        required: true
+      type: Number,
+      required: true
     },
     price: {
-        type: Number,
-        required: true
+      type: Number,
+      required: true
     },
     category: {
-        type: String,
-        required: true
+      type: String,
+      required: true
     },
     count: {
-        type: Number,
-        required: true
+      type: Number,
+      required: true
     },
     expirationDate: {
-        type: Date,
-        required: true
+      type: Date,
+      required: true
     },
     productDescription: {
-        type: String,
-        required: true
+      type: String,
+      required: true
     },
     tax: {
-        type: Number,
-        required: true
+      type: Number,
+      required: true
     }
-},
-{ timestamps: true }
+  },
+  { timestamps: true }
 );
 
-export default model<Product>("product", product)
+export default model<Product>('product', product);

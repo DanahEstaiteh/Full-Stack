@@ -6,42 +6,41 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 
 interface AlertDialogProps {
-  isOpen: boolean;
-  onClose: () => void;
-  onConfirm: () => void;
+    isOpen: boolean;
+    onClose: () => void;
+    onConfirm: () => void;
 }
 
 const DeleteDialog: React.FC<AlertDialogProps> = (props) => {
-  const { isOpen, onConfirm, onClose, children } = props;
+    const { isOpen, onConfirm, onClose, children } = props;
 
-const handleConfirm = () => {
-  onConfirm();
-  onClose();
-}
+    const handleConfirm = () => {
+        onConfirm();
+        onClose();
+    };
 
-
-  return (
-    <Dialog
-      open={isOpen}
-      onClose={onClose}
-      aria-labelledby="alert-dialog-title"
-      aria-describedby="alert-dialog-description"
-    >
-      <DialogContent>
-        <DialogContentText id="alert-dialog-description">
-          {children}
-        </DialogContentText>
-      </DialogContent>
-      <DialogActions>
-        <Button onClick={onClose} color="primary">
-          No
-        </Button>
-        <Button onClick={handleConfirm} color="primary" autoFocus>
-          Yes
-        </Button>
-      </DialogActions>
-    </Dialog>
-  );
+    return (
+        <Dialog
+            open={isOpen}
+            onClose={onClose}
+            aria-labelledby="alert-dialog-title"
+            aria-describedby="alert-dialog-description"
+        >
+            <DialogContent>
+                <DialogContentText id="alert-dialog-description">
+                    {children}
+                </DialogContentText>
+            </DialogContent>
+            <DialogActions>
+                <Button onClick={onClose} color="primary">
+                    No
+                </Button>
+                <Button onClick={handleConfirm} color="primary" autoFocus>
+                    Yes
+                </Button>
+            </DialogActions>
+        </Dialog>
+    );
 };
 
 export default DeleteDialog;

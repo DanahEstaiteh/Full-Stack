@@ -3,8 +3,8 @@ import React from 'react';
 import PosPage from './PosPage';
 
 export default {
-  title: 'Pos Page',
-  Component: PosPage
+    title: 'Pos Page',
+    Component: PosPage
 };
 
 const Template: Story = () => <PosPage />;
